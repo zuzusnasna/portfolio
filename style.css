@@ -592,3 +592,16 @@ footer{background:#080808;color:#aaa;font-family:Inter,'Noto Sans KR',sans-serif
  .activity-stats{grid-template-columns:1fr 1fr}
  .activity-stats a{grid-column:1/-1;justify-self:start;margin:14px 0}
 }
+
+
+/* Reduce visual weight of technology and profile icons */
+.stack-logos{gap:10px;min-height:28px;margin-bottom:9px}
+.stack-logos img{width:22px;height:22px;max-width:22px;max-height:22px;flex:0 0 22px}
+.github-avatar{width:56px;height:56px;flex:0 0 56px}
+.contribution-graph img{width:100%;max-width:760px;max-height:70px;min-height:0;object-fit:contain;object-position:left center}
+@media(max-width:700px){
+ .stack-logos{gap:9px;min-height:25px;margin-bottom:8px}
+ .stack-logos img{width:20px;height:20px;max-width:20px;max-height:20px;flex-basis:20px}
+ .github-avatar{width:48px;height:48px;flex-basis:48px}
+ .contribution-graph img{max-height:58px;min-height:0}
+}
