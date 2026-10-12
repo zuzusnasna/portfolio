@@ -40,7 +40,30 @@ meet:{name:'MEET-UP · IN PROGRESS',title:'사용자 출발지와 모임 장소�
 <div class="arch-lane"><div class="arch-node cache"><b>Map Markers</b><small>출발지 · 후보 장소</small></div><div class="arch-link">→</div><div class="arch-node"><b>Hover</b><small>마커 위 사용자 정보</small></div><div class="arch-link">→</div><div class="arch-node"><b>Click</b><small>해당 위치로 지도 이동</small></div></div>
 <div class="arch-note"><b>탐색 흐름</b><span>서버 데이터 조회와 지도 상호작용을 분리해, 위치 데이터는 마커로 표현하고 상세 확인 및 위치 이동은 사용자 입력에 반응</span></div></div>`,flow:[{title:'참여자 위치',detail:'사용자별 출발지 데이터 준비',type:'client'},{title:'후보 장소',detail:'모임 장소 후보의 위치 데이터 준비',type:'client'},{title:'API 요청',detail:'클라이언트가 모임·참여자 위치 데이터 요청',type:'process'},{title:'데이터 조회',detail:'Spring Boot와 JPA를 통해 관련 데이터 조회',type:'database'},{title:'지도 응답',detail:'출발지와 후보 장소를 클라이언트로 전달',type:'async'},{title:'마커 렌더링',detail:'사용자 출발지·후보 장소를 지도에 표시',type:'cache'},{title:'Hover / Click',detail:'Hover 정보 표시, Click 시 해당 좌표로 이동',type:'process'}],sequence:['Client → API : 위치 데이터 요청','API → DB : 사용자·후보 조회','DB → API : 위치 데이터','API → Client : 지도 데이터','Client : Hover / Click 인터랙션'],result:'현재 구현 중인 기능으로, 참여자 출발지와 후보지를 하나의 지도에서 연결하고 Hover·Click 기반 탐색 경험을 구성하고 있습니다.'}
 };
-function renderProject(key){const p=projects[key];const d=document.querySelector('#projectDetail');d.innerHTML=`<div class="project featured"><div class="project-head"><span>${p.name}</span><span>PROJECT DETAIL</span></div><h2>${p.title}</h2><p class="project-summary">${p.summary}</p><div class="tags">${p.tags.map(x=>`<span>${x}</span>`).join('')}</div><div class="detail-grid"><section><h3>01 · PROBLEM</h3><p>${p.problem}</p></section><section><h3>02 · SOLUTION</h3><p>${p.solution}</p></section></div><section class="visual-section"><div class="visual-title"><span>03 · ARCHITECTURE</span><small>구조를 그림으로 보기</small></div><div class="diagram">${p.architecture}</div></section><section class="visual-section"><div class="visual-title"><span>04 · DATA FLOW</span><small>요청과 데이터의 이동</small></div><div class="flow-detail">${p.flow.map((step,i)=>`<article class="flow-step ${step.type||''}"><div class="flow-step-top"><b>${String(i+1).padStart(2,'0')}</b><span>${step.title}</span></div><p>${step.detail}</p></article>${i<p.flow.length-1?'<div class="flow-arrow" aria-hidden="true">→</div>':''}`).join('')}</div></section><section class="visual-section"><div class="visual-title"><span>05 · SEQUENCE</span><small>처리 순서</small></div><div class="sequence">${p.sequence.map((x,i)=>`<div><b>${String(i+1).padStart(2,'0')}</b><span>${x}</span></div>`).join('')}</div></section><section class="result"><h3>06 · RESULT</h3><p>${p.result}</p></section></div>`;document.querySelectorAll('.project-tab').forEach(b=>b.classList.toggle('active',b.dataset.project===key));d.animate([{opacity:.35,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'ease-out'});}
+function projectActions(key){
+const links={
+smart:[
+['프로젝트 상세 ↗','https://zuzusnasna.github.io/jusanghyeok.github.io/project-smartticketing.html'],
+['Repository ↗','https://github.com/zuzusnasna/SmartTicketing'],
+['Troubleshooting ↓','https://zuzusnasna.github.io/jusanghyeok.github.io/index.html#troubleshooting'],
+['Performance Results ↗','https://zuzusnasna.github.io/jusanghyeok.github.io/performance.html'],
+['PPT ↗','https://github.com/zuzusnasna/SmartTicketing/blob/main/Smart_Ticketing%20%EC%A0%9C%EC%95%88%EB%B0%9C%ED%91%9C.pptx']
+],
+swing:[['Repository ↗','https://github.com/zuzusnasna/SwingFit']],
+game:[['Repository ↗','https://github.com/zuzusnasna/miniproject']],
+ems:[['Repository ↗','https://github.com/zuzusnasna/equipment-management']],
+meet:[['Repository ↗','https://github.com/zuzusnasna/Meet-Up']]
+};
+return (links[key]||[]).map(([label,url])=>'<a class="project-action" href="'+url+'" target="_blank" rel="noreferrer">'+label+'</a>').join('');
+}
+function renderProject(key){
+const p=projects[key];
+const d=document.querySelector('#projectDetail');
+d.innerHTML='<div class="project featured"><div class="project-head"><span>'+p.name+'</span><span>PROJECT DETAIL</span></div><h2>'+p.title+'</h2><div class="project-actions">'+projectActions(key)+'</div><p class="project-summary">'+p.summary+'</p><div class="tags">'+p.tags.map(x=>'<span>'+x+'</span>').join('')+'</div><div class="detail-grid"><section><h3>01 · PROBLEM</h3><p>'+p.problem+'</p></section><section><h3>02 · SOLUTION</h3><p>'+p.solution+'</p></section></div><section class="visual-section"><div class="visual-title"><span>03 · ARCHITECTURE</span><small>구조를 그림으로 보기</small></div><div class="diagram">'+p.architecture+'</div></section><section class="visual-section"><div class="visual-title"><span>04 · DATA FLOW</span><small>요청과 데이터의 이동</small></div><div class="flow-detail">'+p.flow.map((step,i)=>'<article class="flow-step '+(step.type||'')+'"><div class="flow-step-top"><b>'+String(i+1).padStart(2,'0')+'</b><span>'+step.title+'</span></div><p>'+step.detail+'</p></article>'+(i<p.flow.length-1?'<div class="flow-arrow" aria-hidden="true">→</div>':'')).join('')+'</div></section><section class="visual-section"><div class="visual-title"><span>05 · SEQUENCE</span><small>처리 순서</small></div><div class="sequence">'+p.sequence.map((x,i)=>'<div><b>'+String(i+1).padStart(2,'0')+'</b><span>'+x+'</span></div>').join('')+'</div></section><section class="result"><h3>06 · RESULT</h3><p>'+p.result+'</p></section></div>';
+document.querySelectorAll('.project-tab').forEach(b=>b.classList.toggle('active',b.dataset.project===key));
+d.animate([{opacity:.35,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'ease-out'});
+}
+document.querySelectorAll('.project-tab').forEach(b=>b.classList.toggle('active',b.dataset.project===key));d.animate([{opacity:.35,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'ease-out'});}
 document.querySelectorAll('.project-tab').forEach(b=>b.addEventListener('click',()=>renderProject(b.dataset.project)));
 document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',e=>{const target=document.querySelector(link.getAttribute('href'));if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'})}}));
 renderProject('smart');
