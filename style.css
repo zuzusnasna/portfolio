@@ -397,3 +397,14 @@ footer{background:#1b1d19;color:#a9aaa1;padding:20px 6vw;font-family:"Courier Ne
  .arch-node{min-width:110px}
  .flow-detail{grid-template-columns:1fr}
 }
+
+/* Technology stack logos */
+.stack-content{min-width:0}
+.stack-logos{display:flex;align-items:center;gap:13px;min-height:38px;margin:0 0 11px}
+.stack-logos img{display:block;width:30px;height:30px;object-fit:contain;filter:none;opacity:.9;transition:transform .18s ease,opacity .18s ease}
+.stack-logos img:hover{transform:translateY(-2px);opacity:1}
+.stack-row strong{display:block}
+@media(max-width:700px){
+ .stack-logos{gap:12px;min-height:32px;margin-bottom:9px}
+ .stack-logos img{width:27px;height:27px}
+}
