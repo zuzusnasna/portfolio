@@ -16,3 +16,40 @@
 .projects .arrow,.projects .sequence b{color:#fff}
 @media(max-width:800px){.project-switcher{padding:12px;gap:8px;margin-bottom:35px}.project-tab{flex:1 1 calc(50% - 8px);padding:15px 12px;font-size:10px;min-height:56px}}
 @media(max-width:480px){nav{gap:9px}nav a{font-size:9px}.project-tab{flex-basis:100%;text-align:left}.featured h2{font-size:40px}}
+
+
+/* Detailed, project-specific architecture and data-flow visualizations */
+.arch-map{width:100%;display:flex;flex-direction:column;gap:12px;align-items:stretch;color:#f5f5f5}
+.arch-lane{display:flex;align-items:stretch;justify-content:center;gap:12px;flex-wrap:wrap;position:relative;padding:18px 14px;border:1px solid #383838;background:linear-gradient(120deg,#101010,#151515)}
+.arch-lane-label{flex:1 0 100%;font:10px 'DM Mono',monospace;letter-spacing:.15em;color:#aaa;text-align:left;padding-bottom:5px}
+.arch-node{flex:1 1 145px;min-width:130px;max-width:280px;display:flex;flex-direction:column;justify-content:center;gap:7px;padding:18px 16px;border:1px solid #555;background:#202020;text-align:left;position:relative}
+.arch-node b{font-size:13px;line-height:1.35;color:#fff}
+.arch-node small{font:11px/1.5 Manrope,system-ui,sans-serif;color:#aaa}
+.arch-node.primary{border-color:#f2f2f2;background:#292929;box-shadow:inset 3px 0 #fff}
+.arch-node.database{border-color:#aaa;background:#252525}
+.arch-node.cache{border-color:#eee;background:#303030}
+.arch-node.async{border-style:dashed;border-color:#888;background:#181818}
+.arch-node.fallback{border-color:#777;background:#191919}
+.arch-link{display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;min-width:18px}
+.arch-connector{display:flex;flex-direction:column;align-items:center;gap:2px;color:#aaa;font:10px 'DM Mono',monospace;letter-spacing:.04em}
+.arch-connector i{font-style:normal;color:#fff;font:22px Manrope,sans-serif;line-height:1.1}
+.arch-fork{display:flex;justify-content:center;padding:8px;color:#aaa;font:11px 'DM Mono',monospace;text-align:center}
+.arch-note{display:grid;grid-template-columns:minmax(100px,.3fr) 1fr;gap:16px;padding:18px 20px;background:#1a1a1a;border-left:3px solid #fff;margin-top:2px}
+.arch-note b{font:11px 'DM Mono',monospace;color:#fff}
+.arch-note span{font-size:12px;color:#bbb;line-height:1.7}
+.flow-detail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:20px;align-items:stretch}
+.flow-step{min-height:150px;border:1px solid #444;background:#151515;padding:17px;position:relative;display:flex;flex-direction:column;gap:13px}
+.flow-step::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#777}
+.flow-step.client::before{background:#fff}
+.flow-step.process::before{background:#aaa}
+.flow-step.database::before{background:#ddd}
+.flow-step.cache::before{background:#fff}
+.flow-step.async::before{background:#888}
+.flow-step-top{display:flex;align-items:flex-start;gap:10px}
+.flow-step-top b{font:11px 'DM Mono',monospace;color:#aaa;min-width:22px}
+.flow-step-top span{font-size:13px;font-weight:700;line-height:1.4;color:#fff}
+.flow-step p{font-size:12px;line-height:1.65;color:#aaa;margin:0}
+.flow-arrow{display:none}
+@media(max-width:1000px){.flow-detail{grid-template-columns:repeat(3,minmax(0,1fr))}.arch-node{flex-basis:130px}}
+@media(max-width:700px){.flow-detail{grid-template-columns:repeat(2,minmax(0,1fr))}.arch-lane{padding:14px 10px;gap:8px}.arch-node{flex:1 1 100%;max-width:none;min-width:0}.arch-link{transform:rotate(90deg);min-height:18px}.arch-note{grid-template-columns:1fr;gap:7px}.arch-lane-label{font-size:9px}}
+@media(max-width:420px){.flow-detail{grid-template-columns:1fr}.flow-step{min-height:0}.arch-node{padding:14px}.arch-node b{font-size:12px}}
