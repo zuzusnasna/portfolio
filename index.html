@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="주상혁 개발자 포트폴리오">
+  <title>주상혁 — 문제를 발견하고, 구조로 해결합니다.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top">JUSANGHYEOK<span>.</span></a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#method">Method</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="eyebrow">BACKEND · FULL STACK · PROBLEM SOLVING</div>
+      <h1>문제를 발견하고,<br><em>구조로 해결합니다.</em></h1>
+      <p class="hero-copy">기능을 만드는 데서 멈추지 않고, 병목과 동시성 문제의 원인을 찾아<br>데이터 흐름과 처리 구조를 바꾸는 개발자 주상혁입니다.</p>
+      <a class="scroll-link" href="#projects">VIEW PROJECTS ↓</a>
+    </section>
+
+    <section id="about" class="section about">
+      <div class="section-label">01 / ABOUT</div>
+      <div class="about-grid">
+        <h2>기능보다<br><span>문제의 구조</span>를 봅니다.</h2>
+        <div>
+          <p class="lead">서비스를 구현하면서 발생한 성능, 권한, 데이터 정합성, 동시성 문제를 코드 수준에서 원인까지 추적하고 해결해 왔습니다.</p>
+          <div class="principles">
+            <article><b>01</b><h3>원인부터 확인</h3><p>현상만 고치지 않고 요청 흐름과 데이터 처리 과정을 따라가며 병목의 원인을 찾습니다.</p></article>
+            <article><b>02</b><h3>구조로 해결</h3><p>동시성 제어, Transaction, Redis, 비동기 처리처럼 문제에 맞는 구조를 선택합니다.</p></article>
+            <article><b>03</b><h3>수치로 검증</h3><p>부하 테스트와 실제 실행 결과를 기준으로 변경 전후의 차이를 확인합니다.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section projects">
+      <div class="section-label">02 / PROJECTS</div>
+      <div class="project featured">
+        <div class="project-head"><span>01</span><span>SMARTTICKETING</span></div>
+        <h2>동시 예매와 대규모 대기 요청을 처리하는<br>예매 시스템</h2>
+        <p class="project-summary">동일 좌석에 동시에 요청이 들어오는 상황과 대기 순번 조회의 부하를 분석하고, DB 동시성 제어와 Redis Sorted Set, Outbox 기반 비동기 구조로 처리 흐름을 설계했습니다.</p>
+        <div class="tags"><span>Java 21</span><span>Spring Boot 4</span><span>MySQL</span><span>Redis</span><span>React</span><span>k6</span></div>
+        <div class="flow"><div>동시 예매 요청</div><i>→</i><div>회차·구역 단위 잠금</div><i>→</i><div>좌석 상태 재확인</div><i>→</i><div>한 명만 선점</div></div>
+        <div class="two-col">
+          <div><h3>WAITING QUEUE</h3><p>대기자를 Redis Sorted Set으로 관리하고 <strong>ZCOUNT</strong>를 이용해 앞선 대기자 수를 계산했습니다.</p><div class="mini-flow">대기자 → Sorted Set → ZCOUNT → 앞선 인원 → 순번</div></div>
+          <div><h3>OUTBOX</h3><p>예약 취소와 같은 상태 변경 이벤트를 DB Transaction과 함께 저장한 뒤 Worker가 비동기로 처리하도록 구성했습니다.</p><div class="mini-flow">취소 → DB 변경 + Outbox → Worker → 대기자 배정 → Redis 반영</div></div>
+        </div>
+        <div class="metrics"><div><strong>≈ 2,600</strong><span>req/s · 메인/공통 조회<br>Redis 적용 전 로컬 기준</span></div><div><strong>≈ 1,280</strong><span>req/s · 좌석 배치 조회<br>Redis 적용 전 로컬 기준</span></div><div><strong>≈ 224</strong><span>req/s · 회차 조회<br>Redis 적용 전 로컬 기준</span></div></div>
+        <p class="note">* 위 수치는 실제 k6 로컬 테스트에서 확인한 기준값이며, 개선율을 임의로 산정하지 않았습니다.</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="project-head"><span>02</span><span>SWINGFIT</span></div>
+          <h2>모바일 AI 영상 분석의<br>실행 안정성과 효율 개선</h2>
+          <p>TensorFlow Lite GPU Delegate와 CPU/XNNPACK fallback을 구성하고, 전체 프레임을 동일하게 탐색하지 않는 Coarse/Fine Search와 Tracking 구조를 적용했습니다.</p>
+          <div class="tags"><span>Android</span><span>Kotlin</span><span>TensorFlow Lite</span><span>GPU</span></div>
+          <div class="card-flow">영상 → ROI → 640×640 → TFLite → Detection → Tracking → Impact Search</div>
+        </article>
+        <article class="project-card">
+          <div class="project-head"><span>03</span><span>GAMEHUB</span></div>
+          <h2>회원 역할과 리소스 단위<br>접근 제어 구현</h2>
+          <p>Session으로 로그인 상태를 확인한 뒤 시스템 관리자, 카테고리 관리자, 작성자 여부를 순차적으로 판정해 리소스별 접근 권한을 제어했습니다.</p>
+          <div class="tags"><span>Servlet</span><span>DAO/DTO</span><span>Session</span><span>Oracle</span></div>
+          <div class="card-flow">요청 → Session → 게시글 조회 → 역할 판정 → 허용 / 403</div>
+        </article>
+        <article class="project-card">
+          <div class="project-head"><span>04</span><span>EMS</span></div>
+          <h2>장비 정보와 변경 이력의<br>데이터 정합성 보장</h2>
+          <p>장비 상태 변경과 변경 이력 저장을 하나의 Transaction으로 묶어, 상태 데이터와 감사 이력이 서로 다른 상태로 남지 않도록 처리했습니다.</p>
+          <div class="tags"><span>Spring Boot</span><span>JPA</span><span>Oracle</span><span>React</span></div>
+          <div class="card-flow">수정 요청 → 기존 상태 → 검증 → 장비 수정 → History → Commit</div>
+        </article>
+        <article class="project-card ongoing">
+          <div class="project-head"><span>05</span><span>MEET-UP · IN PROGRESS</span></div>
+          <h2>사용자 출발지와 모임 장소를<br>지도 위에서 연결</h2>
+          <p>여러 사용자의 출발 위치와 모임 장소 후보를 지도에 표시하고, 마커 Hover와 Click을 통해 위치 정보를 탐색할 수 있도록 구현하고 있습니다.</p>
+          <div class="tags"><span>Spring Boot</span><span>JPA</span><span>WebSocket</span><span>Oracle</span><span>Map</span></div>
+          <div class="card-flow">참여자 출발지 + 후보지 → 지도 마커 → Hover 정보 → Click 이동</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="method" class="section method">
+      <div class="section-label">03 / METHOD</div>
+      <h2>문제를 해결하는 방식</h2>
+      <div class="method-list">
+        <div><span>01</span><h3>현상 재현</h3><p>에러 로그, 요청 흐름, DB 조회와 실행 결과를 기준으로 문제를 다시 확인합니다.</p></div>
+        <div><span>02</span><h3>병목 분리</h3><p>동시성·DB·네트워크·애플리케이션 로직 중 어디에서 비용이 발생하는지 분리합니다.</p></div>
+        <div><span>03</span><h3>구조 선택</h3><p>Lock, Transaction, Redis, Outbox, 단계적 탐색 등 문제에 맞는 해결 구조를 선택합니다.</p></div>
+        <div><span>04</span><h3>부하·기능 검증</h3><p>정상 동작뿐 아니라 동시 요청과 예외 상황에서도 의도한 결과가 유지되는지 검증합니다.</p></div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <div class="section-label">04 / CONTACT</div>
+      <h2>문제를 함께<br><em>해결해보고 싶다면</em></h2>
+      <div class="contact-links"><a href="https://github.com/zuzusnasna" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="mailto:">EMAIL ↗</a></div>
+      <p class="small">GitHub에서 프로젝트의 실제 코드와 변경 이력을 확인할 수 있습니다.</p>
+    </section>
+  </main>
+
+  <footer><span>JUSANGHYEOK</span><span>© 2026</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
