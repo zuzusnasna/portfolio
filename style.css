@@ -408,3 +408,140 @@ footer{background:#1b1d19;color:#a9aaa1;padding:20px 6vw;font-family:"Courier Ne
  .stack-logos{gap:12px;min-height:32px;margin-bottom:9px}
  .stack-logos img{width:27px;height:27px}
 }
+
+
+/* Match the original portfolio: monochrome, clean, square-edged layout */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+:root{
+  color-scheme:light;
+  --bg:#fff;
+  --surface:#fff;
+  --surface-soft:#f5f5f5;
+  --ink:#111;
+  --muted:#666;
+  --subtle:#888;
+  --line:#ddd;
+  --accent:#111;
+  --accent-dark:#333;
+  --teal:#555;
+  --shadow:none;
+  --radius:0;
+}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:#fff;color:#111;font-family:Inter,'Noto Sans KR',sans-serif;line-height:1.7}
+a{color:inherit}
+.site-header{height:auto;min-height:68px;padding:0 max(24px,calc((100vw - 1080px)/2));background:rgba(255,255,255,.94);border-bottom:1px solid #eee;backdrop-filter:blur(12px)}
+.brand{font-family:Inter,'Noto Sans KR',sans-serif;font-size:23px;letter-spacing:-1px;font-weight:900}
+.brand span{color:#111}
+nav{font-family:Inter,'Noto Sans KR',sans-serif;font-size:12px;gap:24px;color:#555}
+nav a:hover{color:#111}
+.section{max-width:1080px;padding:100px 24px}
+.eyebrow,.section-label,.project-head,.tags,.small{font-family:Inter,'Noto Sans KR',sans-serif;letter-spacing:.06em}
+.eyebrow,.section-label{color:#777}
+.eyebrow:before,.section-label:after{background:#111}
+.hero{min-height:calc(100vh - 68px);border-bottom:1px solid #eee}
+.hero:after{color:#999}
+.hero h1{font-family:Inter,'Noto Sans KR',sans-serif;font-weight:900;letter-spacing:-.075em}
+.hero h1 em,.contact h2 em{color:#111}
+.hero-copy{color:#666}
+.scroll-link{background:#111;color:#fff;border-radius:0;box-shadow:none;font-family:Inter,'Noto Sans KR',sans-serif}
+.scroll-link:hover{background:#333}
+.about{border-top:0}
+.about h2 span{color:#111;border-color:#111;text-decoration-color:#111}
+.lead{color:#333}
+.principles{gap:10px}
+.principles article{background:#fff;border:1px solid #ddd;border-radius:0;padding:22px;box-shadow:none}
+.principles b{color:#777}
+.principles h3{font-weight:800}
+.principles p,.project-card p,.two-col p{color:#666}
+.stack{max-width:none;background:#f5f5f5;border-top:1px solid #ddd;border-bottom:1px solid #ddd}
+.stack-heading h2{letter-spacing:-.06em}
+.stack-heading p{color:#666}
+.stack-list{border-top:1px solid #ccc}
+.stack-row{border-bottom:1px solid #ddd}
+.stack-category{color:#777}
+.stack-row strong{font-weight:700}
+.stack-row p{color:#666}
+.stack-logos img{filter:grayscale(1);opacity:.85}
+.stack-logos img:hover{filter:grayscale(0);opacity:1}
+.projects{background:#fff;border-top:0;border-bottom:0}
+.projects>.section-label{color:#777}
+.project-switcher{border-top:1px solid #111}
+.project-switcher:before{color:#888;font-family:Inter,'Noto Sans KR',sans-serif}
+.project-tab{border:0;border-bottom:1px solid #ddd;background:transparent;color:#666;border-radius:0;box-shadow:none;font-family:Inter,'Noto Sans KR',sans-serif}
+.project-tab:after{color:#888}
+.project-tab:hover{border-color:#111;color:#111;background:#f7f7f7}
+.project-tab.active{background:#f5f5f5;border-color:#111;color:#111;box-shadow:inset 3px 0 #111}
+.project-tab.active:before,.project-tab.active:after{color:#111}
+.featured{background:#fff;border:0;border-radius:0;padding:0;box-shadow:none}
+.project-head{border-bottom:1px solid #111;color:#777}
+.featured h2{font-family:Inter,'Noto Sans KR',sans-serif;font-weight:800;letter-spacing:-.055em}
+.project-summary{color:#555}
+.tags span{border-color:#ddd;color:#555}
+.detail-grid{border-color:#ddd}
+.detail-grid section+section{border-color:#ddd}
+.detail-grid h3,.visual-title span,.result h3{color:#555}
+.detail-grid p,.result p{color:#555}
+.visual-title{border-color:#111}
+.visual-title small{color:#888}
+.diagram{background:#f7f7f7;border-color:#ddd;box-shadow:none}
+.node{background:#fff;border-color:#ccc;border-radius:0}
+.node.strong{border-color:#777}
+.node.accent-node{border-color:#777;background:#f5f5f5}
+.arrow{color:#555}
+.decision span{border-radius:0;border-color:#ccc;background:#fff}
+.transaction-box{border-radius:0;border-color:#aaa;background:#fff}
+.transaction-box>b{color:#111}
+.map-diagram{border-radius:0;border-color:#ddd;background-color:#fafafa}
+.map-center{border-radius:0;border-color:#777;background:#f5f5f5}
+.map-user,.map-place{border-radius:0;box-shadow:none;border-color:#ccc}
+.flow{border:1px solid #ddd;border-radius:0;background:#f5f5f5}
+.flow i{color:#555}
+.sequence{border:0;border-top:1px solid #111;border-radius:0;box-shadow:none;background:transparent}
+.sequence div{border-bottom:1px solid #ddd;background:transparent}
+.sequence div:nth-child(odd){background:transparent}
+.sequence b{color:#555}
+.sequence span{color:#333}
+.result{border:0;border-top:1px solid #111;border-bottom:1px solid #ddd;border-radius:0;background:transparent}
+.method{background:#fff;border-top:1px solid #ddd}
+.method-list{border-color:#111}
+.method-list>div{border-color:#ddd}
+.method-list span{color:#777}
+.method-list h3{font-weight:700}
+.method-list p{color:#666}
+.contact{background:#111;color:#fff;border-top:1px solid #111}
+.contact:after{color:rgba(255,255,255,.05)}
+.contact .section-label{color:#bbb}
+.contact .section-label:after{background:#555}
+.contact h2 em{color:#fff}
+.contact-links a{border-color:#777;border-radius:0}
+.contact-links a:hover{background:transparent;border-color:#fff;color:#fff}
+.contact .small{color:#bbb}
+footer{background:#080808;color:#aaa;font-family:Inter,'Noto Sans KR',sans-serif}
+.arch-lane{border-color:#ddd;border-radius:0;background:#fff}
+.arch-node{border-color:#ddd;border-radius:0;background:#f7f7f7;box-shadow:none}
+.arch-node b{color:#111}
+.arch-node small{color:#666}
+.arch-node.primary{border-color:#888;background:#f2f2f2;box-shadow:inset 3px 0 #111}
+.arch-node.database,.arch-node.cache,.arch-node.async,.arch-node.fallback{border-color:#ccc;background:#f7f7f7}
+.arch-link,.arch-fork,.arch-connector{color:#777}
+.arch-connector i{color:#111}
+.arch-note{background:#f5f5f5;border:0;border-left:3px solid #111;border-radius:0}
+.arch-note b{color:#111}
+.arch-note span{color:#555}
+.flow-step{border-top:1px solid #ccc;border-radius:0;background:transparent;box-shadow:none}
+.flow-step:hover{box-shadow:none;border-top-color:#111}
+.flow-step-top b{color:#777}
+.flow-step-top span{color:#111}
+.flow-step p{color:#666}
+@media(max-width:1000px){
+ .section{padding:84px 5vw}
+ .site-header{padding:0 5vw}
+}
+@media(max-width:700px){
+ .section{padding:70px 5vw}
+ .site-header{min-height:62px}
+ nav{gap:12px;font-size:10px}
+ .stack-heading h2{font-size:clamp(36px,9vw,52px)}
+ .project-tab.active{box-shadow:inset 3px 0 #111}
+}
