@@ -62,7 +62,7 @@ nav a:hover{color:var(--accent)}
 .project{max-width:1320px;margin:0 auto}
 .project-head{display:flex;justify-content:space-between;gap:16px;color:#65728a;border-bottom:1px solid var(--line);padding-bottom:15px}
 .featured{background:var(--surface);border:1px solid #dfe6f0;border-radius:20px;padding:clamp(24px,4vw,54px);box-shadow:var(--shadow)}
-.featured h2{font-size:clamp(35px,5vw,70px);line-height:1.08;letter-spacing:-.06em;margin:40px 0 20px;max-width:1100px}
+.featured h2{font-size:clamp(14px,2.25vw,30px);line-height:1.35;letter-spacing:-.035em;margin:30px 0 18px;max-width:none;white-space:nowrap}
 .project-summary{font-size:clamp(16px,1.6vw,19px);color:var(--muted);max-width:1000px;line-height:1.85}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
 .tags span{border:1px solid #d6e0ef;border-radius:999px;background:#f5f8fd;padding:7px 12px;color:#425572;font-size:10px;letter-spacing:.02em}
@@ -176,7 +176,7 @@ footer{background:#111a2b;color:#9ba8bd;padding:23px 7vw;display:flex;justify-co
  .project-switcher{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:24px}
  .project-tab{min-height:65px;padding:13px;font-size:9px}
  .featured{padding:22px 16px;border-radius:15px}
- .featured h2{font-size:clamp(34px,8vw,48px);margin-top:28px}
+ .featured h2{font-size:clamp(14px,3.8vw,22px);margin-top:24px;white-space:nowrap}
  .detail-grid{grid-template-columns:1fr;margin:28px 0 45px;gap:10px}
  .detail-grid section{min-height:0;padding:20px}
  .visual-section{margin:46px 0}
