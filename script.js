@@ -63,7 +63,6 @@ d.innerHTML='<div class="project featured"><div class="project-head"><span>'+p.n
 document.querySelectorAll('.project-tab').forEach(b=>b.classList.toggle('active',b.dataset.project===key));
 d.animate([{opacity:.35,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'ease-out'});
 }
-document.querySelectorAll('.project-tab').forEach(b=>b.classList.toggle('active',b.dataset.project===key));d.animate([{opacity:.35,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'ease-out'});}
 document.querySelectorAll('.project-tab').forEach(b=>b.addEventListener('click',()=>renderProject(b.dataset.project)));
 document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',e=>{const target=document.querySelector(link.getAttribute('href'));if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'})}}));
 renderProject('smart');
