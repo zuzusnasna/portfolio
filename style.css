@@ -605,3 +605,13 @@ footer{background:#080808;color:#aaa;font-family:Inter,'Noto Sans KR',sans-serif
  .github-avatar{width:48px;height:48px;flex-basis:48px}
  .contribution-graph img{max-height:58px;min-height:0}
 }
+
+
+/* Restore full viewport width and let the contribution graph use the full content area */
+.section{max-width:none;width:100%}
+.contribution-panel,.contribution-graph{width:100%;max-width:none}
+.contribution-graph{overflow:visible}
+.contribution-graph img{display:block;width:100%;max-width:none;height:auto;max-height:none;min-height:0;object-fit:fill;object-position:left center}
+@media(max-width:700px){
+ .contribution-graph img{width:100%;max-width:none;height:auto;max-height:none;min-height:0}
+}
