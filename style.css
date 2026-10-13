@@ -26,3 +26,8 @@
 .arch-link::before{content:'→';font-size:13px}
 @media (max-width:900px){.arch-connector::before{content:'↓';font-size:13px}}
 @media (max-width:560px){.arch-connector::before{content:'↓';font-size:13px}.arch-link::before{content:'→';font-size:13px}}
+
+
+/* Meet-Up is an in-progress project; keep the status visually quiet and selector layout intact. */
+.project-tab .project-status{display:inline-flex;align-items:center;margin-left:8px;padding:2px 6px;border:1px solid #c7d7c9;border-radius:999px;background:#f1f7f1;color:#52785a;font:9px/1.4 Manrope,system-ui,sans-serif;letter-spacing:0;vertical-align:middle}
+.project-tab.active .project-status{border-color:rgba(200,230,205,.45);background:rgba(200,230,205,.13);color:#c4e5c9}
