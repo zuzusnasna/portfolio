@@ -82,3 +82,55 @@
   .project-detail .arch-connector{height:46px}
   .project-detail .visual-title{align-items:flex-start;flex-direction:column;gap:6px}
 }
+
+
+/* Final color overrides live in the primary diagram stylesheet to avoid cascade/cache ambiguity. */
+.project-detail .arch-map{background:#f3f7fd;color:#26364b;border-top-color:#c6d7ed}
+.project-detail .arch-lane{background:#f8fbff;border-color:#c6d7ed}
+.project-detail .arch-lane-label{color:#526f99}
+.project-detail .arch-lane-label::after{background:#9bb7df}
+.project-detail .arch-node{background:#fff;border-color:#c3d2e7}
+.project-detail .arch-node::before{background:#789bd1}
+.project-detail .arch-node b{color:#263b5a}
+.project-detail .arch-node small{color:#5d718c}
+.project-detail .arch-node.primary{background:#eaf2ff;border-color:#9bb9e8}
+.project-detail .arch-node.primary::before{background:#4f7fc8}
+.project-detail .arch-node.database{background:#e8f6f1;border-color:#9acdbd}
+.project-detail .arch-node.database::before{background:#419b85}
+.project-detail .arch-node.cache{background:#fbf3dc;border-color:#ddc77e}
+.project-detail .arch-node.cache::before{background:#b89736}
+.project-detail .arch-node.async{background:#f0edfc;border-color:#c1b5eb}
+.project-detail .arch-node.async::before{background:#8872c8}
+.project-detail .arch-node.fallback{background:#fff0e7;border-color:#e7b99d}
+.project-detail .arch-node.fallback::before{background:#c77f53}
+.project-detail .arch-connector,.project-detail .arch-link{color:#557fb8}
+.project-detail .arch-connector::after{color:#557fb8}
+.project-detail .arch-connector span,.project-detail .arch-fork span{background:#f3f7fd;color:#526f99}
+.project-detail .arch-fork::before{background:#9bb7df}
+.project-detail .arch-note{border-top-color:#c6d7ed;color:#5d718c}
+.project-detail .arch-note b{color:#3f6fae}
+.project-detail .arch-map .data-lane{background:#eaf2ff;border-color:#b4c9e8}
+.project-detail .arch-map .data-lane .arch-node{background:#fff}
+.project-detail .arch-map .data-lane .arch-node.database{background:#e8f6f1}
+.project-detail .arch-map .data-lane .arch-node.cache{background:#fbf3dc}
+.project-detail .arch-map .data-lane .arch-node.async{background:#f0edfc}
+
+/* Data flow and sequence are siblings of .diagram, so target them directly. */
+.project-detail .flow-detail{background:#f1f6fd}
+.project-detail .flow-detail::before{background:#9bb7df}
+.project-detail .flow-step{background:#fff;border-color:#c6d7ed}
+.project-detail .flow-step::after{background:#fff;border-left-color:#9bb7df;border-top-color:#9bb7df}
+.project-detail .flow-step::before{color:#4f7fc8}
+.project-detail .flow-step-top span{color:#2c4264}
+.project-detail .flow-step p{color:#5d718c}
+.project-detail .flow-step.client{border-top-color:#4f7fc8}
+.project-detail .flow-step.process{border-top-color:#8298b8}
+.project-detail .flow-step.database{border-top-color:#419b85;background:#e8f6f1}
+.project-detail .flow-step.cache{border-top-color:#b89736;background:#fbf3dc}
+.project-detail .flow-step.async{border-top-color:#8872c8}
+.project-detail .flow-arrow{color:#557fb8}
+.project-detail .sequence{background:#fff}
+.project-detail .sequence > *{background:#f3f7fd;border-left-color:#789bd1;border-bottom-color:#d5e1f0;color:#52647b}
+.project-detail .sequence > *::before{color:#4f7fc8}
+.project-detail .sequence > *::after{background:#fff;color:#789bd1}
+.project-detail .sequence > *:last-child{border-bottom-color:#b4c9e8}
