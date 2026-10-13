@@ -27,25 +27,28 @@
 .project-detail .arch-note{width:100%;margin:14px 0 0;padding:14px 16px 0;border-top:1px dashed #bbb;color:#666;font-size:10px;line-height:1.7;text-align:left}
 .project-detail .arch-note b{display:block;margin-bottom:4px;font:700 9px 'DM Mono',monospace;letter-spacing:.12em;color:#111}
 .project-detail .arch-note span{display:block}
-
-/* Make the architecture read as a real system map: data layer gets a distinct grid. */
 .project-detail .arch-map .data-lane{background:#f4f4f4;border-color:#111}
 .project-detail .arch-map .data-lane .arch-node{background:#fff}
 .project-detail .arch-map .data-lane .arch-node::after{content:'DATA';position:absolute;right:8px;top:7px;font:7px 'DM Mono',monospace;letter-spacing:.08em;color:#999}
 .project-detail .arch-map .data-lane .arch-node.cache::after{content:'CACHE'}
 .project-detail .arch-map .data-lane .arch-node.async::after{content:'ASYNC'}
 
-/* DATA FLOW: horizontal numbered pipeline, not paragraph-like blocks. */
-.project-detail .flow{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;padding:28px 22px 30px;background:#fafafa;border:0;counter-reset:flowstep}
-.project-detail .flow::before{content:'';position:absolute;left:7%;right:7%;top:76px;height:1px;background:#111;z-index:0}
-.project-detail .flow > i{position:relative;z-index:2;width:34px;height:34px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;border:1px solid #111;background:#fff;color:#111;font:16px 'DM Mono',monospace;font-style:normal}
-.project-detail .flow > i::before{content:'→'}
-.project-detail .flow > i{font-size:0}
-.project-detail .flow > div{position:relative;z-index:1;min-width:0;margin:0 6px;padding:52px 14px 16px;border:1px solid #c8c8c8;background:#fff;min-height:138px;display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;gap:7px}
-.project-detail .flow > div::before{counter-increment:flowstep;content:counter(flowstep,decimal-leading-zero);position:absolute;left:14px;top:12px;font:700 9px 'DM Mono',monospace;letter-spacing:.08em;color:#777}
-.project-detail .flow > div::after{content:'';position:absolute;left:50%;top:-7px;width:13px;height:13px;transform:translateX(-50%) rotate(45deg);background:#fff;border-left:1px solid #111;border-top:1px solid #111}
-.project-detail .flow > div b,.project-detail .flow > div strong{font-size:12px;line-height:1.4;color:#111}
-.project-detail .flow > div p,.project-detail .flow > div small,.project-detail .flow > div span{font-size:10px;line-height:1.55;color:#666}
+/* DATA FLOW: actual rendered markup is .flow-detail > .flow-step + .flow-arrow. */
+.project-detail .flow-detail{position:relative;display:flex;align-items:stretch;width:100%;padding:34px 26px 36px;background:#fafafa;overflow-x:auto;counter-reset:flowstep}
+.project-detail .flow-detail::before{content:'';position:absolute;left:8%;right:8%;top:76px;height:1px;background:#111;z-index:0}
+.project-detail .flow-step{position:relative;z-index:1;flex:1 1 0;min-width:150px;margin:0 6px;padding:48px 15px 17px;border:1px solid #c8c8c8;background:#fff;min-height:142px;display:flex;flex-direction:column;justify-content:flex-start;gap:8px}
+.project-detail .flow-step::before{counter-increment:flowstep;content:counter(flowstep,decimal-leading-zero);position:absolute;left:14px;top:12px;font:700 9px 'DM Mono',monospace;letter-spacing:.08em;color:#777}
+.project-detail .flow-step::after{content:'';position:absolute;left:50%;top:-7px;width:13px;height:13px;transform:translateX(-50%) rotate(45deg);background:#fff;border-left:1px solid #111;border-top:1px solid #111}
+.project-detail .flow-step-top{display:flex;flex-direction:column;gap:4px}
+.project-detail .flow-step-top b{display:none}
+.project-detail .flow-step-top span{font-size:12px;line-height:1.4;font-weight:700;color:#111}
+.project-detail .flow-step p{margin:0;font-size:10px;line-height:1.6;color:#666}
+.project-detail .flow-arrow{position:relative;z-index:3;flex:0 0 30px;align-self:center;height:30px;display:flex;align-items:center;justify-content:center;color:#111;font:18px 'DM Mono',monospace}
+.project-detail .flow-step.client{border-top:3px solid #111}
+.project-detail .flow-step.process{border-top:3px solid #555}
+.project-detail .flow-step.database{border-top:3px solid #111;background:#f7f7f7}
+.project-detail .flow-step.cache{border-top:3px solid #111}
+.project-detail .flow-step.async{border-top:3px dashed #777}
 
 /* Sequence: compact request/response trace with clear direction. */
 .project-detail .sequence{display:flex;flex-direction:column;gap:0;padding:22px 24px;background:#fff;border:0;counter-reset:seq}
@@ -56,8 +59,10 @@
 .project-detail .sequence > *:last-child::after{display:none}
 
 @media(max-width:1050px){
-  .project-detail .flow{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:26px}
-  .project-detail .flow::before{display:none}
+  .project-detail .flow-detail{flex-wrap:wrap;overflow-x:visible;padding:28px 20px}
+  .project-detail .flow-detail::before{display:none}
+  .project-detail .flow-step{flex:1 1 calc(33.333% - 40px);min-width:180px}
+  .project-detail .flow-arrow{flex:0 0 22px}
 }
 @media(max-width:760px){
   .project-detail .arch-map{padding:18px 12px}
@@ -65,9 +70,10 @@
   .project-detail .arch-lane-label{left:14px;top:14px;width:auto}
   .project-detail .arch-node{max-width:none;min-width:0;flex:1 1 180px}
   .project-detail .arch-link{flex:0 0 28px;width:28px}
-  .project-detail .flow{grid-template-columns:1fr;padding:22px 14px}
-  .project-detail .flow > div{min-height:0;margin:0;padding:42px 16px 16px}
-  .project-detail .flow > div::after{left:50%;top:-7px}
+  .project-detail .flow-detail{display:flex;flex-direction:column;padding:22px 14px;gap:0}
+  .project-detail .flow-step{width:100%;min-width:0;min-height:0;margin:0;padding:42px 16px 16px}
+  .project-detail .flow-step::after{left:50%;top:-7px}
+  .project-detail .flow-arrow{height:30px;flex:0 0 30px;transform:rotate(90deg)}
   .project-detail .sequence{padding:16px 14px}
 }
 @media(max-width:560px){
