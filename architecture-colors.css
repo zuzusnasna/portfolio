@@ -44,3 +44,55 @@
 .project-detail .sequence > *::before{color:#5d84c4}
 .project-detail .sequence > *::after{background:#fff;color:#8aa8d6}
 .project-detail .sequence > *:last-child{border-bottom-color:#c4d4e8}
+
+
+/* High-specificity color pass: override monochrome diagram skin without touching layout. */
+.project-detail .diagram .arch-map{background:#f3f7fd;color:#26364b}
+.project-detail .diagram .arch-map .arch-lane{background:#f8fbff;border-color:#c6d7ed}
+.project-detail .diagram .arch-map .arch-lane-label{color:#526f99}
+.project-detail .diagram .arch-map .arch-lane-label::after{background:#9bb7df}
+.project-detail .diagram .arch-map .arch-node{background:#ffffff;border-color:#c3d2e7}
+.project-detail .diagram .arch-map .arch-node::before{background:#789bd1}
+.project-detail .diagram .arch-map .arch-node b{color:#263b5a}
+.project-detail .diagram .arch-map .arch-node small{color:#5d718c}
+.project-detail .diagram .arch-map .arch-node.primary{background:#eaf2ff;border-color:#9bb9e8}
+.project-detail .diagram .arch-map .arch-node.primary::before{background:#4f7fc8}
+.project-detail .diagram .arch-map .arch-node.database{background:#e8f6f1;border-color:#9acdbd}
+.project-detail .diagram .arch-map .arch-node.database::before{background:#419b85}
+.project-detail .diagram .arch-map .arch-node.cache{background:#fbf3dc;border-color:#ddc77e}
+.project-detail .diagram .arch-map .arch-node.cache::before{background:#b89736}
+.project-detail .diagram .arch-map .arch-node.async{background:#f0edfc;border-color:#c1b5eb}
+.project-detail .diagram .arch-map .arch-node.async::before{background:#8872c8}
+.project-detail .diagram .arch-map .arch-node.fallback{background:#fff0e7;border-color:#e7b99d}
+.project-detail .diagram .arch-map .arch-node.fallback::before{background:#c77f53}
+.project-detail .diagram .arch-map .arch-connector,
+.project-detail .diagram .arch-map .arch-link{color:#557fb8}
+.project-detail .diagram .arch-map .arch-connector::after{color:#557fb8}
+.project-detail .diagram .arch-map .arch-connector span,
+.project-detail .diagram .arch-map .arch-fork span{background:#f3f7fd;color:#526f99}
+.project-detail .diagram .arch-map .arch-fork::before{background:#9bb7df}
+.project-detail .diagram .arch-map .arch-note{border-top-color:#c6d7ed;color:#5d718c}
+.project-detail .diagram .arch-map .arch-note b{color:#3f6fae}
+.project-detail .diagram .arch-map .data-lane{background:#eaf2ff;border-color:#b4c9e8}
+.project-detail .diagram .arch-map .data-lane .arch-node{background:#fff}
+.project-detail .diagram .arch-map .data-lane .arch-node.database{background:#e8f6f1}
+.project-detail .diagram .arch-map .data-lane .arch-node.cache{background:#fbf3dc}
+.project-detail .diagram .arch-map .data-lane .arch-node.async{background:#f0edfc}
+.project-detail .diagram .flow-detail{background:#f1f6fd}
+.project-detail .diagram .flow-detail::before{background:#9bb7df}
+.project-detail .diagram .flow-detail .flow-step{background:#fff;border-color:#c6d7ed}
+.project-detail .diagram .flow-detail .flow-step::after{background:#fff;border-left-color:#9bb7df;border-top-color:#9bb7df}
+.project-detail .diagram .flow-detail .flow-step::before{color:#4f7fc8}
+.project-detail .diagram .flow-detail .flow-step-top span{color:#2c4264}
+.project-detail .diagram .flow-detail .flow-step p{color:#5d718c}
+.project-detail .diagram .flow-detail .flow-step.client{border-top-color:#4f7fc8}
+.project-detail .diagram .flow-detail .flow-step.process{border-top-color:#8298b8}
+.project-detail .diagram .flow-detail .flow-step.database{border-top-color:#419b85;background:#e8f6f1}
+.project-detail .diagram .flow-detail .flow-step.cache{border-top-color:#b89736;background:#fbf3dc}
+.project-detail .diagram .flow-detail .flow-step.async{border-top-color:#8872c8}
+.project-detail .diagram .flow-detail .flow-arrow{color:#557fb8}
+.project-detail .diagram .sequence{background:#fff}
+.project-detail .diagram .sequence > *{background:#f3f7fd;border-left-color:#789bd1;border-bottom-color:#d5e1f0;color:#52647b}
+.project-detail .diagram .sequence > *::before{color:#4f7fc8}
+.project-detail .diagram .sequence > *::after{background:#fff;color:#789bd1}
+.project-detail .diagram .sequence > *:last-child{border-bottom-color:#b4c9e8}
