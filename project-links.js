@@ -4,7 +4,7 @@
     smart: [
       ['프로젝트 상세 ↗', 'https://zuzusnasna.github.io/jusanghyeok.github.io/project-smartticketing.html'],
       ['Repository ↗', 'https://github.com/zuzusnasna/SmartTicketing'],
-      ['Performance Results ↗', 'https://zuzusnasna.github.io/jusanghyeok.github.io/performance.html'],
+      ['Performance Result ↗', 'https://zuzusnasna.github.io/jusanghyeok.github.io/performance.html'],
       ['PPT ↗', 'https://github.com/zuzusnasna/SmartTicketing/blob/main/Smart_Ticketing%20%EC%A0%9C%EC%95%88%EB%B0%9C%ED%91%9C.pptx']
     ],
     swing: [
