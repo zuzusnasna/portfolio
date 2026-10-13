@@ -17,3 +17,12 @@
 @media (max-width:900px){.about-grid,.detail-grid{grid-template-columns:1fr}.principles{grid-template-columns:1fr}.project-switcher{grid-template-columns:repeat(2,1fr)}.method-list>div{grid-template-columns:50px 1fr}.method-list p{grid-column:2}.flow{grid-template-columns:1fr}.flow i{transform:rotate(90deg)}.arch-lane{flex-wrap:wrap;padding:20px 12px}.arch-lane-label{flex:1 0 100%;text-align:center;padding:0 0 12px}.arch-node{flex:1 1 180px;max-width:240px}.arch-connector{flex:0 0 34px}.arch-connector::before{content:'→'}}
 @media (max-width:560px){.site-header{padding:0 5vw}.section{padding:82px 5vw}.project-switcher{grid-template-columns:1fr}.featured{padding:24px}.featured h2{white-space:normal}.decision{grid-template-columns:1fr}.map-diagram{height:260px}.contact-links{flex-direction:column;align-items:flex-start}footer{padding:20px 5vw;gap:10px;flex-direction:column}.arch-lane{flex-direction:column;gap:0}.arch-lane-label{padding-bottom:10px}.arch-node{width:min(100%,300px);max-width:none}.arch-connector{height:28px;flex:0 0 28px}.arch-connector::before{content:'↓'}.arch-link{height:24px}}
 .section{max-width:none;width:100%}.contribution-panel,.github-activity,.contribution-graph,.github-graph{width:100%;max-width:none}.contribution-panel img,.contribution-graph img,.github-graph img{display:block;width:100%;height:auto;max-width:none}
+
+/* Architecture-only fixes: keep existing layout/icons untouched and correct only connector direction/size. */
+.arch-connector{font-size:13px}
+.arch-connector::before{content:'↓';font-size:13px}
+.arch-connector i{display:none}
+.arch-link{font-size:0}
+.arch-link::before{content:'→';font-size:13px}
+@media (max-width:900px){.arch-connector::before{content:'↓';font-size:13px}}
+@media (max-width:560px){.arch-connector::before{content:'↓';font-size:13px}.arch-link::before{content:'→';font-size:13px}}
