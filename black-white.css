@@ -31,5 +31,9 @@ body{background:#fff;color:#111}.site-header{border-bottom-color:#111;background
 .activity-stats a{color:#0969da}
 .github-intro,.github-note{color:#555}
 
+/* PROJECT RESOURCE LINKS — make each external resource visibly link-like. */
+.project-actions .project-action{color:#111;text-decoration-line:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:#555}
+.project-actions .project-action:hover{color:#555;text-decoration-color:#111}
+
 @media(max-width:900px){.stack-heading{grid-template-columns:1fr;gap:18px;margin-bottom:34px}.stack-row{grid-template-columns:130px minmax(0,1fr);gap:20px}.stack-content{grid-template-columns:auto 1fr}.stack-content strong{font-size:14px}.stack-logos img{width:30px!important;height:30px!important;max-width:30px!important;max-height:30px!important}.project-switcher .project-tab{font-size:13px}}
 @media(max-width:560px){.stack-heading{margin-bottom:28px}.stack-row{grid-template-columns:1fr;gap:14px;padding:22px 0}.stack-category{font-size:9px}.stack-content{display:flex;flex-direction:column;align-items:flex-start;gap:10px}.stack-logos{min-width:0}.stack-logos img{width:30px!important;height:30px!important;max-width:30px!important;max-height:30px!important}.stack-content strong{font-size:15px}.stack-content p{font-size:11px}.project-switcher .project-tab{font-size:13px}}
