@@ -1,0 +1,46 @@
+/* Architecture & data-flow accents only. No sizing, spacing, or layout rules. */
+.project-detail .arch-map{background:#f8fafc;color:#26364b}
+.project-detail .arch-lane{border-color:#d8e2ef;background:#fbfcfe}
+.project-detail .arch-lane-label{color:#647a98}
+.project-detail .arch-lane-label::after{background:#a9bfdc}
+.project-detail .arch-node{border-color:#d4deeb;background:#fff}
+.project-detail .arch-node::before{background:#8aa8d6}
+.project-detail .arch-node b{color:#26364b}
+.project-detail .arch-node small{color:#687b93}
+.project-detail .arch-node.primary{border-color:#b7cbea;background:#f1f6fd}
+.project-detail .arch-node.primary::before{background:#5d84c4}
+.project-detail .arch-node.database{border-color:#b9d8d0;background:#f1f8f6}
+.project-detail .arch-node.database::before{background:#6aa99a}
+.project-detail .arch-node.cache{border-color:#e2d8b7;background:#fbf8ed}
+.project-detail .arch-node.cache::before{background:#c2a75e}
+.project-detail .arch-node.async{border-color:#c9c3e6;background:#f6f4fc}
+.project-detail .arch-node.async::before{background:#9285c9}
+.project-detail .arch-node.fallback{border-color:#e7c9b7;background:#fdf6f1}
+.project-detail .arch-node.fallback::before{background:#c88f6c}
+.project-detail .arch-connector,.project-detail .arch-link{color:#7893b8}
+.project-detail .arch-connector::after{color:#7893b8}
+.project-detail .arch-connector span,.project-detail .arch-fork span{background:#f8fafc;color:#71839a}
+.project-detail .arch-fork::before{background:#b8c9df}
+.project-detail .arch-note{border-top-color:#d7e1ee;color:#6c7d92}
+.project-detail .arch-note b{color:#496d9f}
+.project-detail .arch-map .data-lane{background:#f1f6fc;border-color:#c3d4e8}
+.project-detail .arch-map .data-lane .arch-node{background:#fff}
+.project-detail .arch-map .data-lane .arch-node::after{color:#8195b0}
+.project-detail .flow-detail{background:#f8fafc}
+.project-detail .flow-detail::before{background:#c2d1e4}
+.project-detail .flow-step{border-color:#d7e0ec;background:#fff}
+.project-detail .flow-step::after{background:#fff;border-left-color:#c2d1e4;border-top-color:#c2d1e4}
+.project-detail .flow-step::before{color:#7890b1}
+.project-detail .flow-step-top span{color:#30435e}
+.project-detail .flow-step p{color:#6b7c91}
+.project-detail .flow-arrow{color:#7893b8}
+.project-detail .flow-step.client{border-top-color:#6d91c9}
+.project-detail .flow-step.process{border-top-color:#8b9bb4}
+.project-detail .flow-step.database{border-top-color:#6aa99a;background:#f3f9f7}
+.project-detail .flow-step.cache{border-top-color:#c2a75e;background:#fbf8ef}
+.project-detail .flow-step.async{border-top-color:#9285c9}
+.project-detail .sequence{background:#fff}
+.project-detail .sequence > *{border-left-color:#8aa8d6;border-bottom-color:#e0e7f0;background:#f8fafc;color:#52647b}
+.project-detail .sequence > *::before{color:#5d84c4}
+.project-detail .sequence > *::after{background:#fff;color:#8aa8d6}
+.project-detail .sequence > *:last-child{border-bottom-color:#c4d4e8}
