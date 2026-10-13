@@ -13,3 +13,38 @@
 .github-activity .activity-stats>a:hover{color:#0550ae}
 .github-activity .contribution-graph{border-color:#d0d7de}
 .github-activity .contribution-graph img{filter:none}
+
+/* GitHub Activity layout — independent from the optional theme stylesheet. */
+.github-activity{background:var(--surface);border-top:1px solid var(--line)}
+.github-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:50px;margin-bottom:48px}
+.github-kicker{display:block;margin-bottom:12px;font:700 9px/1.4 'DM Mono',monospace;letter-spacing:.14em}
+.github-heading h2{margin:0;font-size:clamp(42px,6vw,76px);line-height:1.03;letter-spacing:-.065em;color:var(--ink)}
+.github-heading h2 span{display:inline-block}
+.github-intro{margin:22px 0 0;max-width:560px;font-size:14px;line-height:1.8;color:var(--muted)}
+.github-profile-link{flex:0 0 auto;border:1px solid var(--line);padding:13px 18px;font:10px 'DM Mono',monospace;letter-spacing:.06em;white-space:nowrap;transition:.2s}
+.github-profile-link:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.github-overview{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.65fr);gap:30px;margin-bottom:30px}
+.github-identity{display:flex;align-items:center;gap:22px;min-height:130px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0}
+.github-avatar{width:72px!important;height:72px!important;max-width:72px!important;max-height:72px!important;display:block;border:1px solid var(--line);border-radius:50%;object-fit:cover}
+.github-identity h3{margin:3px 0 4px;font-size:25px;line-height:1.2;letter-spacing:-.03em}
+.github-identity a{font:10px 'DM Mono',monospace}
+.github-stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.github-stats div{display:flex;flex-direction:column;justify-content:center;padding:20px;border-right:1px solid var(--line)}
+.github-stats div:last-child{border-right:0}
+.github-stats strong{font-size:28px;line-height:1;letter-spacing:-.04em}
+.github-stats span{margin-top:9px;color:var(--muted);font:9px 'DM Mono',monospace;line-height:1.4}
+.contribution-panel{border:1px solid var(--line)!important;border-radius:12px;padding:28px 30px;background:var(--surface)!important;box-shadow:none}
+.contribution-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.contribution-heading h3{margin:0;font-size:20px;line-height:1.3}
+.activity-date{color:var(--muted);font:9px 'DM Mono',monospace;white-space:nowrap}
+.contribution-graph{display:block;width:100%;padding:22px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface-soft);overflow:hidden}
+.contribution-graph img{display:block;width:100%;height:auto;min-height:150px;object-fit:contain;filter:none;image-rendering:auto}
+.activity-stats{display:grid;grid-template-columns:1fr 1fr auto;align-items:center;margin-top:18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.activity-stats>div{display:flex;flex-direction:column;gap:5px;padding:15px 18px;border-right:1px solid var(--line)}
+.activity-stats strong{font-size:20px;line-height:1}
+.activity-stats span{color:var(--muted);font:9px 'DM Mono',monospace}
+.activity-stats>a{padding:15px 18px;font:9px 'DM Mono',monospace;white-space:nowrap}
+.activity-stats>a:hover{text-decoration:underline;text-underline-offset:4px}
+.github-note{margin:16px 0 0;color:var(--muted);font-size:10px;line-height:1.7}
+@media(max-width:900px){.github-heading{align-items:flex-start;flex-direction:column;gap:24px}.github-profile-link{margin-top:0}.github-overview{grid-template-columns:1fr}.github-stats{min-height:100px}}
+@media(max-width:560px){.github-heading h2{font-size:clamp(38px,12vw,54px)}.github-overview{gap:20px}.github-identity{gap:15px;padding:18px 0}.github-avatar{width:58px!important;height:58px!important;max-width:58px!important;max-height:58px!important}.github-identity h3{font-size:21px}.github-stats{grid-template-columns:1fr}.github-stats div{border-right:0;border-bottom:1px solid var(--line);padding:14px 16px}.github-stats div:last-child{border-bottom:0}.contribution-panel{padding:20px 16px}.contribution-heading{align-items:flex-start;flex-direction:column;gap:8px}.contribution-graph{padding:12px 4px;overflow-x:auto}.contribution-graph img{min-width:620px;height:150px}.activity-stats{grid-template-columns:1fr}.activity-stats>div{border-right:0;border-bottom:1px solid var(--line)}.activity-stats>a{display:block}}
