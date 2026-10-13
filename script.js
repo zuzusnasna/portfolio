@@ -48,5 +48,32 @@ document.querySelectorAll('.project-tab').forEach(b=>b.classList.toggle('active'
 d.animate([{opacity:.35,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'ease-out'});
 }
 window.renderProject = renderProject;
+
+document.querySelectorAll('.contact-copy').forEach(button => {
+  button.addEventListener('click', async () => {
+    const value = button.dataset.copy;
+    const feedback = document.querySelector('.copy-feedback');
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+      } else {
+        const field = document.createElement('textarea');
+        field.value = value;
+        field.setAttribute('readonly', '');
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.appendChild(field);
+        field.select();
+        const copied = document.execCommand('copy');
+        field.remove();
+        if (!copied) throw new Error('Copy failed');
+      }
+      feedback.textContent = (button.dataset.copy.includes('@') ? '이메일' : '전화번호') + '가 복사되었습니다.';
+      button.querySelector('.copy-action').textContent = 'COPIED ✓';
+    } catch {
+      feedback.textContent = '복사에 실패했습니다. 연락처를 직접 선택해 복사해 주세요.';
+    }
+  });
+});
 document.querySelectorAll('.project-tab').forEach(b=>b.addEventListener('click',()=>renderProject(b.dataset.project)));
 document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',e=>{const target=document.querySelector(link.getAttribute('href'));if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'})}}));
