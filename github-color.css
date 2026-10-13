@@ -3,6 +3,7 @@
 .github-activity .github-heading h2 span{color:#0969da}
 .github-activity .github-profile-link{border-color:#24292f;color:#24292f}
 .github-activity .github-profile-link:hover{background:#24292f;color:#fff;border-color:#24292f}
+.github-activity .github-avatar{filter:none}
 .github-activity .github-identity h3{color:#24292f}
 .github-activity .github-identity a{color:#0969da}
 .github-activity .github-stats strong{color:#24292f}
