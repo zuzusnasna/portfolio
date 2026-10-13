@@ -31,3 +31,10 @@
 /* Meet-Up is an in-progress project; keep the status visually quiet and selector layout intact. */
 .project-tab .project-status{display:inline-flex;align-items:center;margin-left:8px;padding:2px 6px;border:1px solid #c7d7c9;border-radius:999px;background:#f1f7f1;color:#52785a;font:9px/1.4 Manrope,system-ui,sans-serif;letter-spacing:0;vertical-align:middle}
 .project-tab.active .project-status{border-color:rgba(200,230,205,.45);background:rgba(200,230,205,.13);color:#c4e5c9}
+
+
+/* Selected Work accents, merged from the former project-accent.css override. */
+/* Selected Work — subtle color accent only; preserve all existing layout and filters. */
+#projects > .section-label{color:#536f9b}
+#projects > .section-label::after{background:#c7d3e4}
+#projects .project-switcher::before{color:#7889a3}
