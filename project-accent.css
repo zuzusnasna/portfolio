@@ -1,0 +1,4 @@
+/* Selected Work — subtle color accent only; preserve all existing layout and filters. */
+#projects > .section-label{color:#536f9b}
+#projects > .section-label::after{background:#c7d3e4}
+#projects .project-switcher::before{color:#7889a3}
