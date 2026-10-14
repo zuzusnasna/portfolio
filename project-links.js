@@ -1,4 +1,4 @@
-/* Project resource links for the selected project detail. */
+/* Project resource links and same-theme detail pages. */
 (function () {
   const links = {
     smart: [
@@ -26,14 +26,19 @@
   };
 
   function projectActions(key) {
-    return (links[key] || []).map(([label, url]) =>
-      '<a class="project-action" href="' + url + '" target="_blank" rel="noreferrer">' + label + '</a>'
+    const resources = links[key] || [];
+    const actions = document.body.dataset.projectDetail
+      ? resources
+      : [['프로젝트 상세 ↗', 'project.html?project=' + encodeURIComponent(key)], ...resources];
+    return actions.map(([label, url], index) =>
+      '<a class="project-action' + (index === 0 && !document.body.dataset.projectDetail ? ' detail-link' : '') + '" href="' + url + '" target="' + (url.startsWith('project.html') ? '_self' : '_blank') + '" rel="noreferrer">' + label + '</a>'
     ).join('');
   }
 
   window.projectActions = projectActions;
-  if (typeof window.renderProject === 'function') {
-    const active = document.querySelector('.project-tab.active');
-    window.renderProject(active?.dataset.project || 'smart');
-  }
+  const requested = new URLSearchParams(window.location.search).get('project');
+  const active = document.querySelector('.project-tab.active');
+  window.renderProject(document.body.dataset.projectDetail
+    ? (requested || 'smart')
+    : (requested || active?.dataset.project || 'smart'));
 })();
