@@ -142,3 +142,70 @@
 .project-detail .arch-map{background:#eaf2ff}
 .project-detail .arch-connector span,
 .project-detail .arch-fork span{background:#eaf2ff}
+
+/* Architecture palette rebalance: neutral canvas, blue request path, distinct data roles. */
+.project-detail .arch-map{
+  background:#f6f9ff;
+  color:#26364b;
+}
+.project-detail .arch-lane{
+  background:#fbfcff;
+  border-color:#d4deed;
+}
+.project-detail .arch-lane-label{
+  color:#58739a;
+}
+.project-detail .arch-node{
+  background:#fff;
+  border-color:#d2dceb;
+  box-shadow:0 3px 10px rgba(43,67,104,.045);
+}
+.project-detail .arch-node.primary{
+  background:#e8f0ff;
+  border-color:#b6cbed;
+}
+.project-detail .arch-link{
+  color:#6386bb;
+}
+.project-detail .arch-connector{
+  background:#eaf2ff;
+  color:#5579ae;
+}
+.project-detail .arch-connector span,
+.project-detail .arch-fork span{
+  background:#eaf2ff;
+  color:#486b9f;
+}
+.project-detail .arch-connector::after{
+  color:#6386bb;
+}
+.project-detail .arch-fork::before{
+  background:#b6cbed;
+}
+.project-detail .arch-map .data-lane{
+  background:#edf6f2;
+  border-color:#c4dfd5;
+}
+.project-detail .arch-map .data-lane .arch-lane-label{
+  color:#3f806f;
+}
+.project-detail .arch-map .data-lane .arch-node.database{
+  background:#e1f3ec;
+  border-color:#abd8c8;
+}
+.project-detail .arch-map .data-lane .arch-node.cache{
+  background:#fff3d8;
+  border-color:#e8d29b;
+}
+.project-detail .arch-map .data-lane .arch-node.async{
+  background:#f0edfc;
+  border-color:#d0c5f0;
+}
+.project-detail .arch-map .data-lane .arch-connector span,
+.project-detail .arch-map .data-lane .arch-fork span{
+  background:#edf6f2;
+}
+.project-detail .arch-note{
+  background:#f8fbff;
+  border-color:#cbd9ec;
+}
