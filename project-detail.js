@@ -183,7 +183,7 @@
       '<div class="detail-tags">' + p.stack.map(tag => '<span>' + esc(tag) + '</span>').join("") + '</div>' +
       '<div class="detail-hero-actions"><a class="detail-primary-link" href="' + esc(p.repo) + '" target="_blank" rel="noreferrer">GITHUB REPOSITORY ↗</a>' +
       (p.live ? '<a class="detail-secondary-link" href="' + esc(p.live) + '" target="_blank" rel="noreferrer">LIVE SERVICE ↗</a>' : '') + '</div>' +
-      (p.resources ? '<div class="detail-resource-links">' + p.resources.map(item => '<a href="' + esc(item[1]) + '" target="_blank" rel="noreferrer">' + esc(item[0]) + ' ↗</a>').join("") + '</div>' : '') + '</div></div>' +
+      (p.resources ? '<div class="detail-resource-links">' + p.resources.map(item => '<a href="' + esc(item[1]) + '" target="_blank" rel="noreferrer">' + esc(item[0]) + ' ↗</a>').join("") + '</div>' : '') + '</div>' +
       '<aside class="detail-side-index"><span>PROJECT FILE</span><strong>' + esc(p.name) + '</strong><div class="detail-side-line"></div><small>OVERVIEW / ARCHITECTURE / IMPLEMENTATION</small><a href="' + esc(p.source) + '" target="_blank" rel="noreferrer">핵심 코드 살펴보기 ↗</a></aside></section>' +
     '<section class="detail-section detail-problem-grid"><div class="detail-section-label"><span>01</span><span>WHY THIS PROJECT</span></div><div class="detail-problem-content">' +
       '<article><span>THE PROBLEM</span><h2>무엇이 불편했고,<br>어떤 문제가 있었나</h2><p>' + esc(p.problem) + '</p></article>' +
