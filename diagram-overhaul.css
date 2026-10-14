@@ -6,7 +6,7 @@
 
 /* Architecture */
 .project-detail .arch-map{width:100%;padding:26px 24px 24px;display:flex;flex-direction:column;align-items:stretch;gap:0;background:#f3f7fd;color:#26364b;overflow:hidden}
-.project-detail .arch-lane{position:relative;width:100%;min-height:118px;padding:22px 22px 22px 145px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:nowrap;background:#f8fbff;border:1px solid #c6d7ed;border-radius:0}
+.project-detail .arch-lane{position:relative;width:100%;min-height:118px;padding:22px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:nowrap;background:#f8fbff;border:1px solid #c6d7ed;border-radius:0}
 .project-detail .arch-lane-label{position:absolute;left:20px;top:18px;width:105px;padding:0;color:#526f99;text-align:left;font:700 9px/1.45 'DM Mono',monospace;letter-spacing:.14em}
 .project-detail .arch-lane-label::after{content:'';display:block;width:24px;height:1px;margin-top:8px;background:#9bb7df}
 .project-detail .arch-node{position:relative;flex:1 1 180px;min-width:145px;max-width:240px;min-height:76px;padding:15px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px solid #c3d2e7;border-radius:3px;background:#fff;box-shadow:none;text-align:center}
@@ -93,3 +93,10 @@
  .project-detail .arch-connector{height:46px}
  .project-detail .visual-title{align-items:flex-start;flex-direction:column;gap:6px}
 }
+
+/* Architecture alignment/color fixes */
+.project-detail .arch-lane{padding-left:22px}
+.project-detail .arch-connector span,.project-detail .arch-fork span{background:#f8fbff;color:#526f99}
+.project-detail .arch-note{background:#f8fbff;border:1px dashed #c6d7ed;border-radius:6px;padding:12px 16px;color:#5d718c}
+.project-detail .arch-map .data-lane .arch-connector span,.project-detail .arch-map .data-lane .arch-fork span{background:#eaf2ff}
+@media(max-width:760px){.project-detail .arch-lane{padding-left:14px}}
