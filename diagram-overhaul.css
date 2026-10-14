@@ -105,3 +105,34 @@
 .project-detail .arch-lane-label{width:100%;max-width:100%;padding-right:20px;white-space:nowrap;overflow:visible;z-index:3;pointer-events:none}
 .project-detail .arch-lane-label::after{margin-top:8px}
 @media(max-width:760px){.project-detail .arch-lane-label{width:auto;white-space:nowrap;padding-right:0}}
+
+
+/* Reserve a dedicated header row inside every architecture lane. */
+.project-detail .arch-lane{
+  min-height:140px;
+  padding:48px 22px 22px;
+}
+.project-detail .arch-lane-label{
+  left:20px;
+  right:20px;
+  top:12px;
+  width:auto;
+  max-width:calc(100% - 40px);
+  white-space:normal;
+  line-height:1.35;
+  z-index:3;
+}
+@media(max-width:760px){
+  .project-detail .arch-lane{
+    min-height:0;
+    padding:54px 14px 16px;
+  }
+  .project-detail .arch-lane-label{
+    left:14px;
+    right:14px;
+    top:14px;
+    width:auto;
+    max-width:calc(100% - 28px);
+    white-space:normal;
+  }
+}
