@@ -230,3 +230,10 @@
   left:50%;
   transform:translateX(-50%);
 }
+
+/* Remove any remaining right-facing arrows from the architecture diagrams. */
+.project-detail .arch-link,
+.project-detail .arch-link::before{
+  display:none !important;
+  content:none !important;
+}
