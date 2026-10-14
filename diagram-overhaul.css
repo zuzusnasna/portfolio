@@ -209,3 +209,24 @@
   background:#f8fbff;
   border-color:#cbd9ec;
 }
+
+/* Connector cleanup: remove the inherited horizontal arrow-line and center label + down arrow as one group. */
+.project-detail .arch-connector{
+  background:none;
+}
+.project-detail .arch-connector::before{
+  content:none;
+  display:none;
+}
+.project-detail .arch-connector span{
+  top:calc(50% - 19px);
+  left:50%;
+  transform:translateX(-50%);
+}
+.project-detail .arch-connector::after{
+  content:'↓';
+  top:calc(50% + 1px);
+  bottom:auto;
+  left:50%;
+  transform:translateX(-50%);
+}
