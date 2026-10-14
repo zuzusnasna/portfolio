@@ -136,3 +136,9 @@
     white-space:normal;
   }
 }
+
+
+/* Use one consistent pale-blue background for architecture connectors and labels. */
+.project-detail .arch-map{background:#eaf2ff}
+.project-detail .arch-connector span,
+.project-detail .arch-fork span{background:#eaf2ff}
