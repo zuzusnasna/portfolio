@@ -1,5 +1,12 @@
-/* Project resource links and same-theme detail pages. */
+/* Project resource links and project-specific long-form pages. */
 (function () {
+  const detailPages = {
+    swing: 'project-swingfit.html',
+    game: 'project-gamehub.html',
+    ems: 'project-ems.html',
+    smart: 'project-smartticketing.html',
+    meet: 'project-meetup.html'
+  };
   const links = {
     smart: [
       ['Repository ↗', 'https://github.com/zuzusnasna/SmartTicketing'],
@@ -27,18 +34,19 @@
 
   function projectActions(key) {
     const resources = links[key] || [];
-    const actions = document.body.dataset.projectDetail
-      ? resources
-      : [['프로젝트 상세 ↗', 'project.html?project=' + encodeURIComponent(key)], ...resources];
+    const actions = detailPages[key]
+      ? [['프로젝트 상세 ↗', detailPages[key]], ...resources]
+      : resources;
     return actions.map(([label, url], index) =>
-      '<a class="project-action' + (index === 0 && !document.body.dataset.projectDetail ? ' detail-link' : '') + '" href="' + url + '" target="' + (url.startsWith('project.html') ? '_self' : '_blank') + '" rel="noreferrer">' + label + '</a>'
+      '<a class="project-action' + (index === 0 && detailPages[key] ? ' detail-link' : '') +
+      '" href="' + url + '" target="' + (detailPages[key] && index === 0 ? '_self' : '_blank') +
+      '" rel="noreferrer">' + label + '</a>'
     ).join('');
   }
 
   window.projectActions = projectActions;
-  const requested = new URLSearchParams(window.location.search).get('project');
-  const active = document.querySelector('.project-tab.active');
-  window.renderProject(document.body.dataset.projectDetail
-    ? (requested || 'smart')
-    : (requested || active?.dataset.project || 'smart'));
+  if (typeof window.renderProject === 'function') {
+    const active = document.querySelector('.project-tab.active');
+    window.renderProject(active?.dataset.project || 'smart');
+  }
 })();
