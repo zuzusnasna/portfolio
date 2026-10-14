@@ -3,13 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="0; url=project-smartticketing.html">
 <title>프로젝트 상세로 이동 — 주상혁 포트폴리오</title>
 <script>
 (function(){
   const pages={swing:"project-swingfit.html",game:"project-gamehub.html",ems:"project-ems.html",smart:"project-smartticketing.html",meet:"project-meetup.html"};
   const key=new URLSearchParams(location.search).get("project")||"smart";
-  location.replace((pages[key]||pages.smart));
+  location.replace(pages[key]||pages.smart);
 })();
 </script>
 </head>
