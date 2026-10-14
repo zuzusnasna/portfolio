@@ -126,7 +126,7 @@
       ],
       role:"팀 프로젝트에서 회원·인증, 소셜 로그인 및 계정 연동, 회원 정보 관리, SSE 알림, QR 티켓·입장 확인, 해시 라우팅과 AWS 배포·CI/CD 구성을 담당했습니다. 예매 잠금·Outbox 등은 서비스 전체 구조를 설명하기 위해 함께 소개합니다.",
       outcome:"README에 기록된 Redis 적용 전 로컬 k6 기준값은 메인·공통 조회 약 2,600 req/s, 시간표 조회 약 224 req/s, 좌석 배치 조회 약 1,280 req/s입니다. 이 값은 해당 테스트 환경의 기준값이며 개선율이나 운영 환경 성능으로 확대 해석하지 않았습니다.",
-      repo:"https://github.com/zuzusnasna/SmartTicketing", source:"https://github.com/zuzusnasna/SmartTicketing/blob/main/src/main/java/smartticketing/service/TicketService.java", live:"https://smartticketing.duckdns.org", resources:[["발표 자료","https://github.com/zuzusnasna/SmartTicketing/blob/main/SmartTicketing%20%EB%B0%9C%ED%91%9C.pptx"]]
+      repo:"https://github.com/zuzusnasna/SmartTicketing", source:"https://github.com/zuzusnasna/SmartTicketing/blob/main/src/main/java/smartticketing/service/TicketService.java", live:"https://smartticketing.duckdns.org", resources:[["성능 측정 결과","project-smartticketing-performance.html"],["발표 자료","https://github.com/zuzusnasna/SmartTicketing/blob/main/SmartTicketing%20%EB%B0%9C%ED%91%9C.pptx"]]
     },
     meet:{
       index:"05", name:"MEET-UP", category:"FULL STACK · MAP · GROUP PLANNING · IN PROGRESS",
