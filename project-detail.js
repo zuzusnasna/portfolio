@@ -30,7 +30,7 @@
       ],
       role:"팀 캡스톤 프로젝트입니다. 저장소 코드에서는 영상 선택·재생, 분석 실행 제어, ROI 입력, TFLite 실행 경로, 프레임별 추적 및 결과 Overlay 구조를 확인할 수 있습니다.",
       outcome:"모바일에서 별도 서버 추론에 의존하지 않고 영상 분석 파이프라인을 구성했습니다. 분석 추정값은 모델과 영상 조건에 영향을 받으며, 별도 검증 수치가 없는 성능 개선율은 기재하지 않았습니다.",
-      repo:"https://github.com/zuzusnasna/SwingFit", source:"https://github.com/zuzusnasna/SwingFit/blob/main/app/src/main/java/com/example/swingfit/BallAnalyzer.kt"
+      repo:"https://github.com/zuzusnasna/SwingFit", source:"https://github.com/zuzusnasna/SwingFit/blob/main/app/src/main/java/com/example/swingfit/BallAnalyzer.kt", resources:[["논문 PDF","https://github.com/zuzusnasna/SwingFit/blob/main/DCS_2025_%ED%95%98%EA%B3%84%EC%A2%85%ED%95%A9%ED%95%99%EC%88%A0%EB%8C%80%ED%9A%8C_%EB%8C%80%ED%95%99%EC%83%9D%EB%85%BC%EB%AC%B8%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C_%EB%85%BC%EB%AC%B8_%EC%86%A1%EC%A3%BC%EB%B0%95%ED%8C%80.pdf"],["발표 자료","https://docs.google.com/presentation/d/1Pq6C9Gpwqa5nS4xreTDfaa-qO3nPzDRG/edit?usp=sharing&ouid=116307840021041251052&rtpof=true&sd=true"]]
     },
     game:{
       index:"02", name:"GAMEHUB", category:"JAVA WEB · COMMUNITY · ACCESS CONTROL",
@@ -62,7 +62,7 @@
       ],
       role:"팀 프로젝트입니다. README의 DAO/DTO/Servlet 기반 구조와 저장소의 게시글 삭제 Servlet을 함께 확인해 권한 판정 및 오류 처리 흐름을 중심으로 설명했습니다.",
       outcome:"단순 CRUD를 넘어 회원 역할과 리소스 소유권을 함께 확인하는 커뮤니티 권한 구조를 구현했습니다. 팀 프로젝트의 전체 기여를 개인 단독 구현으로 표현하지 않고 저장소에서 확인 가능한 구조와 흐름을 중심으로 정리했습니다.",
-      repo:"https://github.com/zuzusnasna/miniproject", source:"https://github.com/zuzusnasna/miniproject/blob/main/src/main/java/com/gamecommunity/servlet/PostDeleteServlet.java"
+      repo:"https://github.com/zuzusnasna/miniproject", source:"https://github.com/zuzusnasna/miniproject/blob/main/src/main/java/com/gamecommunity/servlet/PostDeleteServlet.java", resources:[["프로젝트 보고서","https://github.com/zuzusnasna/miniproject/blob/main/GameHub%20%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf"],["발표 자료","https://docs.google.com/presentation/d/1O8qmPBlW6gBzqgfcE0S12cH3KzVe9jgL/edit?usp=sharing&ouid=116307840021041251052&rtpof=true&sd=true"]]
     },
     ems:{
       index:"03", name:"EMS", category:"FULL STACK · EQUIPMENT OPERATIONS",
@@ -94,7 +94,7 @@
       ],
       role:"저장소의 EquipmentController와 EquipmentService에서는 CRUD, 상태 필터, 이름 검색, 요청 검증 흐름을 확인할 수 있습니다. README에 기재된 이력·대시보드·테스트 기능도 상세 설명에 반영했습니다.",
       outcome:"장비 CRUD와 검색 API를 넘어 운영자가 현황을 요약해 보고 상태 변경의 맥락을 추적할 수 있는 관리 흐름을 구성했습니다. README의 기술 버전 표기와 실제 빌드 설정이 다를 수 있어 세부 버전보다 저장소에서 확인되는 구성 요소를 중심으로 표기했습니다.",
-      repo:"https://github.com/zuzusnasna/equipment-management", source:"https://github.com/zuzusnasna/equipment-management/blob/main/src/main/java/com/example/equipmentmanagement/equipment/EquipmentController.java"
+      repo:"https://github.com/zuzusnasna/equipment-management", source:"https://github.com/zuzusnasna/equipment-management/blob/main/src/main/java/com/example/equipmentmanagement/equipment/EquipmentController.java", resources:[["프로젝트 보고서","https://github.com/zuzusnasna/equipment-management/blob/main/EMS%20%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf"],["발표 자료","https://docs.google.com/presentation/d/1KrGjSpPWXOR8gUXXhFqFXyQUNTyPWBGk/edit?usp=sharing&ouid=116307840021041251052&rtpof=true&sd=true"]]
     },
     smart:{
       index:"04", name:"SMARTTICKETING", category:"FULL STACK · CONCURRENCY · REDIS · CI/CD",
@@ -126,7 +126,7 @@
       ],
       role:"팀 프로젝트에서 회원·인증, 소셜 로그인 및 계정 연동, 회원 정보 관리, SSE 알림, QR 티켓·입장 확인, 해시 라우팅과 AWS 배포·CI/CD 구성을 담당했습니다. 예매 잠금·Outbox 등은 서비스 전체 구조를 설명하기 위해 함께 소개합니다.",
       outcome:"README에 기록된 Redis 적용 전 로컬 k6 기준값은 메인·공통 조회 약 2,600 req/s, 시간표 조회 약 224 req/s, 좌석 배치 조회 약 1,280 req/s입니다. 이 값은 해당 테스트 환경의 기준값이며 개선율이나 운영 환경 성능으로 확대 해석하지 않았습니다.",
-      repo:"https://github.com/zuzusnasna/SmartTicketing", source:"https://github.com/zuzusnasna/SmartTicketing/blob/main/src/main/java/smartticketing/service/TicketService.java", live:"https://smartticketing.duckdns.org"
+      repo:"https://github.com/zuzusnasna/SmartTicketing", source:"https://github.com/zuzusnasna/SmartTicketing/blob/main/src/main/java/smartticketing/service/TicketService.java", live:"https://smartticketing.duckdns.org", resources:[["발표 자료","https://github.com/zuzusnasna/SmartTicketing/blob/main/SmartTicketing%20%EB%B0%9C%ED%91%9C.pptx"]]
     },
     meet:{
       index:"05", name:"MEET-UP", category:"FULL STACK · MAP · GROUP PLANNING · IN PROGRESS",
@@ -182,7 +182,8 @@
       '<h1>' + esc(p.title) + '</h1><p class="detail-lead">' + esc(p.lead) + '</p>' +
       '<div class="detail-tags">' + p.stack.map(tag => '<span>' + esc(tag) + '</span>').join("") + '</div>' +
       '<div class="detail-hero-actions"><a class="detail-primary-link" href="' + esc(p.repo) + '" target="_blank" rel="noreferrer">GITHUB REPOSITORY ↗</a>' +
-      (p.live ? '<a class="detail-secondary-link" href="' + esc(p.live) + '" target="_blank" rel="noreferrer">LIVE SERVICE ↗</a>' : '') + '</div></div>' +
+      (p.live ? '<a class="detail-secondary-link" href="' + esc(p.live) + '" target="_blank" rel="noreferrer">LIVE SERVICE ↗</a>' : '') + '</div>' +
+      (p.resources ? '<div class="detail-resource-links">' + p.resources.map(item => '<a href="' + esc(item[1]) + '" target="_blank" rel="noreferrer">' + esc(item[0]) + ' ↗</a>').join("") + '</div>' : '') + '</div></div>' +
       '<aside class="detail-side-index"><span>PROJECT FILE</span><strong>' + esc(p.name) + '</strong><div class="detail-side-line"></div><small>OVERVIEW / ARCHITECTURE / IMPLEMENTATION</small><a href="' + esc(p.source) + '" target="_blank" rel="noreferrer">핵심 코드 살펴보기 ↗</a></aside></section>' +
     '<section class="detail-section detail-problem-grid"><div class="detail-section-label"><span>01</span><span>WHY THIS PROJECT</span></div><div class="detail-problem-content">' +
       '<article><span>THE PROBLEM</span><h2>무엇이 불편했고,<br>어떤 문제가 있었나</h2><p>' + esc(p.problem) + '</p></article>' +
