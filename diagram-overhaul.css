@@ -100,3 +100,8 @@
 .project-detail .arch-note{background:#f8fbff;border:1px dashed #c6d7ed;border-radius:6px;padding:12px 16px;color:#5d718c}
 .project-detail .arch-map .data-lane .arch-connector span,.project-detail .arch-map .data-lane .arch-fork span{background:#eaf2ff}
 @media(max-width:760px){.project-detail .arch-lane{padding-left:14px}}
+
+/* Widen architecture section labels so long titles stay fully visible. */
+.project-detail .arch-lane-label{width:100%;max-width:100%;padding-right:20px;white-space:nowrap;overflow:visible;z-index:3;pointer-events:none}
+.project-detail .arch-lane-label::after{margin-top:8px}
+@media(max-width:760px){.project-detail .arch-lane-label{width:auto;white-space:nowrap;padding-right:0}}
