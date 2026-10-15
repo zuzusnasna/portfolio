@@ -10,6 +10,7 @@
   const links = {
     smart: [
       ['Repository ↗', 'https://github.com/zuzusnasna/SmartTicketing'],
+      ['Performance Result ↗', 'project-smartticketing-performance.html'],
       ['PPT ↗', 'https://github.com/zuzusnasna/SmartTicketing/blob/main/SmartTicketing%20%EB%B0%9C%ED%91%9C.pptx']
     ],
     swing: [
