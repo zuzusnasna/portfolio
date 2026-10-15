@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="diagram-overhaul.css?v=colors3">
 <link rel="stylesheet" href="layout-recovery.css">
 <link rel="stylesheet" href="project-detail.css">
+<link rel="stylesheet" href="portfolio-enhancements.css">
 <style>
 .performance-page .detail-hero{padding-bottom:54px}
 .performance-page .detail-hero h1{font-size:clamp(42px,5vw,58px);line-height:1.08;letter-spacing:-.055em}
@@ -63,10 +64,7 @@
 <header class="site-header">
   <a class="brand" href="index.html#top">JUSANGHYEOK<span>.</span></a>
   <nav aria-label="메인 메뉴">
-    <a href="index.html#about">About</a>
-    <a href="index.html#projects">Projects</a>
-    <a href="index.html#method">Method</a>
-    <a href="index.html#contact">Contact</a>
+    <a href="index.html#about">About</a><a href="index.html#projects">Projects</a><a href="index.html#method">Method</a><a href="index.html#contact">Contact</a>
   </nav>
 </header>
 <main class="detail-page-main">
@@ -82,91 +80,34 @@
         <article><span>SHOWTIME ROWS</span><strong>146,400 → 7,200</strong><p>좌석 재고 조회의 JDBC 결과 행 총합</p></article>
         <article><span>AUTO DISPATCH</span><strong>25% → 100%</strong><p>소규모 실험의 전체 흐름 성공률</p></article>
       </div>
+      <div class="performance-visual">
+        <article class="performance-visual-card"><small>WAITING RANK</small><div class="performance-visual-values"><div class="before"><b>1회</b><span>BEFORE</span></div><span class="arrow">→</span><div class="after"><b>0회</b><span>AFTER</span></div></div><em>순번 계산 SQL · 요청당 SQL 제거</em></article>
+        <article class="performance-visual-card"><small>SHOWTIME ROWS</small><div class="performance-visual-values"><div class="before"><b>146,400</b><span>BEFORE</span></div><span class="arrow">→</span><div class="after"><b>7,200</b><span>AFTER</span></div></div><em>JDBC 결과 행 · 총 결과 행 약 95% 감소</em></article>
+        <article class="performance-visual-card"><small>AUTO DISPATCH</small><div class="performance-visual-values"><div class="before"><b>25%</b><span>BEFORE</span></div><span class="arrow">→</span><div class="after"><b>100%</b><span>AFTER</span></div></div><em>흐름 성공률 · 1/4 → 4/4 성공</em></article>
+      </div>
     </div>
     <aside class="detail-side-index"><span>PERFORMANCE REPORT</span><strong>SMARTTICKETING</strong><div class="detail-side-line"></div><small>QUERY COST / JDBC ROWS / CONCURRENCY FLOW</small><a href="https://github.com/zuzusnasna/SmartTicketing" target="_blank" rel="noreferrer">저장소 코드 살펴보기 ↗</a></aside>
   </section>
-
   <section class="detail-section">
     <div class="detail-section-label"><span>01</span><span>QUERY MEASUREMENTS</span></div>
     <div class="detail-section-heading"><h2>조회 경로에서 발생한 비용 비교</h2><p>막대는 각 카드 안의 지표별 개선 전 수치를 기준으로 표현했습니다. 서로 다른 지표 간 막대 길이는 비교할 수 없습니다.</p></div>
     <div class="performance-grid">
-      <article class="performance-card">
-        <div class="performance-card-top"><span class="performance-index">01 / WAITING QUEUE</span><span class="performance-tag">순번 계산 SQL 감소</span></div>
-        <h3>대기 순번 조회</h3><p>Redis Sorted Set에서 앞선 대기자 수를 계산하고, 데이터 버전이 다르거나 조회가 실패하는 경우 DB COUNT로 보완합니다.</p>
-        <div class="metric-title">요청당 순번 계산 SQL</div>
-        <div class="metric-rows">
-          <div class="metric-row"><span class="metric-name">개선 전</span><div class="metric-track"><div class="metric-bar" style="width:100%"></div></div><span class="metric-value">1회</span></div>
-          <div class="metric-row"><span class="metric-name">개선 후</span><div class="metric-track"><div class="metric-bar after" style="width:0%"></div></div><span class="metric-value">0회</span></div>
-        </div>
-        <div class="performance-result"><span>JDBC 결과 행 / 요청</span><strong>128.5행 → 3행</strong><span>총 결과 행: 1,028행 / 8요청 → 24행 / 8요청</span></div>
-      </article>
-      <article class="performance-card">
-        <div class="performance-card-top"><span class="performance-index">02 / SEAT MAP</span><span class="performance-tag">반복 SQL 감소</span></div>
-        <h3>좌석도 조회</h3><p>좌석도 응답을 Redis에 2초 동안 캐싱해 반복 요청에서 DB 접근을 줄입니다.</p>
-        <div class="metric-title">HTTP 요청당 SQL 실행 횟수</div>
-        <div class="metric-rows">
-          <div class="metric-row"><span class="metric-name">개선 전</span><div class="metric-track"><div class="metric-bar" style="width:100%"></div></div><span class="metric-value">2회</span></div>
-          <div class="metric-row"><span class="metric-name">개선 후</span><div class="metric-track"><div class="metric-bar after" style="width:5%"></div></div><span class="metric-value">0.1회</span></div>
-        </div>
-        <div class="performance-result"><span>총 SQL / HTTP 요청</span><strong>122회 / 61건 → 6회 / 60건</strong><span>요청 수가 1건 다르므로 회당 수치와 총합을 함께 표기</span></div>
-      </article>
-      <article class="performance-card">
-        <div class="performance-card-top"><span class="performance-index">03 / SHOWTIMES</span><span class="performance-tag">재고 조회 행 감소</span></div>
-        <h3>상영시간표 조회</h3><p>필요한 재고 필드만 조회하고 계산된 시간표 응답을 Redis TTL 캐시로 재사용합니다.</p>
-        <div class="metric-title">좌석 재고 JDBC 결과 행 / 요청</div>
-        <div class="metric-rows">
-          <div class="metric-row"><span class="metric-name">개선 전</span><div class="metric-track"><div class="metric-bar" style="width:100%"></div></div><span class="metric-value">2,400행</span></div>
-          <div class="metric-row"><span class="metric-name">개선 후</span><div class="metric-track"><div class="metric-bar after" style="width:4.92%"></div></div><span class="metric-value">118.03행</span></div>
-        </div>
-        <div class="performance-result"><span>측정된 결과 행 총합</span><strong>146,400행 / 61건 → 7,200행 / 61건</strong></div>
-      </article>
+      <article class="performance-card"><div class="performance-card-top"><span class="performance-index">01 / WAITING QUEUE</span><span class="performance-tag">순번 계산 SQL 감소</span></div><h3>대기 순번 조회</h3><p>Redis Sorted Set에서 앞선 대기자 수를 계산하고, 데이터 버전이 다르거나 조회가 실패하는 경우 DB COUNT로 보완합니다.</p><div class="metric-title">요청당 순번 계산 SQL</div><div class="metric-rows"><div class="metric-row"><span class="metric-name">개선 전</span><div class="metric-track"><div class="metric-bar" style="width:100%"></div></div><span class="metric-value">1회</span></div><div class="metric-row"><span class="metric-name">개선 후</span><div class="metric-track"><div class="metric-bar after" style="width:0%"></div></div><span class="metric-value">0회</span></div></div><div class="performance-result"><span>JDBC 결과 행 / 요청</span><strong>128.5행 → 3행</strong><span>총 결과 행: 1,028행 / 8요청 → 24행 / 8요청</span></div></article>
+      <article class="performance-card"><div class="performance-card-top"><span class="performance-index">02 / SEAT MAP</span><span class="performance-tag">반복 SQL 감소</span></div><h3>좌석도 조회</h3><p>좌석도 응답을 Redis에 2초 동안 캐싱해 반복 요청에서 DB 접근을 줄입니다.</p><div class="metric-title">HTTP 요청당 SQL 실행 횟수</div><div class="metric-rows"><div class="metric-row"><span class="metric-name">개선 전</span><div class="metric-track"><div class="metric-bar" style="width:100%"></div></div><span class="metric-value">2회</span></div><div class="metric-row"><span class="metric-name">개선 후</span><div class="metric-track"><div class="metric-bar after" style="width:5%"></div></div><span class="metric-value">0.1회</span></div></div><div class="performance-result"><span>총 SQL / HTTP 요청</span><strong>122회 / 61건 → 6회 / 60건</strong><span>요청 수가 1건 다르므로 회당 수치와 총합을 함께 표기</span></div></article>
+      <article class="performance-card"><div class="performance-card-top"><span class="performance-index">03 / SHOWTIMES</span><span class="performance-tag">재고 조회 행 감소</span></div><h3>상영시간표 조회</h3><p>필요한 재고 필드만 조회하고 계산된 시간표 응답을 Redis TTL 캐시로 재사용합니다.</p><div class="metric-title">좌석 재고 JDBC 결과 행 / 요청</div><div class="metric-rows"><div class="metric-row"><span class="metric-name">개선 전</span><div class="metric-track"><div class="metric-bar" style="width:100%"></div></div><span class="metric-value">2,400행</span></div><div class="metric-row"><span class="metric-name">개선 후</span><div class="metric-track"><div class="metric-bar after" style="width:4.92%"></div></div><span class="metric-value">118.03행</span></div></div><div class="performance-result"><span>측정된 결과 행 총합</span><strong>146,400행 / 61건 → 7,200행 / 61건</strong></div></article>
     </div>
     <div class="performance-note"><strong>측정 해석:</strong> SQL 실행 횟수와 결과 행은 HTTP 요청 스레드에서 계측한 JDBC 값입니다. 별도 워커의 SQL, DB 내부 스캔 행 수, 네트워크 전송 바이트는 포함하지 않습니다. 따라서 결과 행 감소가 곧 같은 비율의 응답 시간 단축을 뜻하지는 않습니다.</div>
   </section>
-
   <section class="detail-section detail-flow-section">
     <div class="detail-section-label"><span>02</span><span>CONCURRENCY FLOW</span></div>
     <div class="detail-section-heading"><h2>취소 후 대기자 자동 선점 실험</h2><p>조회 잠금 제거, 잠금 범위·순서 조정과 Outbox 연계를 포함한 흐름 비교입니다.</p></div>
     <div class="dispatch-grid">
-      <article class="performance-card">
-        <div class="performance-card-top"><span class="performance-index">04 / AUTO DISPATCH</span><span class="performance-tag">흐름 성공률</span></div>
-        <h3>취소 후 대기자 자동 선점</h3>
-        <div class="dispatch-metric">25% <span>→ 100%</span></div>
-        <p class="dispatch-sub">개선 전 1/4건 성공 · 개선 후 4/4건 성공</p>
-        <div class="performance-result"><span>로그에서 관찰한 데드락 경고</span><strong>3건 → 0건</strong></div>
-      </article>
-      <article class="performance-card">
-        <div class="performance-card-top"><span class="performance-index">VALIDATION</span><span class="performance-tag">중복 검사</span></div>
-        <h3>중복 활성 선점</h3>
-        <div class="dispatch-metric">0건 <span>→ 0건</span></div>
-        <p class="dispatch-sub">두 실험 모두 실행 후 DB 검사에서 중복 활성 선점이 관찰되지 않았습니다.</p>
-        <div class="performance-note"><strong>해석 범위:</strong> 전후 각각 4회 시도한 소규모 실험입니다. 대규모 동시 요청이나 운영 환경 전체의 무오류를 입증하지는 않습니다.</div>
-      </article>
+      <article class="performance-card"><div class="performance-card-top"><span class="performance-index">04 / AUTO DISPATCH</span><span class="performance-tag">흐름 성공률</span></div><h3>취소 후 대기자 자동 선점</h3><div class="dispatch-metric">25% <span>→ 100%</span></div><p class="dispatch-sub">개선 전 1/4건 성공 · 개선 후 4/4건 성공</p><div class="performance-result"><span>로그에서 관찰한 데드락 경고</span><strong>3건 → 0건</strong></div></article>
+      <article class="performance-card"><div class="performance-card-top"><span class="performance-index">VALIDATION</span><span class="performance-tag">중복 검사</span></div><h3>중복 활성 선점</h3><div class="dispatch-metric">0건 <span>→ 0건</span></div><p class="dispatch-sub">두 실험 모두 실행 후 DB 검사에서 중복 활성 선점이 관찰되지 않았습니다.</p><div class="performance-note"><strong>해석 범위:</strong> 전후 각각 4회 시도한 소규모 실험입니다. 대규모 동시 요청이나 운영 환경 전체의 무오류를 입증하지는 않습니다.</div></article>
     </div>
-    <details class="performance-details">
-      <summary>측정 조건과 지표 해석 자세히 보기</summary>
-      <div class="performance-detail-body">
-        <h3>공통 환경</h3>
-        <p>Java 21 · MySQL 8.4 · Redis 7 · k6 컨테이너. 모든 회차는 120석 기준이며, 제공된 기록상 전후 동일 데이터·부하·자원 조건으로 비교했습니다.</p>
-        <p>SQL 실행 횟수와 결과 행은 HTTP 요청 스레드의 JDBC 계측값입니다. 별도 워커의 SQL, DB 내부 스캔 행 수, 네트워크 전송 바이트는 포함하지 않습니다.</p>
-        <h3>대기 순번 조회</h3>
-        <p>순번 계산 SQL: 개선 전 8회 / 8요청, 개선 후 0회 / 8요청. JDBC 결과 행: 개선 전 1,028행 / 8요청, 개선 후 24행 / 8요청. 여기서 순번 계산 SQL은 waiting_queues의 COALESCE 순번 비교 쿼리를 뜻하며, 다른 DB 접근이 모두 사라졌다는 뜻은 아닙니다.</p>
-        <h3>좌석도 조회</h3>
-        <p>개선 전 122회 / 61요청, 개선 후 6회 / 60요청입니다. 캐시 적중·미스를 포함한 JDBC 실행 횟수이며 이 수치만으로 정확한 캐시 적중률을 역산하지 않습니다.</p>
-        <h3>상영시간표 조회</h3>
-        <p>좌석 재고 결과 행은 개선 전 146,400행 / 61요청, 개선 후 7,200행 / 61요청입니다. 행 수 감소는 반복 재고 조회를 생략한 효과를 보여주며, 필드 축소에 따른 바이트·메모리 절감은 별도 측정하지 않았습니다.</p>
-        <h3>자동 선점 흐름</h3>
-        <p>순번 확인 → 취소 → HOLDING → 대상 좌석 확인까지 모두 성공해야 성공 1건으로 계산했습니다. 개선 전 1/4건, 개선 후 4/4건입니다. 데드락 수는 로그의 Hibernate WARN 줄 수이며 잠금 순환 개수 자체는 아닙니다. 잠금 그래프가 없어 정확한 행·인덱스 간 잠금 순환은 확인되지 않았습니다.</p>
-        <h3>주의 사항</h3>
-        <p>Redis 캐시뿐 아니라 DB 조회·잠금·Outbox 변경을 포함한 종합 비교입니다. 결과는 제한된 스모크 테스트에서 관찰한 값이며, 운영 성능이나 장애 복구·exactly-once 보장을 의미하지 않습니다.</p>
-      </div>
-    </details>
+    <details class="performance-details"><summary>측정 조건과 지표 해석 자세히 보기</summary><div class="performance-detail-body"><h3>공통 환경</h3><p>Java 21 · MySQL 8.4 · Redis 7 · k6 컨테이너. 모든 회차는 120석 기준이며, 제공된 기록상 전후 동일 데이터·부하·자원 조건으로 비교했습니다.</p><p>SQL 실행 횟수와 결과 행은 HTTP 요청 스레드의 JDBC 계측값입니다. 별도 워커의 SQL, DB 내부 스캔 행 수, 네트워크 전송 바이트는 포함하지 않습니다.</p><h3>대기 순번 조회</h3><p>순번 계산 SQL: 개선 전 8회 / 8요청, 개선 후 0회 / 8요청. JDBC 결과 행: 개선 전 1,028행 / 8요청, 개선 후 24행 / 8요청. 여기서 순번 계산 SQL은 waiting_queues의 COALESCE 순번 비교 쿼리를 뜻하며, 다른 DB 접근이 모두 사라졌다는 뜻은 아닙니다.</p><h3>좌석도 조회</h3><p>개선 전 122회 / 61요청, 개선 후 6회 / 60요청입니다. 캐시 적중·미스를 포함한 JDBC 실행 횟수이며 이 수치만으로 정확한 캐시 적중률을 역산하지 않습니다.</p><h3>상영시간표 조회</h3><p>좌석 재고 결과 행은 개선 전 146,400행 / 61요청, 개선 후 7,200행 / 61요청입니다. 행 수 감소는 반복 재고 조회를 생략한 효과를 보여주며, 필드 축소에 따른 바이트·메모리 절감은 별도 측정하지 않았습니다.</p><h3>자동 선점 흐름</h3><p>순번 확인 → 취소 → HOLDING → 대상 좌석 확인까지 모두 성공해야 성공 1건으로 계산했습니다. 개선 전 1/4건, 개선 후 4/4건입니다. 데드락 수는 로그의 Hibernate WARN 줄 수이며 잠금 순환 개수 자체는 아닙니다. 잠금 그래프가 없어 정확한 행·인덱스 간 잠금 순환은 확인되지 않았습니다.</p><h3>주의 사항</h3><p>Redis 캐시뿐 아니라 DB 조회·잠금·Outbox 변경을 포함한 종합 비교입니다. 결과는 제한된 스모크 테스트에서 관찰한 값이며, 운영 성능이나 장애 복구·exactly-once 보장을 의미하지 않습니다.</p></div></details>
   </section>
-  <section class="detail-outcome">
-    <div><span>03 / CONCLUSION</span><h2>수치의 의미와 한계까지 함께 기록</h2></div>
-    <p>이번 결과는 대기 순번 계산 SQL, 반복 조회에서 발생한 SQL과 JDBC 결과 행, 취소 후 자동 선점 흐름의 성공 여부를 비교한 것입니다. 제한된 테스트에서 관찰한 변화이며, 실제 운영 트래픽의 응답 시간이나 처리량 개선율로 해석하지 않았습니다. 다음 검증 단계에서는 충분한 반복 횟수와 동시 사용자 규모를 확보하고 p50·p95 응답 시간, 오류율, 처리량, 자원 사용량을 함께 측정해야 합니다.</p>
-    <div class="performance-footer-actions"><a href="project-smartticketing.html">SmartTicketing 상세로 돌아가기 ↗</a><a href="https://github.com/zuzusnasna/SmartTicketing" target="_blank" rel="noreferrer">GitHub 저장소 ↗</a><a href="index.html#projects">전체 프로젝트 ↗</a></div>
-  </section>
+  <section class="detail-outcome"><div><span>03 / CONCLUSION</span><h2>수치의 의미와 한계까지 함께 기록</h2></div><p>이번 결과는 대기 순번 계산 SQL, 반복 조회에서 발생한 SQL과 JDBC 결과 행, 취소 후 자동 선점 흐름의 성공 여부를 비교한 것입니다. 제한된 테스트에서 관찰한 변화이며, 실제 운영 트래픽의 응답 시간이나 처리량 개선율로 해석하지 않았습니다. 다음 검증 단계에서는 충분한 반복 횟수와 동시 사용자 규모를 확보하고 p50·p95 응답 시간, 오류율, 처리량, 자원 사용량을 함께 측정해야 합니다.</p><div class="performance-footer-actions"><a href="project-smartticketing.html">SmartTicketing 상세로 돌아가기 ↗</a><a href="https://github.com/zuzusnasna/SmartTicketing" target="_blank" rel="noreferrer">GitHub 저장소 ↗</a><a href="index.html#projects">전체 프로젝트 ↗</a></div></section>
 </main>
 <footer><span>JUSANGHYEOK</span><span>© 2026</span></footer>
 </body>
