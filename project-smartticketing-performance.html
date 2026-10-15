@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="project-detail.css">
 <style>
 .performance-page .detail-hero{padding-bottom:54px}
+.performance-page .detail-hero h1{font-size:clamp(42px,5vw,58px);line-height:1.08;letter-spacing:-.055em}
 .performance-intro{max-width:900px;color:var(--muted);font-size:14px;line-height:1.95}
 .performance-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:28px}
 .performance-summary article{padding:20px;border:1px solid var(--line);border-radius:12px;background:#fff}
@@ -54,8 +55,8 @@
 .performance-footer-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 .performance-footer-actions a{display:inline-flex;align-items:center;min-height:42px;padding:0 15px;border:1px solid var(--line);border-radius:999px;font-size:11px;font-weight:700}
 .performance-footer-actions a:first-child{background:var(--ink);color:#fff;border-color:var(--ink)}
-@media(max-width:760px){.performance-summary{grid-template-columns:1fr}.performance-grid,.dispatch-grid{grid-template-columns:1fr}.performance-card>p{min-height:0}}
-@media(max-width:480px){.performance-card{padding:18px}.metric-row{grid-template-columns:55px minmax(0,1fr) auto;gap:7px}.metric-value{font-size:10px}}
+@media(max-width:760px){.performance-summary{grid-template-columns:1fr}.performance-grid,.dispatch-grid{grid-template-columns:1fr}.performance-card>p{min-height:0}.performance-page .detail-hero h1{font-size:38px}}
+@media(max-width:480px){.performance-card{padding:18px}.metric-row{grid-template-columns:55px minmax(0,1fr) auto;gap:7px}.metric-value{font-size:10px}.performance-page .detail-hero h1{font-size:32px}}
 </style>
 </head>
 <body class="project-detail-page performance-page" data-project="smart">
