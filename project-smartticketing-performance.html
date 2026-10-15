@@ -75,11 +75,6 @@
       <h1>조회 부하를 줄이고,<br>동시 처리 흐름을 검증하다.</h1>
       <p class="performance-intro">Redis 캐싱·대기 순번 조회 경로와 DB 잠금 범위 조정 전후를 제한된 테스트 조건에서 비교했습니다. 응답 시간 추정치가 아니라 HTTP 요청에서 계측한 SQL 실행 횟수, JDBC 결과 행, 자동 선점 흐름의 성공률을 중심으로 정리했습니다.</p>
       <div class="detail-tags"><span>Java 21</span><span>MySQL 8.4</span><span>Redis 7</span><span>k6</span><span>JDBC 계측 로그</span></div>
-      <div class="performance-summary">
-        <article><span>WAITING RANK SQL</span><strong>1회 → 0회</strong><p>8개 요청 기준 순번 계산 SQL</p></article>
-        <article><span>SHOWTIME ROWS</span><strong>146,400 → 7,200</strong><p>좌석 재고 조회의 JDBC 결과 행 총합</p></article>
-        <article><span>AUTO DISPATCH</span><strong>25% → 100%</strong><p>소규모 실험의 전체 흐름 성공률</p></article>
-      </div>
       <div class="performance-visual">
         <article class="performance-visual-card"><small>WAITING RANK</small><div class="performance-visual-values"><div class="before"><b>1회</b><span>BEFORE</span></div><span class="arrow">→</span><div class="after"><b>0회</b><span>AFTER</span></div></div><em>순번 계산 SQL · 요청당 SQL 제거</em></article>
         <article class="performance-visual-card"><small>SHOWTIME ROWS</small><div class="performance-visual-values"><div class="before"><b>146,400</b><span>BEFORE</span></div><span class="arrow">→</span><div class="after"><b>7,200</b><span>AFTER</span></div></div><em>JDBC 결과 행 · 총 결과 행 약 95% 감소</em></article>
