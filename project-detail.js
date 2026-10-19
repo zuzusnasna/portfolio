@@ -129,19 +129,21 @@
       repo:"https://github.com/zuzusnasna/SmartTicketing", source:"https://github.com/zuzusnasna/SmartTicketing/blob/main/src/main/java/smartticketing/service/TicketService.java", live:"https://smartticketing.duckdns.org", resources:[["성능 측정 결과","project-smartticketing-performance.html"],["발표 자료","https://github.com/zuzusnasna/SmartTicketing/blob/main/SmartTicketing%20%EB%B0%9C%ED%91%9C.pptx"]]
     },
     meet:{
-      index:"05", name:"MEET-UP", category:"FULL STACK · MAP · GROUP PLANNING · IN PROGRESS",
-      title:"여러 사람의 출발지와 모임 후보를 하나의 지도에 연결하다",
-      lead:"모임방에 참여자를 초대하고 각자의 출발 위치와 장소 후보를 지도에서 비교해 투표로 최종 장소를 결정하며, 대중교통 경로·날씨·주변 정보를 함께 확인하는 모임 계획 서비스입니다.",
-      problem:"여럿이 만날 장소를 정할 때는 후보 장소의 위치뿐 아니라 참여자별 출발지, 이동 시간, 환승, 주변 편의시설까지 고려해야 합니다. 정보가 채팅이나 여러 지도 검색으로 흩어지면 합리적인 결정을 내리기 어렵습니다.",
-      approach:"React 화면에서 Kakao Maps SDK를 로드하고 참여자·후보 장소 데이터를 지도 마커로 표현합니다. 모임방·참여자·후보·투표 정보를 API와 연결하고, 최종 장소가 결정되면 사용자별 출발지에 대한 대중교통 귀가 경로를 일괄 요청합니다.",
+      index:"05", name:"MEET-UP", category:"FULL STACK · MAP · GROUP PLANNING · TRANSIT",
+      title:"모임 장소 결정부터 귀가 계획과 정산까지 연결하다",
+      lead:"여러 참여자의 출발지와 장소 후보를 지도에서 확인하고 투표로 모임 장소를 결정하며, 목적에 따른 정산과 귀가 경로 확인까지 한 흐름으로 연결하는 웹 서비스입니다.",
+      problem:"여럿이 만날 장소를 정할 때 장소 후보 투표뿐 아니라 참여자별 출발지, 귀가 경로와 모임 비용까지 함께 고려해야 합니다. 이 정보가 여러 서비스에 흩어져 있으면 장소 결정과 모임 준비가 번거로워집니다.",
+      approach:"모임방과 참여자·장소 후보·투표 흐름을 API와 연결하고 Kakao Maps에 참여자 출발지와 후보 위치를 표시합니다. 목적에 따른 정산 기능과 귀가 경로 연동을 구현했으며, 환승 경로를 포함한 막차 시간 계산은 경로별 운행 정보를 정확히 연결하는 데 어려움이 있어 잠시 중단하고 추후 개발할 예정입니다.",
       stack:["React","Vite","Spring Boot 4","Java 21","Spring Data JPA","Spring Security","OAuth2 Client","WebSocket","Redis","Oracle Database","Kakao Maps"],
       features:[
         ["모임방·초대","URL의 roomId로 초대받은 모임을 이어서 열고 현재 모임과 참여자를 관리합니다. 초대 정보를 localStorage에 보관해 진입 흐름을 이어줍니다.","App.jsx · RoomEntry"],
         ["지도·장소 후보","Kakao Maps SDK를 비동기로 로드하고 지도 위에 후보 장소와 사용자 위치를 표시합니다. 장소 검색과 위치 선택을 모임 결정 흐름에 연결합니다.","App.jsx · SearchPanel · CandidatePanel"],
         ["참여자별 출발지","참여자와 사용자별 위치 데이터를 연결해 지도 마커를 표시하고 해당 위치 정보를 확인할 수 있도록 구성합니다.","OriginPanel · map markers"],
         ["투표·최종 장소 결정","후보별 투표 수를 관리하고 동점 상황에서는 사다리 게임 UI를 통해 최종 장소를 결정하는 흐름을 제공합니다.","CandidatePanel · vote finish"],
-        ["대중교통 경로 갱신","최종 장소와 참여자 출발 좌표를 묶어 /api/transit/return-routes/batch로 요청합니다. 새로고침 시 최신 경로를 가져오고 환승 경로와 예상 소요시간을 사용자별로 표시합니다.","TransitRoutePanel.jsx"],
-        ["날씨·주변 정보·메모","선택 장소의 날씨와 주변 장소 정보를 확인하고 지도에 메모를 남겨 모임 관련 정보를 한 화면에 모읍니다.","WeatherPanel · FinalPlaceNearby · memo markers"]
+        ["귀가 경로 연동","확정 장소와 참여자 출발 위치를 연결해 사용자별 귀가 경로 정보를 조회하는 흐름을 구성했습니다.","TransitRoutePanel.jsx"],
+        ["정산 기능","모임 목적에 따른 정산 금액 계산 기능을 구현해 장소 결정 이후의 모임 준비를 지원합니다.","Settlement flow"],
+        ["날씨·주변 정보·메모","선택 장소의 날씨와 주변 장소 정보를 확인하고 지도에 메모를 남겨 모임 관련 정보를 한 화면에 모읍니다.","WeatherPanel · FinalPlaceNearby · memo markers"],
+        ["막차 시간 계산 · 추후 개발","환승 경로의 구간별 막차 시간과 운행 정보를 정확히 연결하는 데 어려움이 있어 구현을 잠시 중단했습니다. 경로별 막차 정보 처리는 추후 개발 예정입니다.","Planned · transfer-aware last-train times"]
       ],
       flow:[
         ["01","모임방 입장","로그인 사용자를 확인하고 roomId 또는 저장된 초대 정보를 바탕으로 모임방에 진입합니다."],
@@ -153,11 +155,12 @@
       ],
       engineering:[
         ["지도 SDK 비동기 로딩","Kakao Maps SDK가 이미 로드된 경우와 처음 로드하는 경우를 분기하고 Promise를 재사용해 중복 로딩을 줄입니다."],
-        ["경로 요청의 명시적 새로고침","TransitRoutePanel은 확정 장소 좌표를 기준으로 참여자 출발지를 묶어 batch API에 refresh=true로 전달해 경로를 다시 계산하도록 요청합니다."],
-        ["UI 상태와 데이터 요청 분리","지도, 선택 장소, 참여자, 투표, 날씨, 경로 로딩 상태를 React state로 관리하고 각 패널의 역할을 분리합니다."]
+        ["경로 요청의 명시적 새로고침","TransitRoutePanel은 확정 장소와 참여자 출발 위치를 기준으로 귀가 경로 데이터를 다시 요청하는 흐름을 담당합니다."],
+        ["UI 상태와 데이터 요청 분리","지도, 선택 장소, 참여자, 투표, 정산, 날씨와 경로 로딩 상태를 React state로 관리하고 각 패널의 역할을 분리합니다."],
+        ["환승 구간별 막차 시간 처리","환승 경로의 구간별 운행 종료 시각을 연결해 최종 귀가 가능 여부를 계산하는 부분은 정확한 운행 정보 확보와 구간 연결에 어려움이 있어 현재 중단했습니다. 추후 보완할 계획입니다."]
       ],
-      role:"현재 진행 중인 프로젝트입니다. 확인한 프론트엔드 코드에는 Kakao Maps SDK 로딩, 모임·후보·투표 상태, 주변 정보와 대중교통 경로 batch 요청이 포함되어 있습니다. 저장소에서 README가 확인되지 않아 공개 코드와 빌드 설정을 중심으로 설명했습니다.",
-      outcome:"장소 추천만 제공하는 것이 아니라 참여자별 출발 위치와 이동 경로까지 모임 결정 과정에 묶는 방향으로 개발 중입니다. 진행 중인 기능은 완성된 운영 기능으로 과장하지 않고 현재 코드에서 확인되는 범위로 표기했습니다.",
+      role:"모임방 생성, 장소 후보 선택과 투표, 참여자별 출발지 지도 표시 및 위치 탐색, 목적에 따른 정산 기능을 구현했습니다. 귀가 경로 연동도 진행했으며, 환승 경로를 고려한 막차 시간 계산은 정확한 구간별 운행 정보 처리가 어려워 잠시 중단한 상태입니다.",
+      outcome:"현재까지 모임방과 장소 후보 투표, 지도 기반 출발지 확인, 목적별 정산 기능을 구현했습니다. 귀가 경로 연동도 반영했으며, 환승 구간을 포함한 막차 시간 계산은 추후 개발 예정입니다. 구현 완료된 기능과 추후 개발 항목을 구분해 정리했습니다.",
       repo:"https://github.com/zuzusnasna/Meet-Up", source:"https://github.com/zuzusnasna/Meet-Up/blob/main/frontend/src/App.jsx"
     }
   };
