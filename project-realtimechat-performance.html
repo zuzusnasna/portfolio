@@ -29,7 +29,16 @@
 .performance-note strong{color:var(--ink)}
 @media(max-width:900px){.performance-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.performance-summary{grid-template-columns:1fr}.performance-summary article{padding:17px}}
-.test-condition-grid .detail-info-card h3{font-size:clamp(23px,2.5vw,32px);letter-spacing:-.04em;margin:12px 0 6px}.condition-stat{margin:0!important;font-size:12px!important;color:var(--ink)!important;line-height:1.5!important}.condition-stat span{display:block;margin-top:5px;color:var(--muted);font-size:11px}.condition-footnote{margin:14px 0 0;color:var(--muted);font-size:11px;line-height:1.7}
+.test-condition-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:26px}
+.test-condition-grid .detail-info-card{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;min-width:0;min-height:190px;padding:22px 20px!important;border:1px solid #d9e2ef!important;border-radius:16px!important;background:linear-gradient(180deg,#fff 0%,#f8faff 100%)!important;box-shadow:0 8px 22px rgba(31,48,79,.06)!important;overflow-wrap:anywhere;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.test-condition-grid .detail-info-card:hover{transform:translateY(-3px);border-color:#b7cbed!important;box-shadow:0 12px 26px rgba(31,48,79,.1)!important}
+.test-condition-grid .detail-info-card>span{display:inline-flex;align-items:center;min-height:24px;padding:4px 8px;border-radius:6px;background:#edf3fd;color:#48699d;font:10px 'DM Mono',monospace;letter-spacing:.07em}
+.test-condition-grid .detail-info-card h3{font-size:clamp(23px,2.5vw,32px);letter-spacing:-.04em;margin:18px 0 8px;line-height:1.2}
+.test-condition-grid .condition-stat{margin:auto 0 0!important;padding-top:12px;border-top:1px solid #e4eaf3;width:100%;font-size:12px!important;color:var(--ink)!important;line-height:1.5!important}
+.test-condition-grid .condition-stat span{display:block;margin-top:5px;color:var(--muted);font-size:11px}
+.condition-footnote{margin:14px 0 0;color:var(--muted);font-size:11px;line-height:1.7}
+@media(max-width:900px){.test-condition-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.test-condition-grid{grid-template-columns:1fr}.test-condition-grid .detail-info-card{min-height:155px}}
 </style>
 </head>
 <body class="project-detail-page performance-page" data-project="realtimechat">
