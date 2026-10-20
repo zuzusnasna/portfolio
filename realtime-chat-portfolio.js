@@ -104,4 +104,5 @@
   document.querySelectorAll('.project-tab').forEach(button => {
     button.setAttribute('aria-selected', String(button.classList.contains('active')));
   });
+  if (new URLSearchParams(window.location.search).get('project') === 'realtimechat') render();
 })();
