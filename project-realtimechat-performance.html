@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Real-Time Chat k6 저부하 테스트 결과와 HTTP 및 WebSocket 측정값">
+<title>Real-Time Chat 성능 측정 — 주상혁 포트폴리오</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="diagram-overhaul.css?v=colors3">
+<link rel="stylesheet" href="layout-recovery.css">
+<link rel="stylesheet" href="project-detail.css">
+<link rel="stylesheet" href="portfolio-enhancements.css">
+<link rel="stylesheet" href="realtime-chat-portfolio.css">
+<style>
+.performance-page .detail-hero{padding-bottom:50px}
+.performance-intro{max-width:900px;color:var(--muted);font-size:14px;line-height:1.95}
+.performance-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:28px}
+.performance-summary article{padding:20px;border:1px solid var(--line);border-radius:12px;background:#fff;min-width:0}
+.performance-summary span{display:block;color:var(--muted);font:10px 'DM Mono',monospace;letter-spacing:.06em;line-height:1.5}
+.performance-summary strong{display:block;margin-top:12px;font-size:clamp(21px,2.6vw,34px);letter-spacing:-.05em}
+.performance-summary p{margin:7px 0 0;color:var(--muted);font-size:11px;line-height:1.7}
+.performance-table-wrap{margin-top:24px;overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
+.performance-table{width:100%;border-collapse:collapse;font-size:12px}
+.performance-table th,.performance-table td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+.performance-table th{background:#f3f7fd;color:#50617a;font:10px 'DM Mono',monospace;letter-spacing:.04em}
+.performance-table tr:last-child td{border-bottom:0}
+.performance-table td:last-child{font-variant-numeric:tabular-nums;font-weight:750}
+.performance-note{margin-top:20px;padding:18px 20px;border:1px solid #d7e3f4;border-radius:12px;background:#f2f6fc;color:#526078;font-size:12px;line-height:1.9}
+.performance-note strong{color:var(--ink)}
+@media(max-width:900px){.performance-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.performance-summary{grid-template-columns:1fr}.performance-summary article{padding:17px}}
+</style>
+</head>
+<body class="project-detail-page performance-page" data-project="realtimechat">
+<header class="site-header"><a class="brand" href="index.html#top">JUSANGHYEOK<span>.</span></a><nav aria-label="메인 메뉴"><a href="index.html#about">About</a><a href="index.html#projects">Projects</a><a href="index.html#method">Method</a><a href="index.html#contact">Contact</a></nav></header>
+<main class="detail-page-main">
+  <div class="detail-page-top"><a class="detail-back-link" href="project-realtimechat.html">← REAL-TIME CHAT 상세로 돌아가기</a></div>
+  <section class="detail-hero">
+    <div class="detail-hero-copy">
+      <div class="detail-eyebrow"><span>06</span>REAL-TIME CHAT / PERFORMANCE VALIDATION</div>
+      <h1>기본 동작을 확인하고,<br>다음 측정 기준을 세우다.</h1>
+      <p class="performance-intro">k6 스크립트 <code>k6/chat-load.js</code>로 최대 5 VU, 약 80초의 저부하 시나리오를 실행했습니다. 이 결과는 HTTP API와 WebSocket 연결, 서로 다른 애플리케이션 인스턴스 간 메시지 전달을 검증한 초기 기준값입니다.</p>
+      <div class="detail-tags"><span>k6</span><span>5 max VUs</span><span>80 sec scenario</span><span>HTTP + WebSocket</span><span>App-1 / App-2</span></div>
+      <div class="performance-summary">
+        <article><span>CHECKS</span><strong>51 / 51</strong><p>모든 체크 성공 · 100%</p></article>
+        <article><span>HTTP REQUEST FAILURE</span><strong>0%</strong><p>0 / 28 요청 실패</p></article>
+        <article><span>WEBSOCKET CONNECTED</span><strong>100%</strong><p>23 / 23 세션 연결</p></article>
+        <article><span>CROSS-INSTANCE DELIVERY</span><strong>360</strong><p>평균 20.81ms · p95 27ms</p></article>
+      </div>
+    </div>
+    <aside class="detail-side-index"><span>PERFORMANCE REPORT</span><strong>REAL-TIME CHAT</strong><div class="detail-side-line"></div><small>LOW LOAD / HTTP / WEBSOCKET / REDIS PUB-SUB</small><a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/k6/chat-load.js" target="_blank" rel="noreferrer">k6 테스트 스크립트 ↗</a></aside>
+  </section>
+  <section class="detail-section">
+    <div class="detail-section-label"><span>01</span><span>TEST CONDITIONS</span></div>
+    <div class="detail-section-heading"><h2>측정 조건</h2><p>테스트 실행 조건을 함께 표시해 결과가 의미하는 범위를 명확히 합니다.</p></div>
+    <div class="detail-card-grid">
+      <article class="detail-info-card"><span>SCENARIO</span><h3>chat_load</h3><p>최대 5명의 가상 사용자(VU)가 반복 시나리오를 실행했습니다.</p></article>
+      <article class="detail-info-card"><span>DURATION</span><h3>약 80초</h3><p>3단계 ramping 시나리오이며 종료 유예 시간을 포함한 실행 시간은 약 1분 33초였습니다.</p></article>
+      <article class="detail-info-card"><span>HTTP</span><h3>28 requests</h3><p>HTTP API 요청 실패율과 요청 처리 시간의 분포를 확인했습니다.</p></article>
+      <article class="detail-info-card"><span>WEBSOCKET</span><h3>23 sessions</h3><p>핸드셰이크와 WebSocket 세션 연결, 교차 인스턴스 메시지 수신을 확인했습니다.</p></article>
+    </div>
+  </section>
+  <section class="detail-section">
+    <div class="detail-section-label"><span>02</span><span>HTTP METRICS</span></div>
+    <div class="detail-section-heading"><h2>HTTP 요청 지표</h2><p>p95는 전체 요청 중 95%가 해당 시간 이내에 완료된 지점을 나타냅니다. 평균만으로는 긴 지연 요청을 놓칠 수 있어 함께 확인합니다.</p></div>
+    <div class="performance-table-wrap"><table class="performance-table"><thead><tr><th>METRIC</th><th>RESULT</th></tr></thead><tbody>
+      <tr><td>HTTP requests</td><td>28</td></tr><tr><td>Request failure rate</td><td>0.00% (0 / 28)</td></tr><tr><td>Response time average</td><td>105.09 ms</td></tr><tr><td>Response time median</td><td>65.87 ms</td></tr><tr><td>Response time p90</td><td>97.01 ms</td></tr><tr><td>Response time p95</td><td>432.69 ms</td></tr><tr><td>Response time max</td><td>601.89 ms</td></tr>
+    </tbody></table></div>
+    <div class="performance-note"><strong>해석:</strong> HTTP 요청 실패는 없었지만 p95 432.69ms, 최대 601.89ms가 관찰되었습니다. 요청 수가 28건으로 적기 때문에 p95는 개별 느린 요청의 영향을 크게 받을 수 있습니다. 더 높은 부하와 반복 실행으로 재확인하기 전에는 성능 한계나 개선율을 결론 내리지 않습니다.</div>
+  </section>
+  <section class="detail-section">
+    <div class="detail-section-label"><span>03</span><span>WEBSOCKET & CROSS-INSTANCE</span></div>
+    <div class="detail-section-heading"><h2>WebSocket 연결과 인스턴스 간 메시지 전달</h2><p>서로 다른 앱 인스턴스에 연결된 사용자 사이의 메시지 전달 이벤트를 별도 커스텀 지표로 계측했습니다.</p></div>
+    <div class="performance-table-wrap"><table class="performance-table"><thead><tr><th>METRIC</th><th>RESULT</th></tr></thead><tbody>
+      <tr><td>WebSocket connected</td><td>100% (23 / 23)</td></tr><tr><td>Cross-instance deliveries</td><td>360</td></tr><tr><td>Cross-instance delivery average</td><td>20.81 ms</td></tr><tr><td>Cross-instance delivery median</td><td>22 ms</td></tr><tr><td>Cross-instance delivery p90</td><td>26 ms</td></tr><tr><td>Cross-instance delivery p95</td><td>27 ms</td></tr><tr><td>Cross-instance delivery max</td><td>45 ms</td></tr><tr><td>Messages received (custom)</td><td>791</td></tr><tr><td>Messages sent (custom)</td><td>184</td></tr><tr><td>WebSocket messages received</td><td>814</td></tr><tr><td>WebSocket messages sent</td><td>230</td></tr><tr><td>WebSocket connecting p95</td><td>22.25 ms</td></tr>
+    </tbody></table></div>
+  </section>
+  <section class="detail-section">
+    <div class="detail-section-label"><span>04</span><span>THRESHOLDS & LIMITS</span></div>
+    <div class="detail-section-heading"><h2>테스트 통과 기준과 해석 범위</h2><p>측정 결과를 해석할 때 성공률과 처리 용량을 구분했습니다.</p></div>
+    <div class="detail-card-grid">
+      <article class="detail-info-card"><span>CHECKS</span><h3>100% · 51 / 51</h3><p>스크립트에서 정의한 테스트 체크를 모두 통과했습니다.</p></article>
+      <article class="detail-info-card"><span>HTTP FAILURES</span><h3>0% · threshold passed</h3><p>테스트 중 HTTP 요청 실패는 관측되지 않았습니다.</p></article>
+      <article class="detail-info-card"><span>WEBSOCKET</span><h3>100% connected</h3><p>관측된 23개 WebSocket 세션 연결이 모두 성공했습니다.</p></article>
+      <article class="detail-info-card"><span>TEST SCOPE</span><h3>Low-load baseline</h3><p>최대 5 VU에 한정된 결과이며, 고부하 안정성이나 최대 동시 접속 용량을 의미하지 않습니다.</p></article>
+    </div>
+    <div class="performance-note"><strong>다음 측정:</strong> VU와 실행 시간을 단계적으로 높여 HTTP p95와 최대 지연, WebSocket 연결 실패, 교차 인스턴스 전달 지연이 어떻게 변하는지 비교합니다. 동일한 환경과 스크립트를 유지하고 반복 측정해 변동 폭도 확인합니다.</div>
+    <div class="performance-footer-actions"><a href="project-realtimechat.html">프로젝트 상세로 돌아가기</a><a href="index.html?project=realtimechat#projects">전체 프로젝트</a><a href="https://github.com/zuzusnasna/RealTimeChat" target="_blank" rel="noreferrer">GitHub 저장소 ↗</a></div>
+  </section>
+</main>
+<footer><span>JUSANGHYEOK</span><span>© 2026</span></footer>
+</body></html>
