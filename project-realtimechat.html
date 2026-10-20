@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Real-Time Chat의 WebSocket/STOMP, Redis Pub/Sub, 모니터링 구조를 정리한 프로젝트 상세 페이지">
+<title>Real-Time Chat — 주상혁 포트폴리오</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="diagram-overhaul.css?v=colors3">
+<link rel="stylesheet" href="layout-recovery.css">
+<link rel="stylesheet" href="project-detail.css">
+<link rel="stylesheet" href="portfolio-enhancements.css">
+<link rel="stylesheet" href="realtime-chat-portfolio.css">
+</head>
+<body class="project-detail-page">
+<header class="site-header"><a class="brand" href="index.html#top">JUSANGHYEOK<span>.</span></a><nav aria-label="메인 메뉴"><a href="index.html#about">About</a><a href="index.html#projects">Projects</a><a href="index.html#method">Method</a><a href="index.html#contact">Contact</a></nav></header>
+<main class="detail-page-main">
+  <div class="detail-page-top"><a class="detail-back-link" href="index.html?project=realtimechat#projects">← ALL PROJECTS</a></div>
+  <section class="detail-hero">
+    <div class="detail-hero-copy">
+      <div class="detail-eyebrow"><span>06</span>REAL-TIME CHAT / PROJECT DETAIL</div>
+      <h1>서로 다른 서버에 연결된 사용자도<br>실시간으로 대화할 수 있도록.</h1>
+      <p class="performance-intro">WebSocket/STOMP 기반 채팅 서비스에 Redis Pub/Sub을 연결해 여러 Spring Boot 인스턴스 간 메시지 이벤트 전달을 구성했습니다. 또한 Prometheus와 Grafana로 운영 지표를 수집·시각화하고, k6로 HTTP 및 WebSocket 흐름을 검증했습니다.</p>
+      <div class="detail-tags"><span>Java 21</span><span>Spring Boot 4.1.1</span><span>WebSocket / STOMP</span><span>Redis Pub/Sub</span><span>MySQL 8</span><span>Docker Compose</span><span>Prometheus</span><span>Grafana</span><span>k6</span></div>
+    </div>
+    <aside class="detail-side-index"><span>PROJECT OVERVIEW</span><strong>REAL-TIME CHAT</strong><div class="detail-side-line"></div><small>MESSAGING / DISTRIBUTED INSTANCES / OBSERVABILITY</small><a href="https://github.com/zuzusnasna/RealTimeChat" target="_blank" rel="noreferrer">저장소 코드 살펴보기 ↗</a></aside>
+  </section>
+  <section class="detail-section">
+    <div class="detail-section-label"><span>01</span><span>PROBLEM & SOLUTION</span></div>
+    <div class="detail-section-heading"><h2>인스턴스가 달라도 메시지는 전달되어야 합니다.</h2><p>WebSocket 연결이 서로 다른 앱 인스턴스에 분산되면 한 서버에서 발생한 메시지 이벤트를 다른 서버의 구독자에게 전달할 중간 경로가 필요합니다.</p></div>
+    <div class="detail-card-grid">
+      <article class="detail-info-card"><span>PROBLEM</span><h3>인스턴스 간 메시지 전달</h3><p>각 서버는 자신에게 연결된 WebSocket 세션을 관리하므로, 서버 하나의 로컬 처리만으로는 다른 인스턴스에 연결된 사용자를 대상으로 메시지를 전달할 수 없습니다.</p></article>
+      <article class="detail-info-card"><span>SOLUTION</span><h3>Redis Pub/Sub 브로드캐스트</h3><p>각 인스턴스가 Redis Pub/Sub 채널을 통해 메시지 이벤트를 발행·구독하도록 구성해 서버 경계를 넘어 메시지 전달 흐름을 연결했습니다.</p></article>
+      <article class="detail-info-card"><span>OBSERVABILITY</span><h3>운영 지표를 수집하고 시각화</h3><p>Spring Boot Actuator/Micrometer 메트릭을 Prometheus가 수집하고, Grafana 대시보드에서 HTTP 요청량, p95 응답 시간, JVM 메모리, CPU 사용량을 관찰할 수 있도록 구성했습니다.</p></article>
+      <article class="detail-info-card"><span>VALIDATION</span><h3>두 인스턴스 간 메시지 전달 검증</h3><p>k6 스크립트로 사용자 생성·로그인·채팅방 생성 및 참여, WebSocket 연결과 교차 인스턴스 메시지 수신을 검증했습니다.</p></article>
+    </div>
+  </section>
+  <section class="detail-section">
+    <div class="detail-section-label"><span>02</span><span>SYSTEM ARCHITECTURE</span></div>
+    <div class="detail-section-heading"><h2>서비스와 관측 계층</h2><p>메시지 전달 경로와 운영 메트릭 수집 경로를 분리해 구성했습니다.</p></div>
+    <div class="diagram"><div class="arch-map chat-arch">
+      <div class="arch-lane"><div class="arch-lane-label">CLIENT</div><div class="arch-node primary"><b>React + Vite</b><small>채팅 UI · STOMP/WebSocket 연결</small></div></div>
+      <div class="arch-connector"><span>HTTP API / WebSocket</span><i>↓</i></div>
+      <div class="arch-lane"><div class="arch-lane-label">APPLICATION · SPRING BOOT</div><div class="arch-node primary"><b>App Instance 1</b><small>HTTP · WebSocket · STOMP</small></div><div class="arch-link">↔</div><div class="arch-node primary"><b>App Instance 2</b><small>HTTP · WebSocket · STOMP</small></div></div>
+      <div class="arch-connector"><span>인스턴스 간 메시지 브로드캐스트</span><i>↓</i></div>
+      <div class="arch-lane data-lane"><div class="arch-node cache"><b>Redis Pub/Sub</b><small>인스턴스 간 채팅 이벤트 전달</small></div><div class="arch-node database"><b>MySQL</b><small>회원 · 채팅방 · 영속 데이터</small></div></div>
+      <div class="arch-connector"><span>운영 메트릭 수집</span><i>↓</i></div>
+      <div class="arch-lane"><div class="arch-node async"><b>Prometheus</b><small>Actuator / Micrometer 메트릭</small></div><div class="arch-link">→</div><div class="arch-node async"><b>Grafana</b><small>요청량 · p95 · JVM · CPU</small></div></div>
+      <div class="arch-note"><b>설계상 주의점</b><span>Redis Pub/Sub은 채팅 메시지 전달을 공유하지만 HTTP 세션 자체를 공유하지는 않습니다. 인스턴스 간 로그인 상태 공유는 별도의 세션 전략이 필요합니다.</span></div>
+    </div></div>
+  </section>
+  <section class="detail-section">
+    <div class="detail-section-label"><span>03</span><span>MESSAGE FLOW</span></div>
+    <div class="detail-section-heading"><h2>메시지 전달과 메트릭 수집</h2><p>사용자 메시지는 Redis Pub/Sub을 통해 인스턴스 사이를 이동하고, 모니터링 데이터는 별도 scrape 경로로 수집됩니다.</p></div>
+    <div class="detail-card-grid">
+      <article class="detail-info-card"><span>01 · PUBLISH</span><h3>메시지 발행</h3><p>클라이언트가 WebSocket/STOMP 연결을 통해 메시지를 발행합니다.</p></article>
+      <article class="detail-info-card"><span>02 · BROADCAST</span><h3>Redis Pub/Sub</h3><p>애플리케이션 인스턴스가 채널을 통해 메시지 이벤트를 발행하고 구독 인스턴스에 전달합니다.</p></article>
+      <article class="detail-info-card"><span>03 · DELIVER</span><h3>WebSocket 구독자 전달</h3><p>각 인스턴스는 자신에게 연결된 관련 구독자에게 메시지를 전달합니다.</p></article>
+      <article class="detail-info-card"><span>04 · OBSERVE</span><h3>Prometheus → Grafana</h3><p>HTTP, JVM 및 프로세스 지표를 수집하고 대시보드에서 시간 흐름에 따라 관찰합니다.</p></article>
+    </div>
+  </section>
+  <section class="detail-section">
+    <div class="detail-section-label"><span>04</span><span>VALIDATION</span></div>
+    <div class="detail-section-heading"><h2>저부하 테스트로 기본 동작 확인</h2><p>초기 테스트에서는 기능 연결과 교차 인스턴스 전달이 정상적으로 동작하는지 확인했습니다. 테스트 수치는 성능 한계치가 아닌 해당 조건에서 관측한 값입니다.</p></div>
+    <div class="performance-summary">
+      <article><span>HTTP REQUEST FAILURE</span><strong>0%</strong><p>28개 HTTP 요청 중 실패 0건</p></article>
+      <article><span>WEBSOCKET CONNECTED</span><strong>100%</strong><p>23 / 23 WebSocket 세션 연결 성공</p></article>
+      <article><span>CROSS-INSTANCE P95</span><strong>27 ms</strong><p>360건 · 평균 20.81ms</p></article>
+    </div>
+    <div class="performance-footer-actions"><a href="project-realtimechat-performance.html">성능 측정 결과 자세히 보기 ↗</a><a href="index.html?project=realtimechat#projects">프로젝트 목록으로 돌아가기</a><a href="https://github.com/zuzusnasna/RealTimeChat" target="_blank" rel="noreferrer">GitHub 저장소 ↗</a></div>
+  </section>
+</main>
+<footer><span>JUSANGHYEOK</span><span>© 2026</span></footer>
+</body></html>
