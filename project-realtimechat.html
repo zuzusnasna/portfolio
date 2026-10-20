@@ -11,6 +11,16 @@
 <link rel="stylesheet" href="project-detail.css">
 <link rel="stylesheet" href="portfolio-enhancements.css">
 <link rel="stylesheet" href="realtime-chat-portfolio.css">
+
+<style>
+.grafana-video-frame{margin-top:26px;overflow:hidden;border:1px solid #dce4ef;border-radius:18px;background:#0b1220;box-shadow:0 16px 42px rgba(23,39,66,.12)}
+.grafana-video-frame video{display:block;width:100%;max-height:680px;aspect-ratio:16/9;object-fit:contain;background:#080d16}
+.grafana-video-caption{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;background:#fff;border-top:1px solid #dce4ef}
+.grafana-video-caption span{color:#64748b;font:10px 'DM Mono',monospace;letter-spacing:.08em}
+.grafana-video-caption a{color:#355b91;font-size:12px;font-weight:650;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:560px){.grafana-video-frame{border-radius:12px}.grafana-video-caption{align-items:flex-start;flex-direction:column;gap:8px;padding:12px 14px}}
+</style>
+
 </head>
 <body class="project-detail-page">
 <header class="site-header"><a class="brand" href="index.html#top">JUSANGHYEOK<span>.</span></a><nav aria-label="메인 메뉴"><a href="index.html#about">About</a><a href="index.html#projects">Projects</a><a href="index.html#method">Method</a><a href="index.html#contact">Contact</a></nav></header>
@@ -50,7 +60,18 @@
     </div></div>
   </section>
   <section class="detail-section">
-    <div class="detail-section-label"><span>03</span><span>MESSAGE FLOW</span></div>
+    <div class="detail-section-label"><span>03</span><span>OBSERVABILITY DEMO</span></div>
+    <div class="detail-section-heading"><h2>Grafana Performance View</h2><p>실제 저장소에 업로드한 대시보드 녹화 영상입니다. 포트폴리오 페이지 안에서 바로 재생해 Prometheus로 수집한 운영 지표와 Grafana 시각화 화면을 확인할 수 있습니다.</p></div>
+    <div class="grafana-video-frame">
+      <video controls playsinline preload="metadata" aria-label="Grafana Performance View 대시보드 시연 영상">
+        <source src="https://raw.githubusercontent.com/zuzusnasna/RealTimeChat/main/Performance%20View.mp4" type="video/mp4">
+        브라우저에서 동영상을 재생할 수 없습니다. <a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/Performance%20View.mp4" target="_blank" rel="noreferrer">GitHub에서 영상 보기</a>
+      </video>
+      <div class="grafana-video-caption"><span>GRAFANA · PERFORMANCE VIEW</span><a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/Performance%20View.mp4" target="_blank" rel="noreferrer">원본 영상 ↗</a></div>
+    </div>
+  </section>
+  <section class="detail-section">
+    <div class="detail-section-label"><span>04</span><span>MESSAGE FLOW</span></div>
     <div class="detail-section-heading"><h2>메시지 전달과 메트릭 수집</h2><p>사용자 메시지는 Redis Pub/Sub을 통해 인스턴스 사이를 이동하고, 모니터링 데이터는 별도 scrape 경로로 수집됩니다.</p></div>
     <div class="detail-card-grid">
       <article class="detail-info-card"><span>01 · PUBLISH</span><h3>메시지 발행</h3><p>클라이언트가 WebSocket/STOMP 연결을 통해 메시지를 발행합니다.</p></article>
@@ -60,7 +81,7 @@
     </div>
   </section>
   <section class="detail-section">
-    <div class="detail-section-label"><span>04</span><span>VALIDATION</span></div>
+    <div class="detail-section-label"><span>05</span><span>VALIDATION</span></div>
     <div class="detail-section-heading"><h2>저부하 테스트로 기본 동작 확인</h2><p>초기 테스트에서는 기능 연결과 교차 인스턴스 전달이 정상적으로 동작하는지 확인했습니다. 테스트 수치는 성능 한계치가 아닌 해당 조건에서 관측한 값입니다.</p></div>
     <div class="performance-summary">
       <article><span>HTTP REQUEST FAILURE</span><strong>0%</strong><p>28개 HTTP 요청 중 실패 0건</p></article>
