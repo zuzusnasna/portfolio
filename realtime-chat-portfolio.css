@@ -1,0 +1,12 @@
+/* Real-Time Chat project — follows the existing portfolio detail system. */
+.project-switcher{grid-template-columns:repeat(6,minmax(0,1fr))}
+.chat-project-detail .featured h2,.chat-project-detail h2{white-space:normal;max-width:980px}
+.chat-metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.chat-metric-grid article{min-width:0;padding:20px;border:1px solid #d6e2f2;border-radius:12px;background:#fff}
+.chat-metric-grid article>span{display:block;color:#62738c;font:9px 'DM Mono',monospace;letter-spacing:.08em;line-height:1.6}
+.chat-metric-grid strong{display:block;margin-top:12px;font-size:clamp(20px,2.4vw,30px);line-height:1.2;letter-spacing:-.05em;color:#233a5c}
+.chat-metric-grid small{display:block;margin-top:8px;color:#68778c;font-size:10px;line-height:1.6}
+.chat-test-caveat{margin:16px 0 0;padding:15px 17px;border-left:3px solid #8ba9dd;background:#f5f8fd;color:#53647b;font-size:12px;line-height:1.85}
+.chat-performance-preview .project-performance-link{display:inline-flex;margin-top:16px}
+@media(max-width:1050px){.project-switcher{grid-template-columns:repeat(3,minmax(0,1fr))}.chat-metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.project-switcher{grid-template-columns:repeat(2,minmax(0,1fr))}.chat-metric-grid{grid-template-columns:1fr}.chat-metric-grid article{padding:17px}.chat-project-detail .project-actions{gap:12px}}
