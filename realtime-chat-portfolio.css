@@ -124,3 +124,179 @@
   .project-detail-page .performance-footer-actions a,
   .project-detail-page .performance-footer-actions a:first-child{padding:0;border:0}
 }
+
+
+/* Real-Time Chat architecture: scope the shared diagram system to the standalone detail page. */
+.project-detail-page .diagram:has(.chat-arch){
+  display:block;
+  min-height:0;
+  padding:0;
+  overflow:hidden;
+  background:#f6f9ff;
+  border:1px solid #d4deed;
+  border-radius:14px;
+  box-shadow:none;
+}
+.project-detail-page .chat-arch{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:0;
+  padding:24px;
+  color:#26364b;
+  background:#f6f9ff;
+}
+.project-detail-page .chat-arch .arch-lane{
+  position:relative;
+  width:100%;
+  min-width:0;
+  min-height:126px;
+  display:flex;
+  flex-wrap:nowrap;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  padding:46px 20px 18px;
+  border:1px solid #d4deed;
+  border-radius:8px;
+  background:#fbfcff;
+}
+.project-detail-page .chat-arch .arch-lane-label{
+  position:absolute;
+  top:13px;
+  left:18px;
+  width:auto;
+  max-width:calc(100% - 36px);
+  color:#58739a;
+  font:700 9px/1.4 'DM Mono',monospace;
+  letter-spacing:.12em;
+  white-space:normal;
+}
+.project-detail-page .chat-arch .arch-node{
+  position:relative;
+  flex:1 1 0;
+  min-width:0;
+  max-width:280px;
+  min-height:76px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:15px 14px;
+  border:1px solid #d2dceb;
+  border-radius:7px;
+  background:#fff;
+  text-align:center;
+  overflow-wrap:anywhere;
+}
+.project-detail-page .chat-arch .arch-node b{
+  color:#263b5a;
+  font-size:13px;
+  line-height:1.4;
+}
+.project-detail-page .chat-arch .arch-node small{
+  color:#5d718c;
+  font:10px/1.55 Manrope,system-ui,sans-serif;
+}
+.project-detail-page .chat-arch .arch-node.primary{
+  border-color:#b6cbed;
+  background:#e8f0ff;
+}
+.project-detail-page .chat-arch .arch-node.cache{
+  border-color:#e8d29b;
+  background:#fff3d8;
+}
+.project-detail-page .chat-arch .arch-node.database{
+  border-color:#abd8c8;
+  background:#e1f3ec;
+}
+.project-detail-page .chat-arch .arch-node.async{
+  border-color:#d0c5f0;
+  background:#f0edfc;
+}
+.project-detail-page .chat-arch .arch-link{
+  flex:0 0 26px;
+  min-width:26px;
+  color:#6386bb;
+  font-size:18px;
+  text-align:center;
+}
+.project-detail-page .chat-arch .arch-connector{
+  position:relative;
+  flex:0 0 58px;
+  width:100%;
+  min-height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  color:#486b9f;
+  font:10px 'DM Mono',monospace;
+  text-align:center;
+}
+.project-detail-page .chat-arch .arch-connector span{
+  position:absolute;
+  top:7px;
+  left:50%;
+  transform:translateX(-50%);
+  max-width:90%;
+  padding:0 10px;
+  background:#f6f9ff;
+  color:#486b9f;
+  white-space:normal;
+  z-index:1;
+}
+.project-detail-page .chat-arch .arch-connector i{display:none}
+.project-detail-page .chat-arch .arch-connector::after{
+  content:'↓';
+  position:absolute;
+  bottom:3px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#6386bb;
+  font:18px 'DM Mono',monospace;
+}
+.project-detail-page .chat-arch .data-lane{
+  background:#edf6f2;
+  border-color:#c4dfd5;
+}
+.project-detail-page .chat-arch .data-lane .arch-node{flex:1 1 0}
+.project-detail-page .chat-arch .arch-note{
+  display:grid;
+  grid-template-columns:110px minmax(0,1fr);
+  gap:12px;
+  margin-top:16px;
+  padding:14px 16px;
+  border:1px dashed #cbd9ec;
+  border-radius:8px;
+  background:#fff;
+  color:#5d718c;
+  font-size:10px;
+  line-height:1.8;
+}
+.project-detail-page .chat-arch .arch-note b{
+  color:#3f6fae;
+  font:700 9px/1.7 'DM Mono',monospace;
+  letter-spacing:.08em;
+}
+.project-detail-page .chat-arch .arch-note span{min-width:0}
+@media(max-width:760px){
+  .project-detail-page .chat-arch{padding:14px}
+  .project-detail-page .chat-arch .arch-lane{
+    min-height:0;
+    flex-direction:column;
+    align-items:stretch;
+    gap:10px;
+    padding:50px 12px 14px;
+  }
+  .project-detail-page .chat-arch .arch-node{
+    width:100%;
+    max-width:none;
+    flex:auto;
+  }
+  .project-detail-page .chat-arch .arch-link{display:none}
+  .project-detail-page .chat-arch .arch-connector{flex-basis:58px}
+  .project-detail-page .chat-arch .arch-note{grid-template-columns:1fr;gap:4px}
+}
