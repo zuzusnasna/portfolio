@@ -39,6 +39,21 @@
 .condition-footnote{margin:14px 0 0;color:var(--muted);font-size:11px;line-height:1.7}
 @media(max-width:900px){.test-condition-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.test-condition-grid{grid-template-columns:1fr}.test-condition-grid .detail-info-card{min-height:155px}}
+
+/* Result cards and footer links */
+.performance-page .performance-result-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px!important;margin-top:26px}
+.performance-page .performance-result-grid .detail-info-card{display:flex;flex-direction:column;align-items:flex-start;min-width:0;min-height:185px;padding:24px!important;border:1px solid #d9e2ef!important;border-radius:16px!important;background:linear-gradient(145deg,#fff 0%,#f6f9ff 100%)!important;box-shadow:0 8px 24px rgba(31,48,79,.07)!important;overflow-wrap:anywhere;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.performance-page .performance-result-grid .detail-info-card:hover{transform:translateY(-3px);border-color:#b7cbed!important;box-shadow:0 14px 30px rgba(31,48,79,.11)!important}
+.performance-page .performance-result-grid .detail-info-card>span{display:inline-flex;align-items:center;padding:6px 9px;border-radius:6px;background:#edf3fd;color:#48699d;font:10px 'DM Mono',monospace;letter-spacing:.07em}
+.performance-page .performance-result-grid .detail-info-card h3{margin:17px 0 10px;font-size:clamp(21px,2.4vw,29px);line-height:1.3;letter-spacing:-.035em;overflow-wrap:anywhere}
+.performance-page .performance-result-grid .detail-info-card p{margin:auto 0 0;padding-top:13px;border-top:1px solid #e4eaf3;width:100%;color:#5d6b80;font-size:12px;line-height:1.8}
+.performance-page .performance-footer-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-top:28px;padding:22px 0 4px;border-top:1px solid #dce4ef}
+.performance-page .performance-footer-actions a{display:inline-flex;align-items:center;min-height:36px;padding:5px 0;color:#355b91!important;font-size:12px;font-weight:650;text-decoration:underline!important;text-decoration-thickness:1px!important;text-underline-offset:4px!important;text-decoration-color:#9aafd0!important;transition:color .18s ease,text-decoration-color .18s ease}
+.performance-page .performance-footer-actions a+a{position:relative;margin-left:2px}
+.performance-page .performance-footer-actions a+a:before{content:"";position:absolute;left:-14px;top:50%;height:16px;border-left:1px solid #d4deeb;transform:translateY(-50%)}
+.performance-page .performance-footer-actions a:hover{color:#172f54!important;text-decoration-color:#355b91!important}
+@media(max-width:700px){.performance-page .performance-result-grid{grid-template-columns:1fr}.performance-page .performance-result-grid .detail-info-card{min-height:155px;padding:20px!important}.performance-page .performance-footer-actions{align-items:flex-start;flex-direction:column;gap:8px;padding-top:18px}.performance-page .performance-footer-actions a+a{margin-left:0}.performance-page .performance-footer-actions a+a:before{display:none}}
+
 </style>
 </head>
 <body class="project-detail-page performance-page" data-project="realtimechat">
@@ -89,7 +104,7 @@
   <section class="detail-section">
     <div class="detail-section-label"><span>04</span><span>THRESHOLDS & LIMITS</span></div>
     <div class="detail-section-heading"><h2>테스트 통과 기준과 해석 범위</h2><p>측정 결과를 해석할 때 성공률과 처리 용량을 구분했습니다.</p></div>
-    <div class="detail-card-grid">
+    <div class="detail-card-grid performance-result-grid">
       <article class="detail-info-card"><span>CHECKS</span><h3>100% · 51 / 51</h3><p>스크립트에서 정의한 테스트 체크를 모두 통과했습니다.</p></article>
       <article class="detail-info-card"><span>HTTP FAILURES</span><h3>0% · threshold passed</h3><p>테스트 중 HTTP 요청 실패는 관측되지 않았습니다.</p></article>
       <article class="detail-info-card"><span>WEBSOCKET</span><h3>100% connected</h3><p>관측된 23개 WebSocket 세션 연결이 모두 성공했습니다.</p></article>
