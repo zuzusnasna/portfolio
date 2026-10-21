@@ -44,6 +44,7 @@
       <article class="detail-info-card"><span>READ RECEIPTS</span><h3>메시지별 미읽음 인원 표시</h3><p>사용자별 마지막 읽은 메시지 위치를 저장하고, 메시지별 미읽음 인원 수를 계산합니다. 읽음 상태 변경은 Redis Pub/Sub으로 다른 인스턴스에도 전달하며 중복 읽음 처리로 인한 카운트 변경을 방지합니다.</p></article>
       <article class="detail-info-card"><span>OBSERVABILITY</span><h3>운영 지표를 수집하고 시각화</h3><p>Spring Boot Actuator/Micrometer 메트릭을 Prometheus가 수집하고, Grafana 대시보드에서 HTTP 요청량, p95 응답 시간, JVM 메모리, CPU 사용량을 관찰할 수 있도록 구성했습니다.</p></article>
       <article class="detail-info-card"><span>VALIDATION</span><h3>두 인스턴스 간 메시지 전달 검증</h3><p>k6 스크립트로 사용자 생성·로그인·채팅방 생성 및 참여, WebSocket 연결과 교차 인스턴스 메시지 수신을 검증했습니다.</p></article>
+      <article class="detail-info-card"><span>CI / CD</span><h3>main push 기반 로컬 재배포</h3><p>GitHub Actions가 Windows self-hosted runner에서 Docker Compose 서비스를 빌드하고 컨테이너를 재생성하도록 구성했습니다. EC2 자동 배포는 아직 별도 안정화·검증 항목으로 관리합니다.</p></article>
     </div>
   </section>
   <section class="detail-section">
@@ -54,7 +55,7 @@
       <div class="arch-connector"><span>HTTP API / WebSocket</span><i>↓</i></div>
       <div class="arch-lane"><div class="arch-lane-label">APPLICATION · SPRING BOOT</div><div class="arch-node primary"><b>App Instance 1</b><small>HTTP · WebSocket · STOMP</small></div><div class="arch-link">↔</div><div class="arch-node primary"><b>App Instance 2</b><small>HTTP · WebSocket · STOMP</small></div></div>
       <div class="arch-connector"><span>인스턴스 간 메시지 브로드캐스트</span><i>↓</i></div>
-      <div class="arch-lane data-lane"><div class="arch-node cache"><b>Redis Pub/Sub</b><small>인스턴스 간 채팅 이벤트 전달</small></div><div class="arch-node database"><b>MySQL</b><small>회원 · 채팅방 · 영속 데이터</small></div></div>
+      <div class="arch-lane data-lane"><div class="arch-node cache"><b>Redis Pub/Sub</b><small>채팅 · 읽음 상태 이벤트 중계</small></div><div class="arch-node database"><b>MySQL</b><small>회원 · 채팅방 · 영속 데이터</small></div></div>
       <div class="arch-connector"><span>운영 메트릭 수집</span><i>↓</i></div>
       <div class="arch-lane"><div class="arch-node async"><b>Prometheus</b><small>Actuator / Micrometer 메트릭</small></div><div class="arch-link">→</div><div class="arch-node async"><b>Grafana</b><small>요청량 · p95 · JVM · CPU</small></div></div>
       <div class="arch-note"><b>설계상 주의점</b><span>Redis Pub/Sub은 채팅 메시지 전달을 공유하지만 HTTP 세션 자체를 공유하지는 않습니다. 인스턴스 간 로그인 상태 공유는 별도의 세션 전략이 필요합니다.</span></div>
