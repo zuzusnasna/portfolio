@@ -19,21 +19,21 @@
       <div class="arch-lane"><div class="arch-lane-label">CLIENT</div>
         <div class="arch-node primary"><b>React + Vite</b><small>채팅 UI · STOMP/WebSocket 연결</small></div>
       </div>
-      <div class="arch-connector"><span>HTTP API / WebSocket</span><i>↓</i></div>
+      <div class="arch-connector"><span>HTTP API / WebSocket</span></div>
       <div class="arch-lane"><div class="arch-lane-label">APPLICATION · SPRING BOOT</div>
         <div class="arch-node primary"><b>App Instance 1</b><small>HTTP · WebSocket · STOMP</small></div>
-        <div class="arch-link">↔</div>
+        
         <div class="arch-node primary"><b>App Instance 2</b><small>HTTP · WebSocket · STOMP</small></div>
       </div>
-      <div class="arch-connector"><span>인스턴스 간 메시지 브로드캐스트</span><i>↓</i></div>
+      <div class="arch-connector"><span>인스턴스 간 이벤트 중계</span></div>
       <div class="arch-lane data-lane">
         <div class="arch-node cache"><b>Redis Pub/Sub</b><small>인스턴스 간 채팅 이벤트 전달</small></div>
         <div class="arch-node database"><b>MySQL</b><small>회원 · 채팅방 · 영속 데이터</small></div>
       </div>
-      <div class="arch-connector"><span>운영 메트릭 수집</span><i>↓</i></div>
+      <div class="arch-connector"><span>운영 메트릭 수집</span></div>
       <div class="arch-lane">
         <div class="arch-node async"><b>Prometheus</b><small>Actuator / Micrometer 메트릭</small></div>
-        <div class="arch-link">→</div>
+        <div class="arch-link">METRICS</div>
         <div class="arch-node async"><b>Grafana</b><small>요청량 · p95 · JVM · CPU</small></div>
       </div>
       <div class="arch-note"><b>설계상 주의점</b><span>Redis Pub/Sub은 채팅 메시지 전달을 공유하지만 HTTP 세션 자체를 공유하지는 않습니다. 인스턴스 간 로그인 상태 공유는 별도의 세션 전략이 필요합니다.</span></div>
