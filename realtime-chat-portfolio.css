@@ -300,3 +300,89 @@
   .project-detail-page .chat-arch .arch-connector{flex-basis:58px}
   .project-detail-page .chat-arch .arch-note{grid-template-columns:1fr;gap:4px}
 }
+
+/* RealTimeChat standalone detail: isolated layout safeguards and responsive architecture. */
+body.realtime-chat-page{--rtc-ink:#26364b;--rtc-muted:#607089;--rtc-line:#d8e2ef;--rtc-blue:#315b94;overflow-x:hidden}
+.realtime-chat-page .detail-page-main{width:min(1240px,calc(100% - 48px));max-width:1240px;margin-inline:auto}
+.realtime-chat-page .detail-hero{gap:clamp(28px,5vw,76px);align-items:start}
+.realtime-chat-page .detail-hero-copy{min-width:0}
+.realtime-chat-page .realtime-lead{max-width:860px;color:#5c6c82;font-size:14px;line-height:1.95}
+.realtime-chat-page .detail-side-index{min-width:0;overflow-wrap:anywhere}
+.realtime-chat-page .detail-side-index a{display:block;margin-top:12px;color:#355b91;font-size:12px;line-height:1.7;text-decoration:underline;text-underline-offset:4px}
+.realtime-chat-page .detail-section{min-width:0}
+.realtime-chat-page .detail-section-heading{max-width:960px}
+.realtime-chat-page .detail-section-heading h2{white-space:normal;overflow-wrap:anywhere}
+.realtime-chat-page .detail-card-grid.realtime-feature-grid,
+.realtime-chat-page .detail-card-grid.realtime-improvement-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px}
+.realtime-chat-page .detail-info-card{min-width:0;overflow-wrap:anywhere}
+.realtime-chat-page .detail-info-card h3{overflow-wrap:anywhere}
+.realtime-chat-page .detail-info-card p{overflow-wrap:anywhere;word-break:normal}
+.realtime-chat-page .realtime-architecture{display:block!important;min-width:0;width:100%;max-width:100%;margin-top:24px;padding:0!important;overflow:hidden!important;border:1px solid #d4deed!important;border-radius:12px!important;background:#f6f9ff!important;box-shadow:none!important}
+.realtime-chat-page .realtime-architecture .chat-arch{box-sizing:border-box;width:100%;max-width:100%;padding:clamp(12px,2.4vw,26px);gap:0;background:#f6f9ff}
+.realtime-chat-page .realtime-architecture .arch-lane{box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:124px;display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;gap:clamp(8px,1.5vw,16px);padding:46px 18px 18px;border:1px solid #d4deed;border-radius:8px;background:#fbfcff}
+.realtime-chat-page .realtime-architecture .arch-lane-label{top:13px;left:16px;max-width:calc(100% - 32px);white-space:normal;line-height:1.5}
+.realtime-chat-page .realtime-architecture .arch-node{box-sizing:border-box;flex:1 1 0;min-width:0;max-width:320px;min-height:78px;padding:14px 12px;overflow-wrap:anywhere;word-break:normal}
+.realtime-chat-page .realtime-architecture .arch-node b{font-size:clamp(11px,1.05vw,13px);line-height:1.45;overflow-wrap:anywhere}
+.realtime-chat-page .realtime-architecture .arch-node small{font-size:10px;line-height:1.6;overflow-wrap:anywhere}
+.realtime-chat-page .realtime-architecture .arch-link{flex:0 0 24px;min-width:24px}
+.realtime-chat-page .realtime-architecture .arch-connector{box-sizing:border-box;min-width:0;min-height:58px;width:100%;flex:0 0 58px}
+.realtime-chat-page .realtime-architecture .arch-connector span{max-width:calc(100% - 24px);line-height:1.5;text-align:center;overflow-wrap:anywhere}
+.realtime-chat-page .realtime-architecture .data-lane{background:#f2f7f4;border-color:#cbded6}
+.realtime-chat-page .realtime-architecture .data-lane .arch-node{flex:1 1 0}
+.realtime-chat-page .realtime-architecture .arch-note{box-sizing:border-box;grid-template-columns:minmax(100px,150px) minmax(0,1fr);width:100%;min-width:0;overflow-wrap:anywhere}
+.realtime-chat-page .realtime-flow-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.realtime-chat-page .realtime-flow-grid article,
+.realtime-chat-page .realtime-next-grid article{min-width:0;padding:18px;border:1px solid #dbe4f0;background:#fff}
+.realtime-chat-page .realtime-flow-grid article>span,
+.realtime-chat-page .realtime-next-grid article>span{display:block;color:#5879a8;font:700 9px/1.6 'DM Mono',monospace;letter-spacing:.08em}
+.realtime-chat-page .realtime-flow-grid article strong,
+.realtime-chat-page .realtime-next-grid article strong{display:block;margin:10px 0 7px;color:#263b5a;font-size:14px;line-height:1.5}
+.realtime-chat-page .realtime-flow-grid article p,
+.realtime-chat-page .realtime-next-grid article p{margin:0;color:#63738a;font-size:11px;line-height:1.8}
+.realtime-chat-page .realtime-metrics{grid-template-columns:repeat(4,minmax(0,1fr))}
+.realtime-chat-page .realtime-metrics article{min-width:0;padding:clamp(16px,2vw,24px)}
+.realtime-chat-page .realtime-metrics article>span{line-height:1.6;overflow-wrap:anywhere}
+.realtime-chat-page .realtime-metrics article strong{font-size:clamp(22px,2.6vw,36px);overflow-wrap:anywhere}
+.realtime-chat-page .realtime-callout{margin-top:20px;padding:18px 20px;border:1px solid #d6e2f1;border-left:3px solid #7295c8;background:#f5f8fd}
+.realtime-chat-page .realtime-callout strong{display:block;color:#2b466d;font-size:12px}
+.realtime-chat-page .realtime-callout p{margin:8px 0 0;color:#5c6d83;font-size:12px;line-height:1.9}
+.realtime-chat-page .grafana-video-frame{min-width:0;margin-top:24px;overflow:hidden;border:1px solid #dce4ef;border-radius:12px;background:#0b1220}
+.realtime-chat-page .grafana-video-frame video{display:block;width:100%;max-width:100%;max-height:620px;aspect-ratio:16/9;object-fit:contain;background:#080d16}
+.realtime-chat-page .grafana-video-caption{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;background:#fff;border-top:1px solid #dce4ef}
+.realtime-chat-page .grafana-video-caption span{color:#64748b;font:10px 'DM Mono',monospace;letter-spacing:.08em}
+.realtime-chat-page .grafana-video-caption a{color:#355b91;font-size:12px;font-weight:650;text-decoration:underline;text-underline-offset:4px}
+.realtime-chat-page .realtime-open-issue{display:grid;grid-template-columns:minmax(220px,.75fr) minmax(0,1.5fr);gap:24px;margin-top:24px;padding:24px;border:1px solid #e6d7b9;background:#fffaf0}
+.realtime-chat-page .realtime-open-issue>div:first-child>span{display:block;color:#9a6b20;font:700 9px/1.6 'DM Mono',monospace;letter-spacing:.1em}
+.realtime-chat-page .realtime-open-issue h3{margin:10px 0 0;color:#49391f;font-size:19px;line-height:1.5;overflow-wrap:anywhere}
+.realtime-chat-page .realtime-open-issue p{margin:0;color:#695a43;font-size:12px;line-height:1.9}
+.realtime-chat-page .realtime-open-issue p+p{margin-top:10px}
+.realtime-chat-page .realtime-next-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.realtime-chat-page .realtime-footer-actions{gap:10px 0}
+.realtime-chat-page .realtime-footer-actions a{max-width:100%;overflow-wrap:anywhere}
+@media(max-width:980px){
+ .realtime-chat-page .realtime-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .realtime-chat-page .realtime-flow-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+ .realtime-chat-page .detail-page-main{width:calc(100% - 32px)}
+ .realtime-chat-page .detail-card-grid.realtime-feature-grid,
+ .realtime-chat-page .detail-card-grid.realtime-improvement-grid{grid-template-columns:1fr;gap:12px}
+ .realtime-chat-page .realtime-architecture .chat-arch{padding:12px}
+ .realtime-chat-page .realtime-architecture .arch-lane{min-height:0;flex-direction:column;align-items:stretch;gap:10px;padding:48px 12px 14px}
+ .realtime-chat-page .realtime-architecture .arch-node{width:100%;max-width:none;min-height:68px;flex:0 0 auto}
+ .realtime-chat-page .realtime-architecture .arch-link{display:none}
+ .realtime-chat-page .realtime-architecture .arch-connector{min-height:58px;flex-basis:58px}
+ .realtime-chat-page .realtime-architecture .arch-note{grid-template-columns:1fr;gap:5px}
+ .realtime-chat-page .realtime-open-issue{grid-template-columns:1fr;gap:14px;padding:18px}
+ .realtime-chat-page .realtime-next-grid{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+ .realtime-chat-page .detail-page-main{width:calc(100% - 24px)}
+ .realtime-chat-page .realtime-metrics{grid-template-columns:1fr}
+ .realtime-chat-page .realtime-flow-grid{grid-template-columns:1fr}
+ .realtime-chat-page .realtime-metrics article{padding:18px}
+ .realtime-chat-page .grafana-video-caption{align-items:flex-start;flex-direction:column}
+ .realtime-chat-page .performance-footer-actions{align-items:flex-start;flex-direction:column;gap:10px}
+ .realtime-chat-page .performance-footer-actions a,
+ .realtime-chat-page .performance-footer-actions a:first-child{padding:0;border:0}
+}
