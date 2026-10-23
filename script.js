@@ -40,41 +40,83 @@ meet:{name:'MEET-UP',title:'모임 장소 결정부터 귀가 계획과 정산�
 <div class="arch-lane"><div class="arch-node cache"><b>Map Markers</b><small>출발지 · 후보 장소</small></div><div class="arch-link">→</div><div class="arch-node"><b>Hover</b><small>마커 위 사용자 정보</small></div><div class="arch-link">→</div><div class="arch-node"><b>Click</b><small>해당 위치로 지도 이동</small></div></div>
 <div class="arch-note"><b>탐색 흐름</b><span>서버 데이터 조회와 지도 상호작용을 분리해, 위치 데이터는 마커로 표현하고 상세 확인 및 위치 이동은 사용자 입력에 반응</span></div></div>`,flow:[{title:'참여자 위치',detail:'사용자별 출발지 데이터 준비',type:'client'},{title:'후보 장소',detail:'모임 장소 후보의 위치 데이터 준비',type:'client'},{title:'API 요청',detail:'클라이언트가 모임·참여자 위치 데이터 요청',type:'process'},{title:'데이터 조회',detail:'Spring Boot와 JPA를 통해 관련 데이터 조회',type:'database'},{title:'지도 응답',detail:'출발지와 후보 장소를 클라이언트로 전달',type:'async'},{title:'마커 렌더링',detail:'사용자 출발지·후보 장소를 지도에 표시',type:'cache'},{title:'Hover / Click',detail:'Hover 정보 표시, Click 시 해당 좌표로 이동',type:'process'}],sequence:['Client → API : 위치 데이터 요청','API → DB : 사용자·후보 조회','DB → API : 위치 데이터','API → Client : 지도 데이터','Client : Hover / Click 인터랙션'],result:'모임방 생성과 참여자·장소 후보 투표, 지도 기반 출발지 확인, 목적에 따른 정산 기능을 구현했습니다. 귀가 경로 연동도 진행했으며, 환승 경로를 포함한 막차 시간 계산은 경로별 운행 정보와 환승 구간을 정확히 연결하는 데 어려움이 있어 잠시 중단했습니다. 해당 기능은 추후 개발 예정입니다.'}
 };
-function renderProject(key){
-const p=projects[key];
-const d=document.querySelector('#projectDetail');
-d.innerHTML='<div class="project featured"><div class="project-head"><span>'+p.name+'</span><span>PROJECT DETAIL</span></div><h2>'+p.title+'</h2><div class="project-actions">'+(typeof window.projectActions === 'function' ? window.projectActions(key) : '')+'</div><p class="project-summary">'+p.summary+'</p><div class="tags">'+p.tags.map(x=>'<span>'+x+'</span>').join('')+'</div><div class="detail-grid"><section><h3>01 · PROBLEM</h3><p>'+p.problem+'</p></section><section><h3>02 · SOLUTION</h3><p>'+p.solution+'</p></section></div><section class="visual-section"><div class="visual-title"><span>03 · ARCHITECTURE</span><small>구조를 그림으로 보기</small></div><div class="diagram">'+p.architecture+'</div></section><section class="visual-section"><div class="visual-title"><span>04 · DATA FLOW</span><small>요청과 데이터의 이동</small></div><div class="flow-detail">'+p.flow.map((step,i)=>'<article class="flow-step '+(step.type||'')+'"><div class="flow-step-top"><b>'+String(i+1).padStart(2,'0')+'</b><span>'+step.title+'</span></div><p>'+step.detail+'</p></article>'+(i<p.flow.length-1?'<div class="flow-arrow" aria-hidden="true">→</div>':'')).join('')+'</div></section><section class="visual-section"><div class="visual-title"><span>05 · SEQUENCE</span><small>처리 순서</small></div><div class="sequence">'+p.sequence.map((x,i)=>'<div><b>'+String(i+1).padStart(2,'0')+'</b><span>'+x+'</span></div>').join('')+'</div></section><section class="result"><h3>06 · RESULT</h3><p>'+p.result+'</p></section></div>';
-document.querySelectorAll('.project-tab').forEach(b=>b.classList.toggle('active',b.dataset.project===key));
-d.animate([{opacity:.35,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'ease-out'});
-}
-window.renderProject = renderProject;
 
-document.querySelectorAll('.contact-copy').forEach(button => {
-  button.addEventListener('click', async () => {
-    const value = button.dataset.copy;
-    const feedback = document.querySelector('.copy-feedback');
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(value);
-      } else {
-        const field = document.createElement('textarea');
-        field.value = value;
-        field.setAttribute('readonly', '');
-        field.style.position = 'fixed';
-        field.style.opacity = '0';
-        document.body.appendChild(field);
-        field.select();
-        const copied = document.execCommand('copy');
-        field.remove();
-        if (!copied) throw new Error('Copy failed');
-      }
-      feedback.textContent = (button.dataset.copy.includes('@') ? '이메일' : '전화번호') + '가 복사되었습니다.';
-      button.querySelector('.copy-action').textContent = 'COPIED ✓';
-    } catch {
-      feedback.textContent = '복사에 실패했습니다. 연락처를 직접 선택해 복사해 주세요.';
-    }
+projects.realtimechat = {
+ name:'REAL-TIME CHAT',
+ title:'여러 서버 인스턴스에서도 대화가 이어지는 실시간 채팅',
+ summary:'Spring Boot와 React로 구현한 실시간 채팅 서비스입니다. HTTP Session 인증, 채팅방 권한 검증, MySQL 메시지 영속화, Redis Pub/Sub 기반 인스턴스 간 이벤트 전달을 구성하고 EC2 운영 환경의 지연과 자원 사용량을 확인했습니다.',
+ tags:['Java 21','Spring Boot','React + Vite','WebSocket / STOMP','MySQL 8','Redis Pub/Sub','Docker','Nginx','k6'],
+ problem:'WebSocket 연결이 여러 애플리케이션 인스턴스로 분산되면 한 인스턴스의 메시지가 다른 인스턴스에 연결된 사용자에게 자동으로 전달되지 않습니다. 또한 인증과 채팅방 접근을 검증하면서 메시지를 저장하고 운영 지연도 관찰해야 합니다.',
+ solution:'HTTP Session과 채팅방 참여 권한을 검증하고 메시지를 MySQL에 저장합니다. Redis Pub/Sub으로 인스턴스 간 이벤트를 중계하고 Docker Compose와 Nginx로 실행 환경을 구성했습니다. 메시지 순서 보장은 미해결 과제로 분리해 기록했습니다.',
+ architecture:[
+ '<div class="arch-map chat-arch">',
+ '<div class="arch-lane"><div class="arch-lane-label">CLIENT</div><div class="arch-node primary"><b>React + Vite</b><small>REST API · STOMP / WebSocket</small></div></div>',
+ '<div class="arch-connector"><span>HTTP / WebSocket</span><i></i></div>',
+ '<div class="arch-lane"><div class="arch-lane-label">EDGE</div><div class="arch-node primary"><b>Nginx</b><small>HTTP reverse proxy · WebSocket upgrade</small></div></div>',
+ '<div class="arch-connector"><span>요청 라우팅</span><i></i></div>',
+ '<div class="arch-lane"><div class="arch-lane-label">APPLICATION</div><div class="arch-node primary"><b>Spring Boot · App 1</b><small>Session · REST · STOMP</small></div><div class="arch-node primary"><b>Spring Boot · App 2</b><small>Session · REST · STOMP</small></div></div>',
+ '<div class="arch-connector"><span>영속화 / 인스턴스 간 전달</span><i></i></div>',
+ '<div class="arch-lane data-lane"><div class="arch-node database"><b>MySQL 8</b><small>회원 · 방 · 메시지 · 읽음 위치</small></div><div class="arch-node cache"><b>Redis Pub/Sub</b><small>채팅 이벤트 중계</small></div></div>',
+ '<div class="arch-note"><b>설계상 한계</b><span>Redis Pub/Sub은 이벤트를 영속 보관하거나 방 단위 메시지 순서를 보장하지 않습니다. 운영 자원을 고려해 Prometheus와 Grafana는 필요할 때만 실행합니다.</span></div></div>'
+ ].join(''),
+ flow:[{title:'STOMP 수신',detail:'세션 인증과 채팅방 참여 권한 확인',type:'client'},{title:'메시지 저장',detail:'메시지를 MySQL에 영속화',type:'database'},{title:'이벤트 발행',detail:'Redis Pub/Sub으로 채팅 이벤트 발행',type:'cache'},{title:'인스턴스 수신',detail:'다른 앱 인스턴스가 구독 이벤트 수신',type:'async'},{title:'구독자 전달',detail:'각 인스턴스의 WebSocket 구독자에게 전달',type:'process'}],
+ sequence:['사용자 A → App 1 : STOMP 메시지','App 1 → MySQL : 메시지 저장','App 1 → Redis : 이벤트 발행','Redis → App 2 : 구독 이벤트 전달','App 2 → 사용자 B : WebSocket 전달'],
+ result:'k6 기능 테스트에서 HTTP 요청 실패율 0%와 WebSocket 연결 성공을 확인한 실행이 있습니다. 이후 EC2에서 자원 압박과 지연을 관측했으며, 메시지 순서 보장은 해결 완료로 표시하지 않고 후속 검증 과제로 관리합니다.'
+};
+const resources = {
+ swing:[['프로젝트 상세','project-swingfit.html'],['GitHub','https://github.com/zuzusnasna/SwingFit'],['발표 자료','https://docs.google.com/presentation/d/1Pq6C9Gpwqa5nS4xreTDfaa-qO3nPzDRG/edit?usp=sharing&ouid=116307840021041251052&rtpof=true&sd=true']],
+ game:[['프로젝트 상세','project-gamehub.html'],['GitHub','https://github.com/zuzusnasna/miniproject'],['발표 자료','https://docs.google.com/presentation/d/1O8qmPBlW6gBzqgfcE0S12cH3KzVe9jgL/edit?usp=sharing&ouid=116307840021041251052&rtpof=true&sd=true']],
+ ems:[['프로젝트 상세','project-ems.html'],['GitHub','https://github.com/zuzusnasna/equipment-management'],['발표 자료','https://docs.google.com/presentation/d/1KrGjSpPWXOR8gUXXhFqFXyQUNTyPWBGk/edit?usp=sharing&ouid=116307840021041251052&rtpof=true&sd=true']],
+ smart:[['프로젝트 상세','project-smartticketing.html'],['성능 측정','project-smartticketing-performance.html'],['GitHub','https://github.com/zuzusnasna/SmartTicketing'],['발표 자료','https://github.com/zuzusnasna/SmartTicketing/blob/main/SmartTicketing%20%EB%B0%9C%ED%91%9C.pptx']],
+ meet:[['프로젝트 상세','project-meetup.html'],['GitHub','https://github.com/zuzusnasna/Meet-Up']],
+ realtimechat:[['프로젝트 상세','project-realtimechat.html'],['성능 측정','project-realtimechat-performance.html'],['GitHub','https://github.com/zuzusnasna/RealTimeChat']]
+};
+const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+function renderProject(key, focusDetail=false) {
+ const p=projects[key] || projects.smart;
+ const root=document.querySelector('#projectDetail');
+ if(!root) return;
+ document.querySelectorAll('.project-tab').forEach(tab=>{
+  const active=tab.dataset.project===key;
+  tab.classList.toggle('active',active);
+  tab.setAttribute('aria-selected',String(active));
+  tab.tabIndex=active?0:-1;
+ });
+ const actionHtml=(resources[key]||[]).map(([label,url],i)=>'<a class="project-action '+(i===0?'project-action-primary':'')+'" href="'+esc(url)+'" '+(/^https?:/.test(url)?'target="_blank" rel="noreferrer"':'')+'>'+esc(label)+' ↗</a>').join('');
+ const flowHtml=(p.flow||[]).map((step,i)=>'<article class="flow-step '+esc(step.type||'')+'"><div class="flow-step-top"><b>'+String(i+1).padStart(2,'0')+'</b><span>'+esc(step.title)+'</span></div><p>'+esc(step.detail)+'</p></article>').join('');
+ const seqHtml=(p.sequence||[]).map((item,i)=>'<div class="sequence-item"><b>'+String(i+1).padStart(2,'0')+'</b><span>'+esc(item)+'</span></div>').join('');
+ root.innerHTML='<article class="project-card">'+
+ '<header class="project-head"><span>'+esc(p.name)+'</span><span>PROJECT '+String(Object.keys(projects).indexOf(key)+1).padStart(2,'0')+' / 06</span></header>'+
+ '<h3 class="project-title">'+esc(p.title)+'</h3><div class="project-actions">'+actionHtml+'</div>'+
+ '<p class="project-summary">'+esc(p.summary)+'</p><div class="tags">'+p.tags.map(tag=>'<span>'+esc(tag)+'</span>').join('')+'</div>'+
+ '<div class="detail-grid"><section><span class="mini-label">01 / PROBLEM</span><p>'+esc(p.problem)+'</p></section><section><span class="mini-label">02 / APPROACH</span><p>'+esc(p.solution)+'</p></section></div>'+
+ '<section class="visual-section"><div class="visual-title"><span>03 / SYSTEM ARCHITECTURE</span><small>구성 요소와 책임</small></div><div class="diagram">'+p.architecture+'</div></section>'+
+ '<section class="visual-section"><div class="visual-title"><span>04 / DATA FLOW</span><small>요청부터 결과까지</small></div><div class="flow-detail">'+flowHtml+'</div></section>'+
+ '<section class="visual-section"><div class="visual-title"><span>05 / SEQUENCE</span><small>처리 순서</small></div><div class="sequence">'+seqHtml+'</div></section>'+
+ '<section class="project-result"><span class="mini-label">06 / RESULT & VALIDATION</span><p>'+esc(p.result)+'</p></section></article>';
+ if(focusDetail && window.matchMedia('(max-width: 760px)').matches) root.scrollIntoView({behavior:'smooth',block:'start'});
+}
+window.renderProject=renderProject;
+function initPortfolio(){
+ const switcher=document.querySelector('#projectSwitcher');
+ if(switcher){
+  switcher.addEventListener('click',event=>{const button=event.target.closest('.project-tab');if(button)renderProject(button.dataset.project);});
+  switcher.addEventListener('keydown',event=>{
+   const tabs=[...switcher.querySelectorAll('.project-tab')], current=tabs.indexOf(document.activeElement);
+   const delta=event.key==='ArrowDown'||event.key==='ArrowRight'?1:event.key==='ArrowUp'||event.key==='ArrowLeft'?-1:0;
+   if(!delta)return;event.preventDefault();const next=tabs[(Math.max(current,0)+delta+tabs.length)%tabs.length];next.focus();renderProject(next.dataset.project);
   });
-});
-document.querySelectorAll('.project-tab').forEach(b=>b.addEventListener('click',()=>renderProject(b.dataset.project)));
-document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',e=>{const target=document.querySelector(link.getAttribute('href'));if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'})}}));
-window.addEventListener('load',()=>{const detail=document.querySelector('#projectDetail');if(detail&&!detail.children.length){const active=document.querySelector('.project-tab.active');renderProject(active?.dataset.project||'smart');}});
+  const query=new URLSearchParams(location.search).get('project');
+  renderProject(projects[query]?query:(switcher.querySelector('.project-tab.active')?.dataset.project||'smart'));
+ }
+ document.querySelectorAll('.contact-copy').forEach(button=>button.addEventListener('click',async()=>{
+  const value=button.dataset.copy,status=document.querySelector('.copy-feedback');
+  try{
+   if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(value);
+   else{const field=document.createElement('textarea');field.value=value;field.readOnly=true;field.style.position='fixed';field.style.opacity='0';document.body.appendChild(field);field.select();const ok=document.execCommand('copy');field.remove();if(!ok)throw new Error('copy failed');}
+   button.querySelector('.copy-action').textContent='COPIED ✓';if(status)status.textContent=(value.includes('@')?'이메일':'전화번호')+'가 복사되었습니다.';
+  }catch{if(status)status.textContent='복사하지 못했습니다. 연락처를 직접 선택해 복사해 주세요.';}
+ }));
+ document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{const target=document.querySelector(link.getAttribute('href'));if(target){event.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}}));
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initPortfolio);else initPortfolio();
