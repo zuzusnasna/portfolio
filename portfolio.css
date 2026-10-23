@@ -21,7 +21,7 @@ button{font:inherit}::selection{background:#222;color:#fff}:focus-visible{outlin
 .site-header nav a:hover{color:#000}
 .hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);align-items:center;column-gap:clamp(42px,7vw,100px);row-gap:18px;min-height:min(760px,calc(100svh - 70px));padding-block:90px 108px}
 .eyebrow,.section-label,.visual-title,.detail-section-label,.detail-eyebrow,.github-kicker,.mini-label{color:var(--muted);font-size:10px;font-weight:780;letter-spacing:.14em;text-transform:uppercase}
-.hero>.eyebrow{grid-column:1/-1;align-self:end;margin-bottom:0}
+.hero>.eyebrow{grid-column:1/-1;align-self:end;margin-bottom:0}.hero-main{min-width:0}.hero-terminal{grid-column:2;grid-row:2 / span 2}
 .hero h1{margin:0 0 22px;font-size:clamp(43px,6.1vw,82px);font-weight:640;line-height:1.12;letter-spacing:-.075em}
 .hero h1 em,.contact h2 em{color:#777;font-style:normal}
 .hero-copy{max-width:650px;margin-bottom:27px;font-size:clamp(15px,1.4vw,18px);line-height:1.95;word-break:keep-all}
@@ -203,7 +203,7 @@ footer{display:flex;justify-content:space-between;gap:20px;padding:24px var(--gu
 @media(max-width:760px){
  :root{--gutter:22px;--section-gap:76px}
  .site-header{min-height:62px;gap:14px}.site-header nav{gap:clamp(10px,2.5vw,20px)}.site-header nav a{min-height:62px;font-size:9px;letter-spacing:.025em}.brand{font-size:10px;letter-spacing:.08em}
- .hero{grid-template-columns:minmax(0,1fr);min-height:auto;gap:34px;padding-block:60px 78px}.hero>.eyebrow{grid-column:auto}.hero h1{font-size:clamp(40px,9vw,62px)}.hero-terminal{width:min(100%,560px)}
+ .hero{grid-template-columns:minmax(0,1fr);min-height:auto;gap:34px;padding-block:60px 78px}.hero-main,.hero-terminal{grid-column:1;grid-row:auto}.hero>.eyebrow{grid-column:auto}.hero h1{font-size:clamp(40px,9vw,62px)}.hero-terminal{width:min(100%,560px)}
  .about-grid{grid-template-columns:1fr;gap:30px}.stack-heading{align-items:flex-start;flex-direction:column}.stack-row{grid-template-columns:150px minmax(0,1fr)}
  .projects-layout{grid-template-columns:minmax(0,1fr);gap:22px}.project-switcher{position:relative;top:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line-dark)}
  .project-tab{min-height:52px;border-right:1px solid var(--line);padding:11px 9px;grid-template-columns:23px minmax(0,1fr) 13px;font-size:9px}
