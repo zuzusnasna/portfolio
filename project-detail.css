@@ -70,3 +70,12 @@
 .detail-resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
 .detail-resource-links a{display:inline-flex;align-items:center;padding:8px 11px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.72);color:var(--muted);font-size:11px;transition:border-color .2s,color .2s,background .2s}
 .detail-resource-links a:hover{border-color:#a9c1e6;background:#fff;color:var(--accent)}
+
+
+/* Trade-offs and verification sections added to project detail pages. */
+.tradeoff-section{background:#f4f7fb}
+.tradeoff-card{height:100%;box-shadow:0 5px 18px rgba(25,43,71,.035)}
+.verification-note{display:grid;grid-template-columns:130px minmax(0,1fr);gap:18px;margin-top:20px;padding:20px 22px;border:1px solid #d3deed;border-left:3px solid #6f91c2;background:#fff}
+.verification-note strong{color:#315b94;font-size:12px;line-height:1.8}
+.verification-note p{margin:0;color:var(--muted);font-size:12px;line-height:1.9}
+@media(max-width:600px){.verification-note{grid-template-columns:1fr;gap:6px;padding:17px}}
