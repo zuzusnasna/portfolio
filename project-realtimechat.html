@@ -3,95 +3,116 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Real-Time Chat의 WebSocket/STOMP, Redis Pub/Sub, 모니터링 구조를 정리한 프로젝트 상세 페이지">
-<title>Real-Time Chat — 주상혁 포트폴리오</title>
+<meta name="description" content="RealTimeChat의 세션 인증, WebSocket/STOMP, Redis Pub/Sub, 다중 인스턴스 배포와 k6 성능 개선 및 미해결 과제">
+<title>RealTimeChat — 주상혁 포트폴리오</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="diagram-overhaul.css?v=colors3">
 <link rel="stylesheet" href="layout-recovery.css">
 <link rel="stylesheet" href="project-detail.css">
 <link rel="stylesheet" href="portfolio-enhancements.css">
-<link rel="stylesheet" href="realtime-chat-portfolio.css">
-
-<style>
-.grafana-video-frame{margin-top:26px;overflow:hidden;border:1px solid #dce4ef;border-radius:18px;background:#0b1220;box-shadow:0 16px 42px rgba(23,39,66,.12)}
-.grafana-video-frame video{display:block;width:100%;max-height:680px;aspect-ratio:16/9;object-fit:contain;background:#080d16}
-.grafana-video-caption{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;background:#fff;border-top:1px solid #dce4ef}
-.grafana-video-caption span{color:#64748b;font:10px 'DM Mono',monospace;letter-spacing:.08em}
-.grafana-video-caption a{color:#355b91;font-size:12px;font-weight:650;text-decoration:underline;text-underline-offset:4px}
-@media(max-width:560px){.grafana-video-frame{border-radius:12px}.grafana-video-caption{align-items:flex-start;flex-direction:column;gap:8px;padding:12px 14px}}
-</style>
-
+<link rel="stylesheet" href="realtime-chat-portfolio.css?v=20261023">
 </head>
-<body class="project-detail-page">
+<body class="project-detail-page realtime-chat-page" data-project="realtimechat">
 <header class="site-header"><a class="brand" href="index.html#top">JUSANGHYEOK<span>.</span></a><nav aria-label="메인 메뉴"><a href="index.html#about">About</a><a href="index.html#projects">Projects</a><a href="index.html#method">Method</a><a href="index.html#contact">Contact</a></nav></header>
 <main class="detail-page-main">
   <div class="detail-page-top"><a class="detail-back-link" href="index.html?project=realtimechat#projects">← ALL PROJECTS</a></div>
   <section class="detail-hero">
     <div class="detail-hero-copy">
-      <div class="detail-eyebrow"><span>06</span>REAL-TIME CHAT / PROJECT DETAIL</div>
-      <h1>서로 다른 서버에 연결된 사용자도<br>실시간으로 대화할 수 있도록.</h1>
-      <p class="performance-intro">WebSocket/STOMP 기반 채팅에 세션 인증과 채팅방 권한 검증을 적용하고, Redis Pub/Sub으로 다중 Spring Boot 인스턴스 간 메시지와 읽음 상태를 중계합니다. 메시지별 미읽음 인원 수를 표시하며 Prometheus·Grafana와 k6로 운영 지표 및 기본 전달 흐름을 확인했습니다.</p>
-      <div class="detail-tags"><span>Java 21</span><span>Spring Boot 4.1.1</span><span>WebSocket / STOMP</span><span>Redis Pub/Sub</span><span>MySQL 8</span><span>Docker Compose</span><span>Prometheus</span><span>Grafana</span><span>k6</span></div>
+      <div class="detail-eyebrow"><span>06</span>REALTIMECHAT / BACKEND PORTFOLIO</div>
+      <h1>두 애플리케이션 인스턴스 사이에서도<br>대화가 이어지는 실시간 채팅.</h1>
+      <p class="realtime-lead">Spring Boot와 React로 구현한 실시간 채팅 서비스입니다. HTTP Session 인증과 채팅방 권한 검증, MySQL 메시지 영속화, Redis Pub/Sub 기반 인스턴스 간 이벤트 전달을 연결했습니다. 기능 구현에서 끝내지 않고 EC2의 메모리 압박과 메시지 지연을 측정하며 운영 설정과 부하 테스트를 개선하고 있습니다.</p>
+      <div class="detail-tags"><span>Java 21</span><span>Spring Boot 4.1.1</span><span>React + Vite</span><span>WebSocket / STOMP</span><span>MySQL 8</span><span>Redis Pub/Sub</span><span>Docker Compose</span><span>Nginx</span><span>GitHub Actions</span><span>k6</span></div>
     </div>
-    <aside class="detail-side-index"><span>PROJECT OVERVIEW</span><strong>REAL-TIME CHAT</strong><div class="detail-side-line"></div><small>MESSAGING / DISTRIBUTED INSTANCES / OBSERVABILITY</small><a href="https://github.com/zuzusnasna/RealTimeChat" target="_blank" rel="noreferrer">저장소 코드 살펴보기 ↗</a></aside>
+    <aside class="detail-side-index"><span>PROJECT STATUS</span><strong>RUNNING / IMPROVING</strong><div class="detail-side-line"></div><small>REAL-TIME MESSAGING · MULTI-INSTANCE · PERFORMANCE</small><a href="https://github.com/zuzusnasna/RealTimeChat" target="_blank" rel="noreferrer">저장소 전체 코드 ↗</a><a href="https://github.com/zuzusnasna/RealTimeChat/actions" target="_blank" rel="noreferrer">빌드·배포 실행 내역 ↗</a></aside>
   </section>
+
   <section class="detail-section">
-    <div class="detail-section-label"><span>01</span><span>PROBLEM & SOLUTION</span></div>
-    <div class="detail-section-heading"><h2>인스턴스가 달라도 메시지는 전달되어야 합니다.</h2><p>WebSocket 연결이 서로 다른 앱 인스턴스에 분산되면 한 서버에서 발생한 메시지 이벤트를 다른 서버의 구독자에게 전달할 중간 경로가 필요합니다.</p></div>
-    <div class="detail-card-grid">
-      <article class="detail-info-card"><span>PROBLEM</span><h3>인스턴스 간 메시지 전달</h3><p>각 서버는 자신에게 연결된 WebSocket 세션을 관리하므로, 서버 하나의 로컬 처리만으로는 다른 인스턴스에 연결된 사용자를 대상으로 메시지를 전달할 수 없습니다.</p></article>
-      <article class="detail-info-card"><span>SOLUTION</span><h3>Redis Pub/Sub 브로드캐스트</h3><p>각 인스턴스가 Redis Pub/Sub 채널을 통해 메시지 이벤트를 발행·구독하도록 구성해 서버 경계를 넘어 메시지 전달 흐름을 연결했습니다.</p></article>
-      <article class="detail-info-card"><span>READ RECEIPTS</span><h3>메시지별 미읽음 인원 표시</h3><p>사용자별 마지막 읽은 메시지 위치를 저장하고, 메시지별 미읽음 인원 수를 계산합니다. 읽음 상태 변경은 Redis Pub/Sub으로 다른 인스턴스에도 전달하며 중복 읽음 처리로 인한 카운트 변경을 방지합니다.</p></article>
-      <article class="detail-info-card"><span>OBSERVABILITY</span><h3>운영 지표를 수집하고 시각화</h3><p>Spring Boot Actuator/Micrometer 메트릭을 Prometheus가 수집하고, Grafana 대시보드에서 HTTP 요청량, p95 응답 시간, JVM 메모리, CPU 사용량을 관찰할 수 있도록 구성했습니다.</p></article>
-      <article class="detail-info-card"><span>VALIDATION</span><h3>두 인스턴스 간 메시지 전달 검증</h3><p>k6 스크립트로 사용자 생성·로그인·채팅방 생성 및 참여, WebSocket 연결과 교차 인스턴스 메시지 수신을 검증했습니다.</p></article>
-      <article class="detail-info-card"><span>CI / CD</span><h3>main push 기반 로컬 재배포</h3><p>GitHub Actions가 Windows self-hosted runner에서 Docker Compose 서비스를 빌드하고 컨테이너를 재생성하도록 구성했습니다. EC2 자동 배포는 아직 별도 안정화·검증 항목으로 관리합니다.</p></article>
+    <div class="detail-section-label"><span>01</span><span>FEATURES</span></div>
+    <div class="detail-section-heading"><h2>구현 기능과 현재 상태</h2><p>실제 저장소의 구현 내용과 진행 중인 기술 과제를 구분했습니다.</p></div>
+    <div class="detail-card-grid realtime-feature-grid">
+      <article class="detail-info-card"><span>AUTHENTICATION</span><h3>회원 인증과 채팅방 접근 제어</h3><p>회원가입·로그인·로그아웃에 HTTP Session 인증을 사용합니다. REST 요청과 STOMP 메시지에서 인증 상태 및 채팅방 참여 권한을 확인합니다.</p></article>
+      <article class="detail-info-card"><span>MESSAGING</span><h3>실시간 송수신과 대화 이력</h3><p>WebSocket/STOMP로 메시지를 주고받고 MySQL에 저장합니다. 방 진입 시 불러온 과거 이력과 실시간 이벤트를 병합해 도착 순서가 다른 이벤트로 최신 메시지가 가려지는 상황을 줄입니다.</p></article>
+      <article class="detail-info-card"><span>CROSS-INSTANCE</span><h3>Redis Pub/Sub 중계</h3><p>두 Spring Boot 인스턴스가 채팅 이벤트를 발행·구독해 서로 다른 인스턴스에 연결된 사용자에게 메시지를 전달합니다. Redis Pub/Sub 자체는 영속 큐나 메시지 순서 보장 계층이 아닙니다.</p></article>
+      <article class="detail-info-card"><span>READ RECEIPTS</span><h3>메시지별 미읽음 인원 수</h3><p>사용자별 마지막 읽은 위치를 관리하고 메시지별 미읽음 인원 수를 계산합니다. 읽음 상태 이벤트도 Redis Pub/Sub으로 인스턴스 사이에 전달합니다.</p></article>
+      <article class="detail-info-card"><span>PROFILE & LINKS</span><h3>닉네임과 URL 표시</h3><p>사용자는 닉네임을 변경할 수 있으며 메시지에 현재 표시 이름이 반영됩니다. 본문 URL은 클릭 가능한 링크로 표시하고 새 탭으로 열 때 안전 속성을 적용합니다.</p></article>
+      <article class="detail-info-card"><span>LOCAL DEVELOPMENT</span><h3>로컬 실행 환경 분리</h3><p>PowerShell 시작·종료 스크립트와 로컬 전용 Compose를 제공합니다. 로컬 MySQL은 호스트 3307 포트를 사용해 Windows MySQL의 3306 포트와 분리합니다.</p></article>
     </div>
   </section>
+
   <section class="detail-section">
     <div class="detail-section-label"><span>02</span><span>SYSTEM ARCHITECTURE</span></div>
-    <div class="detail-section-heading"><h2>서비스와 관측 계층</h2><p>메시지 전달 경로와 운영 메트릭 수집 경로를 분리해 구성했습니다.</p></div>
-    <div class="diagram"><div class="arch-map chat-arch">
-      <div class="arch-lane"><div class="arch-lane-label">CLIENT</div><div class="arch-node primary"><b>React + Vite</b><small>채팅 UI · STOMP/WebSocket 연결</small></div></div>
-      <div class="arch-connector"><span>HTTP API / WebSocket</span><i>↓</i></div>
-      <div class="arch-lane"><div class="arch-lane-label">APPLICATION · SPRING BOOT</div><div class="arch-node primary"><b>App Instance 1</b><small>HTTP · WebSocket · STOMP</small></div><div class="arch-link">↔</div><div class="arch-node primary"><b>App Instance 2</b><small>HTTP · WebSocket · STOMP</small></div></div>
-      <div class="arch-connector"><span>인스턴스 간 메시지 브로드캐스트</span><i>↓</i></div>
-      <div class="arch-lane data-lane"><div class="arch-node cache"><b>Redis Pub/Sub</b><small>채팅 · 읽음 상태 이벤트 중계</small></div><div class="arch-node database"><b>MySQL</b><small>회원 · 채팅방 · 영속 데이터</small></div></div>
-      <div class="arch-connector"><span>운영 메트릭 수집</span><i>↓</i></div>
-      <div class="arch-lane"><div class="arch-node async"><b>Prometheus</b><small>Actuator / Micrometer 메트릭</small></div><div class="arch-link">→</div><div class="arch-node async"><b>Grafana</b><small>요청량 · p95 · JVM · CPU</small></div></div>
-      <div class="arch-note"><b>설계상 주의점</b><span>Redis Pub/Sub은 채팅 메시지 전달을 공유하지만 HTTP 세션 자체를 공유하지는 않습니다. 인스턴스 간 로그인 상태 공유는 별도의 세션 전략이 필요합니다.</span></div>
-    </div></div>
+    <div class="detail-section-heading"><h2>요청 처리와 메시지 중계 구조</h2><p>Nginx는 HTTP와 WebSocket을 앱 인스턴스로 라우팅합니다. 메시지 저장 경로와 인스턴스 간 실시간 이벤트 경로는 서로 다른 역할을 담당합니다.</p></div>
+    <div class="diagram realtime-architecture">
+      <div class="arch-map chat-arch">
+        <div class="arch-lane"><div class="arch-lane-label">CLIENT</div><div class="arch-node primary"><b>Browser · React</b><small>Vite UI · REST API · STOMP/WebSocket</small></div></div>
+        <div class="arch-connector"><span>HTTP / WebSocket</span><i>↓</i></div>
+        <div class="arch-lane"><div class="arch-lane-label">EDGE / REVERSE PROXY</div><div class="arch-node primary"><b>Nginx</b><small>HTTP reverse proxy · WebSocket upgrade · ip_hash routing</small></div></div>
+        <div class="arch-connector"><span>인증된 요청 · 앱 인스턴스 라우팅</span><i>↓</i></div>
+        <div class="arch-lane"><div class="arch-lane-label">APPLICATION · SPRING BOOT</div><div class="arch-node primary"><b>App Instance 1</b><small>REST · Session · STOMP</small></div><div class="arch-link">↔</div><div class="arch-node primary"><b>App Instance 2</b><small>REST · Session · STOMP</small></div></div>
+        <div class="arch-connector"><span>영속화 및 인스턴스 간 이벤트</span><i>↓</i></div>
+        <div class="arch-lane data-lane"><div class="arch-node database"><b>MySQL 8</b><small>사용자 · 방 · 메시지 · 읽음 위치 저장</small></div><div class="arch-node cache"><b>Redis Pub/Sub</b><small>채팅 이벤트 · 읽음 상태 중계</small></div></div>
+        <div class="arch-connector"><span>선택형 모니터링 프로필 · Actuator scrape</span><i>↓</i></div>
+        <div class="arch-lane"><div class="arch-node async"><b>Prometheus</b><small>Actuator / Micrometer 수집</small></div><div class="arch-link">→</div><div class="arch-node async"><b>Grafana</b><small>요청량 · 지연 · JVM 지표 시각화</small></div></div>
+        <div class="arch-note"><b>설계상 한계</b><span>Redis Pub/Sub은 이벤트를 구독자에게 전달하지만 메시지를 영속 보관하거나 방 단위 순서를 보장하지 않습니다. Nginx의 ip_hash는 세션 요청 라우팅을 돕지만, 앱 장애·라우팅 변경 이후의 세션 공유를 대신하지는 않습니다. Prometheus와 Grafana는 EC2 자원 절약을 위해 기본 Compose 실행에서 제외하고 필요할 때만 켭니다.</span></div>
+      </div>
+    </div>
+    <div class="realtime-flow-grid">
+      <article><span>01 · RECEIVE</span><strong>STOMP 수신</strong><p>로그인 세션과 채팅방 참여 권한을 확인합니다.</p></article>
+      <article><span>02 · PERSIST</span><strong>MySQL 저장</strong><p>메시지 데이터를 영속화한 뒤 이벤트를 발행합니다.</p></article>
+      <article><span>03 · RELAY</span><strong>Redis Pub/Sub</strong><p>구독 중인 다른 앱 인스턴스가 이벤트를 수신합니다.</p></article>
+      <article><span>04 · DELIVER</span><strong>WebSocket 전달</strong><p>각 인스턴스가 연결된 방 구독자에게 메시지를 보냅니다.</p></article>
+    </div>
   </section>
+
   <section class="detail-section">
-    <div class="detail-section-label"><span>03</span><span>OBSERVABILITY DEMO</span></div>
-    <div class="detail-section-heading"><h2>Grafana Performance View</h2><p>실제 저장소에 업로드한 대시보드 녹화 영상입니다. 포트폴리오 페이지 안에서 바로 재생해 Prometheus로 수집한 운영 지표와 Grafana 시각화 화면을 확인할 수 있습니다.</p></div>
+    <div class="detail-section-label"><span>03</span><span>PERFORMANCE ENGINEERING</span></div>
+    <div class="detail-section-heading"><h2>지연을 측정하고 병목 가능성을 줄이다</h2><p>테스트 결과와 운영 관측을 바탕으로 설정을 조정했습니다. 아래 값은 특정 실행에서 기록된 결과이며 처리량이나 최대 동시 접속을 보장하는 수치가 아닙니다.</p></div>
+    <div class="performance-summary realtime-metrics">
+      <article><span>EC2 · 2 VU · 60 SEC</span><strong>1,158</strong><p>기록된 전송 / 수신 메시지 수 모두 1,158건</p></article>
+      <article><span>AVERAGE DELIVERY</span><strong>18.96 ms</strong><p>해당 테스트의 평균 전달 시간</p></article>
+      <article><span>P95 DELIVERY</span><strong>34 ms</strong><p>해당 테스트의 95 백분위 전달 지연</p></article>
+      <article><span>MAX DELIVERY</span><strong>171 ms</strong><p>해당 테스트에서 관측된 최대값</p></article>
+    </div>
+    <div class="detail-card-grid realtime-improvement-grid">
+      <article class="detail-info-card"><span>DB CONTENTION</span><h3>메시지 저장 경로의 비관적 잠금 제거</h3><p>같은 채팅방 행을 잠그는 경로가 동시 전송을 직렬화할 수 있어 제거했습니다. 이후 측정에서는 전달 지연이 개선됐지만, 동시 발행 이벤트의 엄격한 순서는 별도로 보장해야 합니다.</p></article>
+      <article class="detail-info-card"><span>EC2 MEMORY</span><h3>모니터링과 연결 풀 비용 조절</h3><p>Prometheus/Grafana를 선택형 Compose 프로필로 분리했습니다. SQL 표준 출력은 기본 비활성화하고 HikariCP 기본 풀 상한을 인스턴스당 4개로 제한해 작은 EC2의 메모리·연결 예산을 관리합니다.</p></article>
+      <article class="detail-info-card"><span>MEASUREMENT</span><h3>HTTP와 WebSocket을 별도로 검증</h3><p>k6 스크립트로 인증, 방 생성·참여, WebSocket 연결, 교차 인스턴스 메시지 전달을 측정합니다. 테스트 데이터가 생성되므로 운영 DB 대신 별도 테스트 환경에서 실행해야 합니다.</p></article>
+      <article class="detail-info-card"><span>OBSERVABILITY</span><h3>Prometheus + Grafana</h3><p>Actuator/Micrometer 메트릭을 수집해 HTTP 지연과 JVM 및 프로세스 상태를 관찰할 수 있도록 구성했습니다. 운영 자원 사용량 때문에 필요 시 프로필로 켜는 방식입니다.</p></article>
+    </div>
+    <div class="realtime-callout"><strong>측정 해석</strong><p>이전 5 VU 저부하 실행에서는 HTTP 요청 실패 0%, WebSocket 연결 23/23, 교차 인스턴스 전달 360건·p95 27ms가 기록됐습니다. 이후 2 VU / 60초 / 100ms 간격 테스트는 전달 1,158건·평균 18.96ms·p95 34ms였습니다. 조건이 서로 다르므로 두 결과를 직접적인 개선율로 비교하면 안 됩니다.</p></div>
     <div class="grafana-video-frame">
-      <video controls playsinline preload="metadata" aria-label="Grafana Performance View 대시보드 시연 영상">
-        <source src="https://raw.githubusercontent.com/zuzusnasna/RealTimeChat/main/Performance%20View.mp4" type="video/mp4">
-        브라우저에서 동영상을 재생할 수 없습니다. <a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/Performance%20View.mp4" target="_blank" rel="noreferrer">GitHub에서 영상 보기</a>
+      <video controls playsinline preload="metadata" aria-label="Grafana 성능 대시보드 시연 영상">
+        <source src="https://raw.githubusercontent.com/zuzusnasna/RealTimeChat/main/docs/assets/performance-view.mp4" type="video/mp4">
+        브라우저에서 동영상을 재생할 수 없습니다. <a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/docs/assets/performance-view.mp4" target="_blank" rel="noreferrer">GitHub에서 영상 보기</a>
       </video>
-      <div class="grafana-video-caption"><span>GRAFANA · PERFORMANCE VIEW</span><a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/Performance%20View.mp4" target="_blank" rel="noreferrer">원본 영상 ↗</a></div>
+      <div class="grafana-video-caption"><span>GRAFANA · PERFORMANCE VIEW</span><a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/docs/assets/performance-view.mp4" target="_blank" rel="noreferrer">원본 영상 ↗</a></div>
     </div>
   </section>
+
   <section class="detail-section">
-    <div class="detail-section-label"><span>04</span><span>MESSAGE FLOW</span></div>
-    <div class="detail-section-heading"><h2>메시지 전달과 메트릭 수집</h2><p>사용자 메시지는 Redis Pub/Sub을 통해 인스턴스 사이를 이동하고, 모니터링 데이터는 별도 scrape 경로로 수집됩니다.</p></div>
-    <div class="detail-card-grid">
-      <article class="detail-info-card"><span>01 · PUBLISH</span><h3>메시지 발행</h3><p>클라이언트가 WebSocket/STOMP 연결을 통해 메시지를 발행합니다.</p></article>
-      <article class="detail-info-card"><span>02 · BROADCAST</span><h3>Redis Pub/Sub</h3><p>애플리케이션 인스턴스가 채널을 통해 메시지 이벤트를 발행하고 구독 인스턴스에 전달합니다.</p></article>
-      <article class="detail-info-card"><span>03 · DELIVER</span><h3>WebSocket 구독자 전달</h3><p>각 인스턴스는 자신에게 연결된 관련 구독자에게 메시지를 전달합니다.</p></article>
-      <article class="detail-info-card"><span>04 · READ STATE</span><h3>읽음 상태 갱신</h3><p>채팅방을 열어 메시지를 읽으면 사용자별 읽음 위치를 갱신하고, 미읽음 인원 수를 다시 계산해 화면에 반영합니다.</p></article>
-      <article class="detail-info-card"><span>05 · OBSERVE</span><h3>Prometheus → Grafana</h3><p>HTTP, JVM 및 프로세스 지표를 수집하고 대시보드에서 시간 흐름에 따라 관찰합니다.</p></article>
+    <div class="detail-section-label"><span>04</span><span>DEPLOYMENT & DEVELOPMENT</span></div>
+    <div class="detail-section-heading"><h2>로컬 개발과 EC2 배포 흐름</h2><p>개발 환경과 운영 환경을 분리하고, GitHub Actions에서 테스트·배포 작업을 관리합니다.</p></div>
+    <div class="detail-card-grid realtime-feature-grid">
+      <article class="detail-info-card"><span>LOCAL</span><h3>PowerShell + Docker Compose</h3><p><code>start-local.ps1</code>과 <code>stop-local.ps1</code>로 로컬 실행 환경을 관리합니다. 로컬 전용 MySQL·Redis 포트를 운영 포트와 분리해 개발 PC의 기존 서비스와 충돌을 줄입니다.</p></article>
+      <article class="detail-info-card"><span>CI</span><h3>Pull Request 검증</h3><p><code>.github/workflows/ci.yml</code>은 JDK 21, MySQL, Redis 환경에서 Gradle 테스트를 실행합니다.</p></article>
+      <article class="detail-info-card"><span>EC2 CD</span><h3>main push 기반 배포</h3><p><code>deploy-ec2.yml</code>은 main 푸시 시 self-hosted Windows runner에서 SSH로 EC2에 접속해 저장소를 갱신하고 Compose 서비스를 재배포하도록 구성돼 있습니다. 배포 성공 후에도 실제 로그인과 채팅 동작을 별도로 확인해야 합니다.</p></article>
+      <article class="detail-info-card"><span>MONITORING</span><h3>필요할 때만 실행</h3><p>운영 기본 구성은 Nginx, 두 앱 인스턴스, MySQL, Redis 중심입니다. Prometheus와 Grafana는 <code>--profile monitoring</code>으로 별도 실행합니다.</p></article>
     </div>
   </section>
+
   <section class="detail-section">
-    <div class="detail-section-label"><span>05</span><span>VALIDATION</span></div>
-    <div class="detail-section-heading"><h2>저부하 테스트로 기본 동작 확인</h2><p>초기 테스트에서는 기능 연결과 교차 인스턴스 전달이 정상적으로 동작하는지 확인했습니다. 테스트 수치는 성능 한계치가 아닌 해당 조건에서 관측한 값입니다.</p></div>
-    <div class="performance-summary">
-      <article><span>HTTP REQUEST FAILURE</span><strong>0%</strong><p>28개 HTTP 요청 중 실패 0건</p></article>
-      <article><span>WEBSOCKET CONNECTED</span><strong>100%</strong><p>23 / 23 WebSocket 세션 연결 성공</p></article>
-      <article><span>CROSS-INSTANCE P95</span><strong>27 ms</strong><p>360건 · 평균 20.81ms</p></article>
+    <div class="detail-section-label"><span>05</span><span>KNOWN LIMITATIONS</span></div>
+    <div class="detail-section-heading"><h2>완료한 개선과 아직 해결하지 않은 문제</h2><p>성능 수치가 좋아졌다고 모든 메시지 전달 조건이 해결된 것은 아닙니다.</p></div>
+    <div class="realtime-open-issue">
+      <div><span>OPEN ISSUE</span><h3>동시 메시지의 방 단위 순서 보장</h3></div>
+      <div><p>강한 테스트에서 메시지 순서 역전 6건과 도착 시점 sequence gap 6건이 관측됐습니다. gap은 늦게 도착한 메시지 때문에 생길 수 있어 실제 유실과 구분하는 검증 로직도 추가 확인이 필요합니다.</p><p>Redis listener를 단일 스레드로 직렬화한 시도는 성능 회귀가 커서 되돌렸습니다. 현재는 순서 보장이 완료된 것으로 표시하지 않고, DB 저장부터 Redis 발행·수신과 STOMP 전달까지 단계를 나눠 추적하는 것을 다음 과제로 두고 있습니다.</p></div>
     </div>
-    <div class="performance-footer-actions"><a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/README.md" target="_blank" rel="noreferrer">README · 실행 및 배포 가이드 ↗</a><a href="https://github.com/zuzusnasna/RealTimeChat/actions" target="_blank" rel="noreferrer">GitHub Actions 실행 내역 ↗</a><a href="project-realtimechat-performance.html">성능 측정 결과 자세히 보기 ↗</a><a href="index.html?project=realtimechat#projects">프로젝트 목록으로 돌아가기</a><a href="https://github.com/zuzusnasna/RealTimeChat" target="_blank" rel="noreferrer">GitHub 저장소 ↗</a></div>
+    <div class="realtime-next-grid">
+      <article><span>01</span><strong>측정 로직 검증</strong><p>실제 유실·중복·지연 도착·순서 역전을 구분합니다.</p></article>
+      <article><span>02</span><strong>단계별 지연 추적</strong><p>DB 저장, Redis 발행/수신, WebSocket 전송 시간을 나눠 확인합니다.</p></article>
+      <article><span>03</span><strong>운영 안정성</strong><p>배포 후 메모리·Swap·컨테이너 RSS와 실제 채팅을 확인합니다.</p></article>
+    </div>
+    <div class="performance-footer-actions realtime-footer-actions"><a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/README.md" target="_blank" rel="noreferrer">README ↗</a><a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/docs/PROJECT-REPORT.md" target="_blank" rel="noreferrer">프로젝트 총정리 ↗</a><a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/docs/PROJECT-IMPROVEMENTS.md" target="_blank" rel="noreferrer">개선 이력 ↗</a><a href="https://github.com/zuzusnasna/RealTimeChat/blob/main/docs/EC2-PERFORMANCE-ANALYSIS.md" target="_blank" rel="noreferrer">EC2 성능 분석 ↗</a><a href="project-realtimechat-performance.html">기존 저부하 테스트 상세 ↗</a><a href="https://github.com/zuzusnasna/RealTimeChat/actions" target="_blank" rel="noreferrer">GitHub Actions ↗</a></div>
   </section>
 </main>
 <footer><span>JUSANGHYEOK</span><span>© 2026</span></footer>
