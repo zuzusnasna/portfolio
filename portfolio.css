@@ -52,7 +52,8 @@ button{font:inherit}::selection{background:#222;color:#fff}:focus-visible{outlin
 .stack-logos{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:13px}
 .stack-logos img{width:29px;height:29px;object-fit:contain;transition:transform .18s}.stack-logos img:hover{transform:translateY(-2px)}
 /* Project selector and detail are one two-column component. */
-.projects{padding-bottom:clamp(90px,12vw,160px)}
+.stack{padding-bottom:32px}
+.projects{padding-top:32px;padding-bottom:clamp(90px,12vw,160px)}
 .projects-layout{display:grid;grid-template-columns:minmax(205px,255px) minmax(0,1fr);align-items:start;gap:clamp(24px,4vw,54px)}
 .project-switcher{position:sticky;top:94px;display:flex;flex-direction:column;min-width:0;border-top:1px solid var(--line-dark)}
 .project-tab{display:grid;grid-template-columns:27px minmax(0,1fr) 18px;align-items:center;gap:9px;width:100%;min-height:60px;padding:14px 12px;border:0;border-bottom:1px solid var(--line);background:#fff;color:#6d6d6d;text-align:left;cursor:pointer;font-size:10px;font-weight:780;letter-spacing:.035em;transition:background .18s,color .18s,border-color .18s}
