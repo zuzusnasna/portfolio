@@ -91,9 +91,12 @@ button{font:inherit}::selection{background:#222;color:#fff}:focus-visible{outlin
 .flow-step p{margin:0;font-size:10px;line-height:1.75;word-break:keep-all}
 .flow-step.cache{background:#faf6e9}.flow-step.database{background:#f0f5ee}.flow-step.async{background:#f5f1f9}
 .flow-arrow{align-self:center;color:#888}.sequence{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--line)}
-.sequence-item,.sequence>div{display:flex;flex-direction:column;gap:9px;min-width:0;min-height:94px;padding:13px;border-right:1px solid var(--line)}
-.sequence-item:last-child,.sequence>div:last-child{border-right:0}
+.sequence-item,.sequence>div{display:flex;flex-direction:column;gap:9px;min-width:0;min-height:94px;padding:13px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sequence-item:nth-child(5n),.sequence>div:nth-child(5n){border-right:0}
+.sequence-item:nth-child(n+6),.sequence>div:nth-child(n+6){border-top:1px solid var(--line)}
 .sequence-item b,.sequence>div b{color:#888;font-size:9px}.sequence-item span,.sequence>div span{font-size:10px;font-weight:650;line-height:1.6;overflow-wrap:anywhere}
+@media(max-width:900px){.sequence{grid-template-columns:repeat(3,minmax(0,1fr))}.sequence-item:nth-child(5n),.sequence>div:nth-child(5n){border-right:1px solid var(--line)}.sequence-item:nth-child(3n),.sequence>div:nth-child(3n){border-right:0}.sequence-item:nth-child(n+4),.sequence>div:nth-child(n+4){border-top:1px solid var(--line)}.sequence-item:nth-child(n+6),.sequence>div:nth-child(n+6){border-top:0}.sequence-item:nth-child(n+4):nth-child(3n+1),.sequence>div:nth-child(n+4):nth-child(3n+1){border-top:1px solid var(--line)}}
+@media(max-width:560px){.sequence{grid-template-columns:repeat(2,minmax(0,1fr))}.sequence-item:nth-child(3n),.sequence>div:nth-child(3n){border-right:1px solid var(--line)}.sequence-item:nth-child(2n),.sequence>div:nth-child(2n){border-right:0}.sequence-item:nth-child(n+4),.sequence>div:nth-child(n+4){border-top:0}.sequence-item:nth-child(n+3),.sequence>div:nth-child(n+3){border-top:1px solid var(--line)}}
 .project-result{display:grid;grid-template-columns:145px minmax(0,1fr);gap:16px 22px;margin-top:40px;padding:19px 0;border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark)}
 .project-result .mini-label{margin:0}.project-result p{max-width:850px}
 .method>h2{margin-bottom:38px}.method-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line-dark)}
