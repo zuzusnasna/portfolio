@@ -45,13 +45,13 @@
     <div class="diagram realtime-architecture">
       <div class="arch-map chat-arch">
         <div class="arch-lane"><div class="arch-lane-label">CLIENT</div><div class="arch-node primary"><b>Browser · React</b><small>Vite UI · REST API · STOMP/WebSocket</small></div></div>
-        <div class="arch-connector"><span>HTTP / WebSocket</span><i>↓</i></div>
+        <div class="arch-connector"><span>HTTP / WebSocket</span><i></i></div>
         <div class="arch-lane"><div class="arch-lane-label">EDGE / REVERSE PROXY</div><div class="arch-node primary"><b>Nginx</b><small>HTTP reverse proxy · WebSocket upgrade · ip_hash routing</small></div></div>
-        <div class="arch-connector"><span>인증된 요청 · 앱 인스턴스 라우팅</span><i>↓</i></div>
-        <div class="arch-lane"><div class="arch-lane-label">APPLICATION · SPRING BOOT</div><div class="arch-node primary"><b>App Instance 1</b><small>REST · Session · STOMP</small></div><div class="arch-link">↔</div><div class="arch-node primary"><b>App Instance 2</b><small>REST · Session · STOMP</small></div></div>
-        <div class="arch-connector"><span>영속화 및 인스턴스 간 이벤트</span><i>↓</i></div>
+        <div class="arch-connector"><span>요청 라우팅</span><i></i></div>
+        <div class="arch-lane"><div class="arch-lane-label">APPLICATION · SPRING BOOT</div><div class="arch-node primary"><b>App Instance 1</b><small>REST · Session · STOMP</small></div><div class="arch-node primary"><b>App Instance 2</b><small>REST · Session · STOMP</small></div></div>
+        <div class="arch-connector"><span>저장 · 이벤트 중계</span><i></i></div>
         <div class="arch-lane data-lane"><div class="arch-node database"><b>MySQL 8</b><small>사용자 · 방 · 메시지 · 읽음 위치 저장</small></div><div class="arch-node cache"><b>Redis Pub/Sub</b><small>채팅 이벤트 · 읽음 상태 중계</small></div></div>
-        <div class="arch-lane realtime-monitoring-lane"><div class="arch-lane-label">OBSERVABILITY · APP-1 / APP-2 SCRAPE</div><div class="arch-node async"><b>Prometheus</b><small>두 앱 인스턴스의 Actuator / Micrometer 지표 수집</small></div><div class="arch-link">→</div><div class="arch-node async"><b>Grafana</b><small>요청량 · 지연 · JVM 지표 시각화</small></div></div>
+        <div class="arch-lane realtime-monitoring-lane"><div class="arch-lane-label">OBSERVABILITY · APP-1 / APP-2 SCRAPE</div><div class="arch-node async"><b>Prometheus</b><small>두 앱 인스턴스의 Actuator / Micrometer 지표 수집</small></div><div class="arch-link">METRICS</div><div class="arch-node async"><b>Grafana</b><small>요청량 · 지연 · JVM 지표 시각화</small></div></div>
         <div class="arch-note"><b>설계상 한계</b><span>Redis Pub/Sub은 이벤트를 구독자에게 전달하지만 메시지를 영속 보관하거나 방 단위 순서를 보장하지 않습니다. Nginx의 ip_hash는 세션 요청 라우팅을 돕지만, 앱 장애·라우팅 변경 이후의 세션 공유를 대신하지는 않습니다. Prometheus와 Grafana는 EC2 자원 절약을 위해 기본 Compose 실행에서 제외하고 필요할 때만 켭니다.</span></div>
       </div>
     </div>
