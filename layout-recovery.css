@@ -65,3 +65,8 @@
 .github-activity .activity-stats>a:hover{color:#0550ae}
 .github-activity .contribution-graph{border-color:#d0d7de}
 .github-activity .contribution-graph img{filter:none}
+
+/* Keep the contribution graph inside the viewport at every breakpoint. */
+.contribution-graph{box-sizing:border-box;width:100%;max-width:100%;overflow:hidden}
+.contribution-graph img{box-sizing:border-box;width:100%!important;min-width:0!important;max-width:100%!important;height:auto;object-fit:contain}
+@media(max-width:560px){.contribution-graph{overflow:hidden}.contribution-graph img{min-width:0!important;width:100%!important;height:auto}}
