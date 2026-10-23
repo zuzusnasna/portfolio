@@ -148,7 +148,7 @@
         ["동기 처리 vs Outbox Worker","취소 요청 안에서 후속 배정까지 처리하면 흐름은 단순하지만 잠금과 트랜잭션이 길어집니다. Outbox로 후속 작업을 분리해 재시도 가능성을 얻는 대신 중복 처리 방지와 워커 지연 관측이 필요합니다."],
         ["넓은 잠금 vs 좁은 잠금","전체 회차를 잠그면 단순하지만 서로 다른 구역 요청도 기다립니다. 구역·선택 좌석 중심으로 범위를 좁히되, 잠금 후 최신 좌석 상태를 다시 확인해 경쟁 조건을 방어해야 합니다."]
       ],
-      verification:"측정된 것은 대기 순번 계산 SQL 1→0회, 시간표 재고 JDBC 결과 행 146,400→7,200행, 취소 후 자동 선점 스모크 테스트 성공률 1/4→4/4입니다. 이 결과는 제한된 테스트이며 p50·p95·p99, 최대 처리량, breaking point 측정으로 대체할 수 없습니다. 개인 기여와 팀 전체 아키텍처는 구분해 기술합니다.",
+      verification:"AI 보조로 나온 변경안도 그대로 채택하지 않고, 좌석 상태를 잠금 뒤 재확인하는지, Redis 캐시 버전이 DB 기준 데이터와 맞는지, Outbox 이벤트가 상태 변경과 같은 트랜잭션에 저장되는지 확인하는 기준으로 검토합니다. 측정된 것은 대기 순번 계산 SQL 1→0회, 시간표 재고 JDBC 결과 행 146,400→7,200행, 취소 후 자동 선점 스모크 테스트 성공률 1/4→4/4입니다. 이 결과는 제한된 테스트이며 p50·p95·p99, 최대 처리량, breaking point 측정으로 대체할 수 없습니다. 개인 기여와 팀 전체 아키텍처는 구분해 기술합니다.",
       role:"팀 프로젝트에서 회원·인증, 소셜 로그인 및 계정 연동, 회원 정보 관리, SSE 알림, QR 티켓·입장 확인, 해시 라우팅과 AWS 배포·CI/CD 구성을 담당했습니다. 예매 잠금·Outbox 등은 서비스 전체 구조를 설명하기 위해 함께 소개합니다.",
       outcome:"README에 기록된 Redis 적용 전 로컬 k6 기준값은 메인·공통 조회 약 2,600 req/s, 시간표 조회 약 224 req/s, 좌석 배치 조회 약 1,280 req/s입니다. 이 값은 해당 테스트 환경의 기준값이며 개선율이나 운영 환경 성능으로 확대 해석하지 않았습니다.",
       repo:"https://github.com/zuzusnasna/SmartTicketing", source:"https://github.com/zuzusnasna/SmartTicketing/blob/main/src/main/java/smartticketing/service/TicketService.java", live:"https://smartticketing.duckdns.org", resources:[["성능 측정 결과","project-smartticketing-performance.html"],["발표 자료","https://github.com/zuzusnasna/SmartTicketing/blob/main/SmartTicketing%20%EB%B0%9C%ED%91%9C.pptx"]]
