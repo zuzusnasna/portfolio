@@ -28,6 +28,12 @@
         ["시간 정보와 위치 정보","검출 좌표에 프레임 timestamp를 함께 연결해 위치 변화와 임팩트 후보를 시간 흐름에 맞춰 분석합니다."],
         ["UI와 분석 작업 분리","Coroutine 기반 백그라운드 분석과 메인 스레드 UI 업데이트를 구분해 진행 상태 및 결과를 화면에 전달합니다."]
       ],
+      tradeoffs:[
+        ["온디바이스 추론 vs 서버 추론","영상을 서버로 업로드하지 않고 단말에서 처리해 네트워크 의존성과 업로드 비용을 줄이는 대신, 기기 성능·발열·모델 정확도의 영향을 직접 받습니다."],
+        ["GPU vs CPU fallback","GPU는 지원 기기에서 추론 가속을 기대할 수 있지만 초기화 실패와 기기별 차이가 있어 XNNPACK CPU 경로를 대체 경로로 둡니다."],
+        ["ROI·Coarse/Fine 탐색","전체 프레임을 모두 같은 비용으로 분석하지 않고 탐색 범위를 줄이는 대신, ROI 지정과 후보 탐색 조건이 결과 품질에 영향을 줍니다."]
+      ],
+      verification:"코드에서 640×640 입력, 모델 선택, GPU 초기화 실패 시 CPU 경로, timestamp 기반 Detection 흐름을 확인할 수 있습니다. 기기별 FPS·발열·정확도 비교 수치는 저장소에서 확인되지 않아 성능 개선율로 주장하지 않습니다.",
       role:"팀 캡스톤 프로젝트입니다. 저장소 코드에서는 영상 선택·재생, 분석 실행 제어, ROI 입력, TFLite 실행 경로, 프레임별 추적 및 결과 Overlay 구조를 확인할 수 있습니다.",
       outcome:"모바일에서 별도 서버 추론에 의존하지 않고 영상 분석 파이프라인을 구성했습니다. 분석 추정값은 모델과 영상 조건에 영향을 받으며, 별도 검증 수치가 없는 성능 개선율은 기재하지 않았습니다.",
       repo:"https://github.com/zuzusnasna/SwingFit", source:"https://github.com/zuzusnasna/SwingFit/blob/main/app/src/main/java/com/example/swingfit/BallAnalyzer.kt", resources:[["논문 PDF","https://github.com/zuzusnasna/SwingFit/blob/main/DCS_2025_%ED%95%98%EA%B3%84%EC%A2%85%ED%95%A9%ED%95%99%EC%88%A0%EB%8C%80%ED%9A%8C_%EB%8C%80%ED%95%99%EC%83%9D%EB%85%BC%EB%AC%B8%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C_%EB%85%BC%EB%AC%B8_%EC%86%A1%EC%A3%BC%EB%B0%95%ED%8C%80.pdf"],["발표 자료","https://docs.google.com/presentation/d/1Pq6C9Gpwqa5nS4xreTDfaa-qO3nPzDRG/edit?usp=sharing&ouid=116307840021041251052&rtpof=true&sd=true"]]
@@ -60,6 +66,12 @@
         ["권한 실패를 명시적으로 응답","401(로그인 필요), 400(잘못된 요청), 404(대상 없음), 403(권한 없음)을 구분해 클라이언트가 실패 원인을 처리할 수 있게 합니다."],
         ["계층 분리","Servlet의 요청 처리, DTO의 데이터 전달, DAO의 SQL 접근을 분리해 기능별 코드 책임을 구분합니다."]
       ],
+      tradeoffs:[
+        ["서버 세션 vs 토큰 인증","Servlet 기반 서버 렌더링·요청 흐름에서는 세션으로 인증 상태를 관리하기 쉽지만, 세션 저장소와 서버 간 공유 정책을 별도로 설계해야 합니다."],
+        ["논리 삭제 vs 물리 삭제","논리 삭제는 운영 기록과 복구 가능성을 남기지만, 조회 시 삭제 상태를 빠뜨리지 않도록 모든 관련 쿼리의 조건 관리가 필요합니다."],
+        ["계층 분리 vs 구현 복잡도","Servlet·DTO·DAO를 나누면 책임이 분명해지지만 작은 기능에도 계층 간 코드가 늘어납니다."]
+      ],
+      verification:"PostDeleteServlet의 서버 측 권한 검사와 401·403·404 응답 분기를 코드에서 확인할 수 있습니다. 권한 테스트의 전체 통과 수나 부하 지표는 확인된 자료가 없어 별도 수치로 주장하지 않습니다.",
       role:"팀 프로젝트입니다. README의 DAO/DTO/Servlet 기반 구조와 저장소의 게시글 삭제 Servlet을 함께 확인해 권한 판정 및 오류 처리 흐름을 중심으로 설명했습니다.",
       outcome:"단순 CRUD를 넘어 회원 역할과 리소스 소유권을 함께 확인하는 커뮤니티 권한 구조를 구현했습니다. 팀 프로젝트의 전체 기여를 개인 단독 구현으로 표현하지 않고 저장소에서 확인 가능한 구조와 흐름을 중심으로 정리했습니다.",
       repo:"https://github.com/zuzusnasna/miniproject", source:"https://github.com/zuzusnasna/miniproject/blob/main/src/main/java/com/gamecommunity/servlet/PostDeleteServlet.java", resources:[["프로젝트 보고서","https://github.com/zuzusnasna/miniproject/blob/main/GameHub%20%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf"],["발표 자료","https://docs.google.com/presentation/d/1O8qmPBlW6gBzqgfcE0S12cH3KzVe9jgL/edit?usp=sharing&ouid=116307840021041251052&rtpof=true&sd=true"]]
@@ -92,6 +104,12 @@
         ["실패 상황 표현","존재하지 않는 장비를 명시적인 예외로 처리하고 API 문서에 400·404 등 응답 조건을 기술합니다."],
         ["변경 추적","현재 상태만 덮어쓰는 데서 나아가 변경 사유와 전·후 상태를 이력으로 관리하도록 설계했습니다."]
       ],
+      tradeoffs:[
+        ["관계형 DB vs 캐시","장비의 현재 상태와 변경 이력은 정합성과 조회 일관성이 중요해 Oracle에 저장합니다. 별도 캐시를 두지 않아 캐시 무효화 복잡도는 피하지만 반복 조회 최적화는 별도로 측정해야 합니다."],
+        ["DTO vs Entity 직접 반환","응답 DTO는 내부 영속 모델과 API 계약을 분리하지만 변환 코드와 유지보수 비용이 추가됩니다."],
+        ["현재 상태 vs 변경 이력","현재 값만 저장하면 단순하지만 변경 이유를 추적하기 어려워 이력을 추가한 대신 데이터 증가와 이력 조회 비용을 감수합니다."]
+      ],
+      verification:"Controller·Service 코드와 OpenAPI·JUnit/Mockito 구성을 확인할 수 있습니다. 응답 시간·처리량이나 DB 쿼리 개선 전후 수치는 확인되지 않아 정량 성능 개선으로 표현하지 않습니다.",
       role:"저장소의 EquipmentController와 EquipmentService에서는 CRUD, 상태 필터, 이름 검색, 요청 검증 흐름을 확인할 수 있습니다. README에 기재된 이력·대시보드·테스트 기능도 상세 설명에 반영했습니다.",
       outcome:"장비 CRUD와 검색 API를 넘어 운영자가 현황을 요약해 보고 상태 변경의 맥락을 추적할 수 있는 관리 흐름을 구성했습니다. README의 기술 버전 표기와 실제 빌드 설정이 다를 수 있어 세부 버전보다 저장소에서 확인되는 구성 요소를 중심으로 표기했습니다.",
       repo:"https://github.com/zuzusnasna/equipment-management", source:"https://github.com/zuzusnasna/equipment-management/blob/main/src/main/java/com/example/equipmentmanagement/equipment/EquipmentController.java", resources:[["프로젝트 보고서","https://github.com/zuzusnasna/equipment-management/blob/main/EMS%20%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf"],["발표 자료","https://docs.google.com/presentation/d/1KrGjSpPWXOR8gUXXhFqFXyQUNTyPWBGk/edit?usp=sharing&ouid=116307840021041251052&rtpof=true&sd=true"]]
@@ -124,6 +142,13 @@
         ["요청 중복과 이벤트 실패","멱등성 기록과 Outbox를 통해 중복 요청 및 취소 후속 처리의 실패 가능성을 다룹니다."],
         ["관측 가능한 검증","k6로 메인·시간표·좌석 배치 조회의 부하를 측정하고 Actuator/메트릭 구성과 배포 자동화를 통해 운영 점검 기반을 마련합니다."]
       ],
+      tradeoffs:[
+        ["JWT vs 서버 세션","JWT는 API 요청마다 서버 세션 조회 없이 토큰을 검증할 수 있어 API·프론트엔드 분리에 유리합니다. 반면 즉시 폐기와 계정 상태 반영이 까다로워 만료 시간과 token version 같은 무효화 기준을 함께 관리해야 합니다."],
+        ["MySQL vs Redis","좌석·예매·결제 상태는 영속성과 트랜잭션 정합성이 필요해 MySQL을 기준 데이터로 둡니다. Redis는 대기 순번·짧은 TTL 조회 캐시·입장 제어처럼 빠른 조회와 원자적 연산이 필요한 파생 상태에 사용하며, 버전 불일치·키 유실 시 DB로 복구하는 경로를 둡니다."],
+        ["동기 처리 vs Outbox Worker","취소 요청 안에서 후속 배정까지 처리하면 흐름은 단순하지만 잠금과 트랜잭션이 길어집니다. Outbox로 후속 작업을 분리해 재시도 가능성을 얻는 대신 중복 처리 방지와 워커 지연 관측이 필요합니다."],
+        ["넓은 잠금 vs 좁은 잠금","전체 회차를 잠그면 단순하지만 서로 다른 구역 요청도 기다립니다. 구역·선택 좌석 중심으로 범위를 좁히되, 잠금 후 최신 좌석 상태를 다시 확인해 경쟁 조건을 방어해야 합니다."]
+      ],
+      verification:"측정된 것은 대기 순번 계산 SQL 1→0회, 시간표 재고 JDBC 결과 행 146,400→7,200행, 취소 후 자동 선점 스모크 테스트 성공률 1/4→4/4입니다. 이 결과는 제한된 테스트이며 p50·p95·p99, 최대 처리량, breaking point 측정으로 대체할 수 없습니다. 개인 기여와 팀 전체 아키텍처는 구분해 기술합니다.",
       role:"팀 프로젝트에서 회원·인증, 소셜 로그인 및 계정 연동, 회원 정보 관리, SSE 알림, QR 티켓·입장 확인, 해시 라우팅과 AWS 배포·CI/CD 구성을 담당했습니다. 예매 잠금·Outbox 등은 서비스 전체 구조를 설명하기 위해 함께 소개합니다.",
       outcome:"README에 기록된 Redis 적용 전 로컬 k6 기준값은 메인·공통 조회 약 2,600 req/s, 시간표 조회 약 224 req/s, 좌석 배치 조회 약 1,280 req/s입니다. 이 값은 해당 테스트 환경의 기준값이며 개선율이나 운영 환경 성능으로 확대 해석하지 않았습니다.",
       repo:"https://github.com/zuzusnasna/SmartTicketing", source:"https://github.com/zuzusnasna/SmartTicketing/blob/main/src/main/java/smartticketing/service/TicketService.java", live:"https://smartticketing.duckdns.org", resources:[["성능 측정 결과","project-smartticketing-performance.html"],["발표 자료","https://github.com/zuzusnasna/SmartTicketing/blob/main/SmartTicketing%20%EB%B0%9C%ED%91%9C.pptx"]]
@@ -159,6 +184,12 @@
         ["UI 상태와 데이터 요청 분리","지도, 선택 장소, 참여자, 투표, 정산, 날씨와 경로 로딩 상태를 React state로 관리하고 각 패널의 역할을 분리합니다."],
         ["환승 구간별 막차 시간 처리","환승 경로의 구간별 운행 종료 시각을 연결해 최종 귀가 가능 여부를 계산하는 부분은 정확한 운행 정보 확보와 구간 연결에 어려움이 있어 현재 중단했습니다. 추후 보완할 계획입니다."]
       ],
+      tradeoffs:[
+        ["외부 지도 SDK vs 자체 지도 구현","Kakao Maps SDK를 사용해 지도·마커·장소 탐색을 직접 구현하는 비용을 줄이는 대신, 외부 SDK 가용성과 API 정책에 영향을 받습니다."],
+        ["프론트엔드 상태 관리 vs 서버 중심 화면","React state로 지도·투표·선택 장소를 빠르게 갱신할 수 있지만, 새로고침·다중 사용자 상황에서 서버 데이터와 UI 상태를 동기화해야 합니다."],
+        ["기능 범위 vs 데이터 신뢰도","막차 시간은 잘못 안내하면 실제 이동에 영향을 주므로, 환승 구간별 운행 정보를 신뢰성 있게 연결할 수 없을 때 완성된 기능으로 표시하지 않고 미완료로 남겼습니다."]
+      ],
+      verification:"지도 SDK의 비동기 로딩, 후보·출발지 데이터 흐름과 경로 패널 구조를 확인할 수 있습니다. 막차 시간 계산은 미완료로 구분했고, 성능·정확도 지표는 확인되지 않아 임의의 수치를 넣지 않았습니다.",
       role:"모임방 생성, 장소 후보 선택과 투표, 참여자별 출발지 지도 표시 및 위치 탐색, 목적에 따른 정산 기능을 구현했습니다. 귀가 경로 연동도 진행했으며, 환승 경로를 고려한 막차 시간 계산은 정확한 구간별 운행 정보 처리가 어려워 잠시 중단한 상태입니다.",
       outcome:"현재까지 모임방과 장소 후보 투표, 지도 기반 출발지 확인, 목적별 정산 기능을 구현했습니다. 귀가 경로 연동도 반영했으며, 환승 구간을 포함한 막차 시간 계산은 추후 개발 예정입니다. 구현 완료된 기능과 추후 개발 항목을 구분해 정리했습니다.",
       repo:"https://github.com/zuzusnasna/Meet-Up", source:"https://github.com/zuzusnasna/Meet-Up/blob/main/frontend/src/App.jsx"
@@ -177,6 +208,9 @@
   const engineeringHtml = p.engineering.map(item =>
     '<article class="engineering-card"><span>ENGINEERING NOTE</span><h3>' + esc(item[0]) + '</h3><p>' + esc(item[1]) + '</p></article>'
   ).join("");
+  const tradeoffHtml = (p.tradeoffs || []).map(item =>
+    '<article class="engineering-card tradeoff-card"><span>TRADE-OFF</span><h3>' + esc(item[0]) + '</h3><p>' + esc(item[1]) + '</p></article>'
+  ).join("");
 
   document.title = p.name + " — 주상혁 포트폴리오";
   document.getElementById("detailPage").innerHTML =
@@ -194,6 +228,7 @@
     '<section class="detail-section"><div class="detail-section-label"><span>02</span><span>FEATURE BREAKDOWN</span></div><div class="detail-section-heading"><h2>기능을 코드와 연결해서 보기</h2><p>README와 구현 파일을 바탕으로 주요 기능과 처리 책임을 정리했습니다.</p></div><div class="detail-feature-list">' + featureHtml + '</div></section>' +
     '<section class="detail-section detail-flow-section"><div class="detail-section-label"><span>03</span><span>END-TO-END FLOW</span></div><div class="detail-section-heading"><h2>요청이 들어와 결과가 되기까지</h2><p>프로젝트의 실제 컴포넌트와 데이터 이동을 단계별로 표현했습니다.</p></div><div class="detail-steps">' + flowHtml + '</div></section>' +
     '<section class="detail-section"><div class="detail-section-label"><span>04</span><span>ENGINEERING DECISIONS</span></div><div class="detail-section-heading"><h2>기술을 선택한 이유</h2><p>기술 이름보다 구현에서 해결해야 했던 문제와 선택의 의미에 집중합니다.</p></div><div class="engineering-grid">' + engineeringHtml + '</div></section>' +
+    '<section class="detail-section tradeoff-section"><div class="detail-section-label"><span>05</span><span>TRADE-OFFS & VERIFICATION</span></div><div class="detail-section-heading"><h2>대안과 비교하고, 확인한 범위까지 기록</h2><p>선택의 이점뿐 아니라 운영 비용과 실패 시 보완 경로를 함께 적었습니다.</p></div><div class="engineering-grid">' + tradeoffHtml + '</div><div class="verification-note"><strong>검증 범위</strong><p>' + esc(p.verification || "저장소에서 확인할 수 있는 구현과 테스트 범위를 기준으로 정리했습니다. 측정하지 않은 성능 수치는 주장하지 않습니다.") + '</p></div></section>' +
     '<section class="detail-section detail-contribution"><div class="detail-section-label"><span>05</span><span>MY CONTRIBUTION</span></div><div class="detail-contribution-content"><div><span class="detail-overline">SCOPE & RESPONSIBILITY</span><h2>프로젝트에서 맡은 역할</h2></div><p>' + esc(p.role) + '</p></div></section>' +
     '<section class="detail-outcome"><div><span>06 / RESULT & NOTES</span><h2>결과와 검증 범위</h2></div><p>' + esc(p.outcome) + '</p><div class="detail-bottom-links"><a href="' + esc(p.repo) + '" target="_blank" rel="noreferrer">저장소에서 전체 코드 보기 ↗</a><a href="index.html?project=' + encodeURIComponent(key) + '#projects">포트폴리오로 돌아가기 ↗</a></div></section>';
 })();
