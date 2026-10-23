@@ -386,3 +386,11 @@ body.realtime-chat-page{--rtc-ink:#26364b;--rtc-muted:#607089;--rtc-line:#d8e2ef
  .realtime-chat-page .performance-footer-actions a,
  .realtime-chat-page .performance-footer-actions a:first-child{padding:0;border:0}
 }
+
+
+/* Simplify the architecture diagram: labels and quiet separators instead of repeated arrows. */
+.realtime-chat-page .realtime-architecture .arch-connector::after{content:none!important;display:none!important}
+.realtime-chat-page .realtime-architecture .arch-connector{min-height:42px;flex-basis:42px;color:#73839a}
+.realtime-chat-page .realtime-architecture .arch-connector span{top:50%;transform:translate(-50%,-50%);padding:0 12px;color:#71819a;background:#f6f9ff;font:600 9px/1.5 'DM Mono',monospace;letter-spacing:.035em}
+.realtime-chat-page .realtime-architecture .arch-link{flex:0 0 auto;min-width:0;padding:8px 12px;color:#71819a;font:700 8px/1.4 'DM Mono',monospace;letter-spacing:.1em}
+@media(max-width:760px){.realtime-chat-page .realtime-architecture .arch-connector{min-height:36px;flex-basis:36px}}
