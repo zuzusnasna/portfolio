@@ -1,0 +1,90 @@
+/* Portfolio long-form redesign: project detail and measurement pages */
+.project-detail-page{
+  --detail-ink:#191d18;--detail-muted:#596257;--detail-line:#cbd1c5;--detail-paper:#f5f5ef;--detail-green:#2e6645;
+  background:var(--detail-paper);color:var(--detail-ink)
+}
+.project-detail-page .site-header{background:rgba(245,245,239,.96);border-bottom:1px solid var(--detail-ink)}
+.project-detail-page .detail-page-main{max-width:none}
+.project-detail-page .detail-page-top{padding:28px clamp(22px,7vw,112px) 0}
+.project-detail-page .detail-back-link{padding-bottom:7px;border-bottom:1px solid var(--detail-ink);color:var(--detail-ink)}
+.project-detail-page .detail-hero{
+  position:relative;grid-template-columns:minmax(0,1fr) minmax(230px,290px);gap:clamp(32px,7vw,110px);
+  align-items:center;padding:clamp(64px,9vw,132px) clamp(22px,7vw,112px) clamp(72px,9vw,124px);
+  background:var(--detail-paper);border-bottom:1px solid var(--detail-ink)
+}
+.project-detail-page .detail-hero:after{content:"CASE STUDY / 2026";position:absolute;right:clamp(22px,7vw,112px);bottom:24px;font:10px 'DM Mono',monospace;letter-spacing:.12em;color:#777f73}
+.project-detail-page .detail-eyebrow{gap:14px;color:var(--detail-green);font-size:10px;letter-spacing:.15em}
+.project-detail-page .detail-eyebrow span{width:42px;height:42px;border-radius:0;border:1px solid var(--detail-ink);background:var(--detail-ink);color:#fff;font-size:12px}
+.project-detail-page .detail-hero h1{max-width:1000px;font-size:clamp(42px,6.6vw,94px);line-height:1.01;letter-spacing:-.075em;font-weight:760}
+.project-detail-page .detail-lead,.project-detail-page .realtime-lead{max-width:800px;margin-top:28px;color:#4d564b;font-size:clamp(15px,1.35vw,18px);line-height:2}
+.project-detail-page .detail-tags{gap:0;margin-top:30px}
+.project-detail-page .detail-tags span{border:0;border-top:1px solid var(--detail-line);border-radius:0;background:transparent;padding:9px 12px 9px 0;margin-right:14px;color:#435342;font:10px 'DM Mono',monospace}
+.project-detail-page .detail-side-index{position:relative;padding:26px 0 0;border:0;border-top:3px solid var(--detail-ink);border-radius:0;background:transparent;box-shadow:none}
+.project-detail-page .detail-side-index>span,.project-detail-page .detail-side-index small{color:#697267;letter-spacing:.12em}
+.project-detail-page .detail-side-index strong{font-size:clamp(18px,2vw,24px);line-height:1.4;margin:16px 0}
+.project-detail-page .detail-side-line{background:var(--detail-ink);margin:22px 0}
+.project-detail-page .detail-side-index a{display:block;margin-top:15px;padding-bottom:9px;border-bottom:1px solid var(--detail-line);color:var(--detail-green)}
+.project-detail-page .detail-section{padding:clamp(58px,7vw,100px) clamp(22px,7vw,112px);border-top:0;border-bottom:1px solid var(--detail-line)}
+.project-detail-page .detail-section-label{display:flex;gap:14px;align-items:center;margin-bottom:32px;color:var(--detail-green);font:10px 'DM Mono',monospace;letter-spacing:.14em}
+.project-detail-page .detail-section-label span:first-child{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--detail-ink);color:var(--detail-ink)}
+.project-detail-page .detail-section-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.55fr);gap:36px;align-items:end;margin-bottom:34px}
+.project-detail-page .detail-section-heading h2{max-width:780px;font-size:clamp(30px,4.5vw,58px);line-height:1.1;letter-spacing:-.065em}
+.project-detail-page .detail-section-heading p{max-width:440px;margin:0;color:var(--detail-muted);font-size:13px;line-height:1.9}
+.project-detail-page .detail-card-grid{gap:0;border-top:1px solid var(--detail-ink);border-left:0}
+.project-detail-page .detail-card,.project-detail-page .detail-info-card,.project-detail-page .detail-tech-card,
+.project-detail-page .realtime-feature-card,.project-detail-page .tradeoff-card{
+  border:0!important;border-bottom:1px solid var(--detail-line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important
+}
+.project-detail-page .detail-card{padding:26px 22px 28px 0}
+.project-detail-page .detail-card h3,.project-detail-page .detail-info-card h3{letter-spacing:-.04em}
+.project-detail-page .detail-card-grid>*{border-right:1px solid var(--detail-line)!important;padding-left:22px}
+.project-detail-page .detail-card-grid>*:first-child{padding-left:0}
+.project-detail-page .detail-diagram,.project-detail-page .architecture-diagram,.project-detail-page .diagram-wrap{border:1px solid var(--detail-line)!important;border-radius:2px!important;box-shadow:none!important}
+.project-detail-page footer{padding:26px clamp(22px,7vw,112px);border-top:1px solid var(--detail-ink);background:var(--detail-paper)}
+/* Performance pages read like a measurement report, not a row of rounded widgets. */
+.performance-page{background:#f5f5ef;color:#191d18}
+.performance-page .detail-hero{background:#191d18!important;color:#f5f5ef!important;border-bottom:0!important}
+.performance-page .detail-hero:after{color:#9ca99a}
+.performance-page .detail-hero h1{font-size:clamp(42px,6.2vw,82px)!important;letter-spacing:-.07em!important}
+.performance-page .detail-eyebrow,.performance-page .detail-hero .detail-eyebrow{color:#a8d4ad}
+.performance-page .performance-intro{max-width:780px;color:#c4cec0!important;font-size:15px;line-height:2}
+.performance-page .detail-hero .detail-tags span{color:#e1e9dd;border-top-color:#485348}
+.performance-page .performance-summary{gap:0!important;border-top:1px solid #cbd1c5;border-bottom:1px solid #cbd1c5}
+.performance-page .performance-summary article{padding:22px 22px 24px!important;border:0!important;border-right:1px solid #cbd1c5!important;border-radius:0!important;background:transparent!important}
+.performance-page .performance-summary article:last-child{border-right:0!important}
+.performance-page .performance-summary span{color:#626b60;letter-spacing:.12em}
+.performance-page .performance-summary strong{color:#191d18;font-size:clamp(25px,3.5vw,42px);letter-spacing:-.07em}
+.performance-page .performance-summary p{color:#596257;font-size:12px}
+.performance-page .performance-grid{gap:0;border-top:1px solid #191d18}
+.performance-page .performance-card{padding:clamp(22px,3vw,38px)!important;border:0!important;border-bottom:1px solid #cbd1c5!important;border-right:1px solid #cbd1c5!important;border-radius:0!important;background:transparent!important}
+.performance-page .performance-card-top{align-items:flex-start}
+.performance-page .performance-index{color:#2e6645}
+.performance-page .performance-tag{padding:5px 0;border-radius:0;background:transparent;color:#2e6645;border-bottom:1px solid #2e6645}
+.performance-page .performance-card h3{font-size:clamp(20px,2.4vw,28px);letter-spacing:-.055em}
+.performance-page .performance-card>p{color:#596257}
+.performance-page .metric-track{height:7px;border-radius:0;background:#e1e4dc}
+.performance-page .metric-bar,.performance-page .metric-bar.after{border-radius:0;background:#2e6645}
+.performance-page .performance-table-wrap{border:1px solid #cbd1c5;border-radius:0;background:transparent}
+.performance-page .performance-table th{background:#e7eae1;color:#364337}
+.performance-page .performance-table th,.performance-page .performance-table td{border-bottom:1px solid #cbd1c5}
+.performance-page .performance-note{border:0;border-left:3px solid #2e6645;border-radius:0;background:#e8eae2;color:#4b5549}
+.performance-page .test-condition-grid{gap:0!important;border-top:1px solid #191d18}
+.performance-page .test-condition-grid .detail-info-card{min-height:150px!important;border:0!important;border-right:1px solid #cbd1c5!important;border-bottom:1px solid #cbd1c5!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+@media(max-width:850px){
+ .project-detail-page .detail-hero{grid-template-columns:1fr;gap:38px}
+ .project-detail-page .detail-side-index{max-width:500px}
+ .project-detail-page .detail-section-heading{grid-template-columns:1fr;gap:14px}
+ .performance-page .performance-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .performance-page .performance-summary article:nth-child(2){border-right:0!important}
+ .performance-page .performance-summary article:nth-child(-n+2){border-bottom:1px solid #cbd1c5!important}
+ .performance-page .test-condition-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:560px){
+ .project-detail-page .detail-hero h1{font-size:clamp(38px,11vw,58px)}
+ .project-detail-page .detail-card-grid>*{padding-left:0}
+ .performance-page .performance-summary{grid-template-columns:1fr}
+ .performance-page .performance-summary article{border-right:0!important;border-bottom:1px solid #cbd1c5!important}
+ .performance-page .performance-summary article:last-child{border-bottom:0!important}
+ .performance-page .performance-grid{grid-template-columns:1fr}
+ .performance-page .test-condition-grid{grid-template-columns:1fr!important}
+}
