@@ -170,6 +170,7 @@ footer{display:flex;justify-content:space-between;gap:20px;padding:24px var(--gu
 .realtime-architecture{padding:clamp(12px,2.5vw,26px)}.chat-arch .realtime-monitoring-lane{padding-top:12px;border-top:1px dashed var(--line-dark)}.realtime-monitoring-lane .arch-lane-label{flex-basis:145px}
 .realtime-lead{font-size:14px;line-height:1.95}.realtime-tradeoffs-section{margin-top:0}
 .grafana-video-frame{margin-top:24px;border:1px solid var(--line);background:#111}.grafana-video-frame video{width:100%;max-height:620px}.grafana-video-caption{display:flex;justify-content:space-between;gap:15px;padding:12px 15px;color:#ddd;font-size:10px}.grafana-video-caption a{color:#fff}
+.data-lane{align-items:stretch}.realtime-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.metric-rows{display:grid;gap:9px}.performance-page .detail-hero{align-items:start}.realtime-chat-page .detail-section{scroll-margin-top:90px}
 /* Performance reports */
 .performance-intro{max-width:760px}.performance-visual{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:24px}
 .performance-visual-card{min-width:0;padding:20px;border:1px solid var(--line)}.performance-visual-card>span,.performance-visual-card>small,.performance-visual-card em,.performance-visual-values{color:#777;font-size:10px}
