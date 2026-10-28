@@ -97,7 +97,58 @@ function renderProject(key, focusDetail=false) {
  if(focusDetail && window.matchMedia('(max-width: 760px)').matches) root.scrollIntoView({behavior:'smooth',block:'start'});
 }
 window.renderProject=renderProject;
+async function loadGitHubActivity(){
+ const byId=id=>document.getElementById(id);
+ const setText=(id,value)=>{const el=byId(id);if(el)el.textContent=value;};
+ const formatDate=value=>new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).format(value);
+ const list=byId('recentCommitList');
+ try{
+  const headers={Accept:'application/vnd.github+json'};
+  const [userResponse,repoResponse,eventResponse]=await Promise.all([
+   fetch('https://api.github.com/users/zuzusnasna',{headers}),
+   fetch('https://api.github.com/users/zuzusnasna/repos?per_page=100&sort=updated',{headers}),
+   fetch('https://api.github.com/users/zuzusnasna/events/public?per_page=100',{headers})
+  ]);
+  if(!userResponse.ok||!repoResponse.ok||!eventResponse.ok)throw new Error('GitHub API unavailable');
+  const [user,repos,events]=await Promise.all([userResponse.json(),repoResponse.json(),eventResponse.json()]);
+  setText('githubRepoCount',user.public_repos??repos.length);
+  setText('githubFollowers',user.followers??0);
+  setText('githubFollowing',user.following??0);
+  const pushes=events.filter(event=>event.type==='PushEvent');
+  const activeRepos=new Set(pushes.map(event=>event.repo?.name).filter(Boolean));
+  setText('recentPushCount',pushes.length);
+  setText('activeRepoCount',activeRepos.size);
+  setText('activityDate','조회 기준 '+formatDate(new Date()));
+  const commits=[];
+  pushes.forEach(event=>(event.payload?.commits||[]).forEach(commit=>{
+   commits.push({repo:event.repo?.name||'repository',sha:commit.sha||event.payload?.head||'',message:commit.message||'커밋 메시지 없음',date:event.created_at});
+  }));
+  const unique=Array.from(new Map(commits.map(commit=>[commit.sha||commit.repo+commit.date+commit.message,commit])).values()).slice(0,8);
+  if(list){
+   if(!unique.length){
+    list.innerHTML='<p class="commit-empty">최근 공개 푸시가 없습니다. <a href="https://github.com/zuzusnasna?tab=repositories" target="_blank" rel="noreferrer">저장소에서 확인 ↗</a></p>';
+   }else{
+    list.innerHTML=unique.map(commit=>{
+     const repoPath=commit.repo.split('/');
+     const repoUrl='https://github.com/'+repoPath.map(encodeURIComponent).join('/');
+     const sha=commit.sha?commit.sha.slice(0,7):'commit';
+     const commitUrl=commit.sha?repoUrl+'/commit/'+encodeURIComponent(commit.sha):repoUrl+'/commits';
+     return '<a class="recent-commit" href="'+commitUrl+'" target="_blank" rel="noreferrer"><span class="commit-repo">'+escapeHtml(commit.repo)+'</span><strong>'+escapeHtml(commit.message.split('\\n')[0])+'</strong><span class="commit-meta"><code>'+escapeHtml(sha)+'</code><time>'+escapeHtml(formatDate(new Date(commit.date)))+'</time></span></a>';
+    }).join('');
+   }
+  }
+  setText('commitStatus','GitHub 공개 활동 · '+formatDate(new Date()));
+  const graph=byId('contributionGraphImage');
+  if(graph)graph.src='https://ghchart.rshah.org/zuzusnasna?v='+Date.now();
+ }catch(error){
+  setText('activityDate','조회 실패');
+  setText('commitStatus','GitHub 활동을 불러오지 못했습니다.');
+  if(list)list.innerHTML='<p class="commit-empty">GitHub API 응답이 없거나 요청 한도에 도달했습니다. <a href="https://github.com/zuzusnasna?tab=activity" target="_blank" rel="noreferrer">GitHub 활동 페이지에서 확인 ↗</a></p>';
+ }
+}
+function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function initPortfolio(){
+ loadGitHubActivity();
  const switcher=document.querySelector('#projectSwitcher');
  if(switcher){
   switcher.addEventListener('click',event=>{const button=event.target.closest('.project-tab');if(button)renderProject(button.dataset.project);});
