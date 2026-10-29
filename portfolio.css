@@ -257,3 +257,13 @@ footer{display:flex;justify-content:space-between;gap:20px;padding:24px var(--gu
 .commit-meta{display:flex;justify-content:space-between;gap:8px;color:#777;font-size:9px}
 .commit-meta code{font:inherit}.commit-empty{grid-column:1/-1;margin:0;padding:18px;border:1px solid var(--line);color:#777;font-size:11px;line-height:1.7}
 @media(max-width:560px){.recent-commit-list{grid-template-columns:minmax(0,1fr)}.recent-commits-heading{align-items:flex-start;flex-direction:column;gap:5px}}
+
+
+/* Backend stack hierarchy */
+.stack-subgroup{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.stack-subcategory{font-size:11px;font-weight:750;color:var(--ink);padding-top:3px}
+.stack-subcontent>strong{font-size:13px;font-weight:650}
+.stack-subcontent>p,.stack-detail p{margin:5px 0 0;font-size:12px;color:var(--muted)}
+.stack-detail{display:grid;grid-template-columns:78px minmax(0,1fr);gap:10px;margin-top:10px;font-size:12px}
+.stack-detail>span{color:var(--muted)}
+@media(max-width:700px){.stack-subgroup{grid-template-columns:minmax(0,1fr);gap:8px}.stack-detail{grid-template-columns:70px minmax(0,1fr)}}
